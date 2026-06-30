@@ -1,0 +1,48 @@
+# ====================================================================
+# DineCast System Custom .gitignore
+# For Vanilla PHP 8, MySQL 8, and XAMPP/WAMP Environments
+# ====================================================================
+
+# Operating System Generated Files
+# --------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE, Text Editor, and Workspace Configurations
+# --------------------------------------------------------------------
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.buildpath
+.settings/
+
+# Local Environment & Server Configurations
+# --------------------------------------------------------------------
+# Keep this rule if you decide to extract database credentials out of config/database.php into an external file later
+.env
+.env.local
+config/config.local.php
+
+# Local Server Log Files & Dumps
+# --------------------------------------------------------------------
+*.log
+logs/
+*.sql
+*.sqlite
+
+# Application Uploads or Temporary Cache (If any are generated dynamically)
+# --------------------------------------------------------------------
+public/uploads/
+tmp/
+cache/
