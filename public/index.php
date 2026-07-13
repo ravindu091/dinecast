@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DineCast</title>
-</head>
-<body>
-    <h1>Dine cast</h1>
-</body>
-</html>
+<?php
+
+$baseUrl = '/dinecast';
+
+require_once '../app/Core/Router.php';
+require_once '../app/Core/Controller.php';
+
+$router = new Router($baseUrl);
+
+//Home router
+$router->get('/', "HomeController@view");
+
+
+
+
+$router->dispatch();
