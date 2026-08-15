@@ -70,16 +70,17 @@ class Router{
                 $controller = new $controllerName();
 
                 if(!method_exists($controller, $action)){
-                    $this->abort(500, " Controller method Not Found: $controllerName::$action");
+                    $this->abort(500, "Controller method not found: $controllerName::$action");
                     return;
                 }
 
                 $controller->$action($params);
                 return;
             }
-
-            $this->abort(404, "Page not Found");
         }
+
+        // No route matched
+        $this->abort(404, "Page not found");
     }
 
     private function abort(int $code, string $message):void{

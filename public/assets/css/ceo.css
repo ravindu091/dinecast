@@ -1,0 +1,55 @@
+/* ---- CEO-only extras — Glass UI / Light Green Theme ---- */
+.donut-ring {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(var(--primary) 0% 68%, var(--warning) 68% 82%, var(--danger) 82% 91%, #CBD5E1 91% 100%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 16px var(--primary-glow);
+}
+.donut-hole {
+  width: 66px; height: 66px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800; color: var(--t1);
+}
+.legend-list { display: flex; flex-direction: column; gap: 8px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.legend-label { flex: 1; color: var(--t2); }
+.legend-val { font-weight: 700; color: var(--t1); }
+
+.forecast-chart { display: flex; gap: 4px; align-items: flex-end; height: 130px; }
+.fc-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; }
+.fc-bars { flex: 1; display: flex; gap: 3px; align-items: flex-end; width: 100%; justify-content: center; }
+.fc-b { width: 12px; border-radius: 3px 3px 0 0; min-height: 4px; transition: opacity .18s; cursor:pointer; }
+.fc-b:hover { opacity:.7; }
+.fc-b.actual { background: linear-gradient(to top, var(--primary), var(--primary-mid)); }
+.fc-b.forecast { background: rgba(41,182,246,0.6); }
+.fc-lbl { font-size: 9.5px; color: var(--t3); text-align: center; }
+
+.month-trend { display: flex; align-items: flex-end; gap: 6px; height: 60px; padding: 4px 0; }
+.mt-bar { flex: 1; border-radius: 3px 3px 0 0; background: var(--primary); opacity: 0.18; min-height: 4px; transition: opacity .18s; cursor:pointer; }
+.mt-bar:hover { opacity: .35; }
+.mt-bar.hi { opacity: 0.6; }
+.mt-bar.cur { background: linear-gradient(to top, var(--primary), var(--primary-mid)); opacity: 1; }
+
+.usr-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.usr-row:last-child { border-bottom: none; }
+.usr-av {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, #A5D6A7, #81C784);
+  color: var(--primary);
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px var(--primary-glow);
+}
+.usr-name { font-size: 13.5px; font-weight: 600; color: var(--t1); }
+.usr-role { font-size: 11.5px; color: var(--t3); }
+.usr-status { margin-left: auto; }
