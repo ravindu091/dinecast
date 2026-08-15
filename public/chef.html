@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DineCast — Chef Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="dash">
+
+  <!-- ====================================================
+       SIDEBAR
+       ==================================================== -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-icon">🍽️</div>
+      <span class="sb-logo-name">Dine<span>Cast</span></span>
+    </div>
+
+    <div class="sb-section">Main Menu</div>
+
+    <nav>
+      <div class="nav-link active" data-section="sec-home" data-title="Chef Dashboard"
+           onclick="">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </span>
+        <span class="nav-label">Home</span>
+      </div>
+
+      <div class="nav-link" data-section="sec-menus" data-title="Menus">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+            <circle cx="3" cy="6" r="1" fill="currentColor"/><circle cx="3" cy="12" r="1" fill="currentColor"/><circle cx="3" cy="18" r="1" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="nav-label">Menus</span>
+      </div>
+
+      <div class="nav-link" data-section="sec-recipes" data-title="Recipes">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </span>
+        <span class="nav-label">Recipes</span>
+      </div>
+
+      <div class="nav-link" data-section="sec-events" data-title="Events">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </span>
+        <span class="nav-label">Events</span>
+      </div>
+
+      <div class="nav-link" data-section="sec-bookings" data-title="Bookings">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 11 12 14 22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </span>
+        <span class="nav-label">Bookings</span>
+      </div>
+
+      <div class="nav-link" data-section="sec-forecast" data-title="Forecast">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+        </span>
+        <span class="nav-label">Forecast</span>
+      </div>
+
+      <div class="nav-link" data-section="sec-pr" data-title="Purchase Requests">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 1.95-1.56L23 6H6"/>
+          </svg>
+        </span>
+        <span class="nav-label">Purchase Requests</span>
+      </div>
+
+      <div class="nav-link" data-section="sec-attendance" data-title="Attendance">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </span>
+        <span class="nav-label">Attendance</span>
+      </div>
+    </nav>
+
+    <div class="sb-footer">
+      <div class="sb-user">
+        <div class="sb-avatar">SB</div>
+        <div>
+          <div class="sb-user-name">Sudath Bandaranayake</div>
+          <div class="sb-user-role">Kitchen Manager</div>
+        </div>
+      </div>
+      <div class="sb-logout" onclick="logout()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Logout
+      </div>
+    </div>
+  </aside>
+
+  <!-- ====================================================
+       MAIN AREA
+       ==================================================== -->
+  <div class="main-area">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Chef Dashboard</h1>
+        <p id="topbar-subtitle">Welcome back, Sudath!</p>
+      </div>
+      <div class="topbar-right">
+        <span class="date-chip"></span>
+        <button class="icon-btn" title="Search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+        <button class="icon-btn" title="Notifications">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- ================================================
+           HOME SECTION
+           ================================================ -->
+      <section id="sec-home" class="section active">
+
+        <div class="welcome">
+          <div class="welcome-txt">
+            <h2>Welcome back, Chef Sudath!</h2>
+            <p>What would you like to work on today?</p>
+            <div class="user-id">ID: DC-CHF-42 &nbsp;·&nbsp; Kitchen Manager</div>
+          </div>
+          <div class="welcome-illo">👨‍🍳</div>
+        </div>
+
+        <!-- Quick access cards -->
+        <div class="quick-grid">
+          <div class="quick-card" onclick="document.querySelector('[data-section=sec-menus]').click()">
+            <div class="qc-icon">🍽️</div>
+            <div class="qc-title">Menus</div>
+            <span class="qc-badge" style="background:var(--success-bg);color:#16A34A;">12 active menus</span>
+          </div>
+          <div class="quick-card" onclick="document.querySelector('[data-section=sec-recipes]').click()">
+            <div class="qc-icon">📋</div>
+            <div class="qc-title">Recipes</div>
+            <span class="qc-badge" style="background:var(--warning-bg);color:#D97706;">3 items missing recipes</span>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stat c-green">
+            <div class="stat-ico">🍴</div>
+            <div class="stat-val">4</div>
+            <div class="stat-lbl">Active Menus</div>
+          </div>
+          <div class="stat c-blue">
+            <div class="stat-ico">📋</div>
+            <div class="stat-val">10</div>
+            <div class="stat-lbl">Total Recipes</div>
+          </div>
+          <div class="stat c-orange">
+            <div class="stat-ico">⚠️</div>
+            <div class="stat-val">2</div>
+            <div class="stat-lbl">Menus Without Recipe</div>
+          </div>
+          <div class="stat c-red">
+            <div class="stat-ico">❗</div>
+            <div class="stat-val">2</div>
+            <div class="stat-lbl">Items Still Missing One</div>
+          </div>
+        </div>
+
+        <!-- Upcoming summary -->
+        <div class="card">
+          <div class="card-hdr">
+            <div>
+              <h3>📅 Upcoming This Week</h3>
+              <p>Events requiring your attention</p>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-section=sec-events]').click()">View All Events</button>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Event</th><th>Type</th><th>Date</th><th>Guests</th><th>Menu</th><th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="tbl-main">Wedding Reception</td><td>Wedding</td><td>12 Aug 2026</td><td>200</td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-green">Confirmed</span></td></tr>
+                <tr><td class="tbl-main">Corporate Function</td><td>Function</td><td>13 Aug 2026</td><td>45</td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td></tr>
+                <tr><td class="tbl-main">Birthday Dinner</td><td>Birthday</td><td>14 Aug 2026</td><td>20</td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-green">Confirmed</span></td></tr>
+                <tr><td class="tbl-main">Anniversary Gala</td><td>Anniversary</td><td>15 Aug 2026</td><td>14</td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================================================
+           MENUS SECTION
+           ================================================ -->
+      <section id="sec-menus" class="section">
+        <div class="sec-hdr">
+          <h2>Menus</h2>
+          <button class="btn btn-primary">+ New Menu</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat c-green">
+            <div class="stat-ico">✅</div>
+            <div class="stat-val">4</div>
+            <div class="stat-lbl">Active Menus</div>
+          </div>
+          <div class="stat c-orange">
+            <div class="stat-ico">⚠️</div>
+            <div class="stat-val">2</div>
+            <div class="stat-lbl">Without Assigned Recipe</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hdr">
+            <h3>All Menus</h3>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-outline btn-sm">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Search
+              </button>
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Menu</th><th>Created</th><th>Last Updated</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="tbl-main">Menu 1 — Wedding Standard</td><td>12/03/2026</td><td>10/08/2026</td><td><span class="badge bg-green">Active</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+                <tr><td class="tbl-main">Menu 2 — Corporate Buffet</td><td>14/03/2026</td><td>05/08/2026</td><td><span class="badge bg-gray">Draft</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+                <tr><td class="tbl-main">Menu 3 — Birthday Special</td><td>20/04/2026</td><td>01/08/2026</td><td><span class="badge bg-green">Active</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+                <tr><td class="tbl-main">Menu 4 — Seminar Lunch</td><td>22/04/2026</td><td>28/07/2026</td><td><span class="badge bg-gray">Draft</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+                <tr><td class="tbl-main">Menu 5 — Government Dinner</td><td>01/05/2026</td><td>25/07/2026</td><td><span class="badge bg-gray">Draft</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+                <tr><td class="tbl-main">Menu 6 — Children's Party</td><td>05/05/2026</td><td>22/07/2026</td><td><span class="badge bg-gray">Draft</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+                <tr><td class="tbl-main">Menu 7 — Gala Night</td><td>10/05/2026</td><td>18/07/2026</td><td><span class="badge bg-green">Active</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+                <tr><td class="tbl-main">Menu 8 — Cultural Feast</td><td>15/06/2026</td><td>12/07/2026</td><td><span class="badge bg-gray">Draft</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+                <tr><td class="tbl-main">Menu 9 — Conference Package</td><td>20/06/2026</td><td>08/07/2026</td><td><span class="badge bg-green">Active</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+                <tr><td class="tbl-main">Menu 10 — Anniversary Set</td><td>25/06/2026</td><td>05/07/2026</td><td><span class="badge bg-gray">Draft</span></td><td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================
+           RECIPES SECTION
+           ================================================ -->
+      <section id="sec-recipes" class="section">
+        <div class="sec-hdr">
+          <h2>Recipes</h2>
+          <button class="btn btn-primary">+ New Recipe</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat c-blue">
+            <div class="stat-ico">📋</div>
+            <div class="stat-val">10</div>
+            <div class="stat-lbl">Total Recipes</div>
+          </div>
+          <div class="stat c-orange">
+            <div class="stat-ico">⚠️</div>
+            <div class="stat-val">2</div>
+            <div class="stat-lbl">Items Still Missing One</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hdr"><h3>All Recipes</h3></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Menu Item</th><th>Linked Menus</th><th>Ingredients</th><th>Last Updated</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tbl-main">Grilled Salmon</td>
+                  <td><span class="badge bg-blue" style="font-size:11px;">Menu 1</span>&nbsp;<span class="badge bg-blue" style="font-size:11px;">Menu 7</span></td>
+                  <td style="color:var(--t3);font-size:13px;">Salmon, Lemon, Garlic, Butter</td>
+                  <td>08/08/2026</td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Chicken Curry</td>
+                  <td><span class="badge bg-blue" style="font-size:11px;">Menu 3</span></td>
+                  <td style="color:var(--t3);font-size:13px;">Chicken, Curry leaves, Coconut milk</td>
+                  <td>05/08/2026</td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Caesar Salad</td>
+                  <td><span class="badge bg-blue" style="font-size:11px;">Menu 2</span>&nbsp;<span class="badge bg-blue" style="font-size:11px;">Menu 9</span></td>
+                  <td style="color:var(--t3);font-size:13px;">Lettuce, Croutons, Parmesan, Dressing</td>
+                  <td>01/08/2026</td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Beef Stroganoff</td>
+                  <td><span class="badge bg-blue" style="font-size:11px;">Menu 7</span></td>
+                  <td style="color:var(--t3);font-size:13px;">Beef, Mushrooms, Sour cream, Egg noodles</td>
+                  <td>28/07/2026</td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Vegetable Biryani</td>
+                  <td><span class="badge bg-blue" style="font-size:11px;">Menu 4</span></td>
+                  <td style="color:var(--t3);font-size:13px;">Basmati rice, Mixed vegetables, Spices</td>
+                  <td>22/07/2026</td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Prawn Cocktail <span class="badge bg-orange" style="font-size:10px;margin-left:4px;">Missing</span></td>
+                  <td><span class="badge bg-gray" style="font-size:11px;">Menu 5</span></td>
+                  <td style="color:var(--danger);font-size:13px;">No ingredients defined</td>
+                  <td>—</td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Chocolate Mousse</td>
+                  <td><span class="badge bg-blue" style="font-size:11px;">Menu 1</span>&nbsp;<span class="badge bg-blue" style="font-size:11px;">Menu 3</span></td>
+                  <td style="color:var(--t3);font-size:13px;">Dark chocolate, Cream, Eggs, Sugar</td>
+                  <td>18/07/2026</td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Lamb Shank <span class="badge bg-orange" style="font-size:10px;margin-left:4px;">Missing</span></td>
+                  <td><span class="badge bg-gray" style="font-size:11px;">Menu 8</span></td>
+                  <td style="color:var(--danger);font-size:13px;">No ingredients defined</td>
+                  <td>—</td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================
+           EVENTS SECTION
+           ================================================ -->
+      <section id="sec-events" class="section">
+        <div class="sec-hdr">
+          <h2>Events</h2>
+          <button class="btn btn-primary">+ New Event</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat c-blue">
+            <div class="stat-ico">📅</div>
+            <div class="stat-val">6</div>
+            <div class="stat-lbl">Upcoming (7 days)</div>
+          </div>
+          <div class="stat c-green">
+            <div class="stat-ico">✅</div>
+            <div class="stat-val">12</div>
+            <div class="stat-lbl">Total This Month</div>
+          </div>
+          <div class="stat c-orange">
+            <div class="stat-ico">⚠️</div>
+            <div class="stat-val">2</div>
+            <div class="stat-lbl">Missing Menu</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hdr"><h3>All Events</h3></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Event Name</th><th>Date</th><th>Type</th><th>Guests</th><th>Menu</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="tbl-main">Wedding Reception – Perera</td><td>12/08/2026</td><td>Wedding</td><td>200</td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-green">Confirmed</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Corporate Function – ABC Ltd</td><td>13/08/2026</td><td>Function</td><td>45</td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Birthday Dinner – Silva</td><td>14/08/2026</td><td>Birthday</td><td>20</td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-green">Confirmed</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Anniversary Gala – Fernando</td><td>15/08/2026</td><td>Anniversary</td><td>14</td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Tech Conference – NovaTech</td><td>16/08/2026</td><td>Conference</td><td>50</td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-teal">Upcoming</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Seminar – Edu Board</td><td>20/08/2026</td><td>Seminar</td><td>500</td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Gov Dinner – Ministry of Finance</td><td>22/08/2026</td><td>Government</td><td>75</td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-green">Confirmed</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Institutional Lunch – State Bank</td><td>25/08/2026</td><td>Institutional</td><td>300</td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Product Launch – XYZ Corp</td><td>28/08/2026</td><td>Conference</td><td>36</td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-teal">Upcoming</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Community Feast</td><td>30/08/2026</td><td>Other</td><td>80</td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================
+           BOOKINGS SECTION
+           ================================================ -->
+      <section id="sec-bookings" class="section">
+        <div class="sec-hdr">
+          <h2>Bookings</h2>
+          <button class="btn btn-primary">+ New Booking</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat c-green">
+            <div class="stat-ico">✅</div>
+            <div class="stat-val">14</div>
+            <div class="stat-lbl">Confirmed</div>
+          </div>
+          <div class="stat c-orange">
+            <div class="stat-ico">🔄</div>
+            <div class="stat-val">5</div>
+            <div class="stat-lbl">Tentative</div>
+          </div>
+          <div class="stat c-blue">
+            <div class="stat-ico">👥</div>
+            <div class="stat-val">1,320</div>
+            <div class="stat-lbl">Total Registered Guests</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hdr"><h3>All Bookings</h3></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Event</th><th>Booking Ref</th><th>Guests</th><th>Contact</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="tbl-main">Wedding Reception – Perera</td><td><span class="tbl-id">BK-00124</span></td><td>200</td><td>0112 345 678</td><td><span class="badge bg-green">Confirmed</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Corporate Function – ABC Ltd</td><td><span class="tbl-id">BK-00125</span></td><td>45</td><td>0772 456 789</td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Birthday Dinner – Silva</td><td><span class="tbl-id">BK-00126</span></td><td>20</td><td>0712 567 890</td><td><span class="badge bg-green">Confirmed</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Anniversary Gala – Fernando</td><td><span class="tbl-id">BK-00127</span></td><td>14</td><td>0762 678 901</td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Seminar – Edu Board</td><td><span class="tbl-id">BK-00128</span></td><td>500</td><td>0115 789 012</td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Gov Dinner – Ministry</td><td><span class="tbl-id">BK-00129</span></td><td>75</td><td>0117 890 123</td><td><span class="badge bg-green">Confirmed</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Institutional Lunch – State Bank</td><td><span class="tbl-id">BK-00130</span></td><td>300</td><td>0114 901 234</td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+                <tr><td class="tbl-main">Product Launch – XYZ Corp</td><td><span class="tbl-id">BK-00131</span></td><td>80</td><td>0773 012 345</td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">Edit</span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================
+           FORECAST SECTION
+           ================================================ -->
+      <section id="sec-forecast" class="section">
+        <div class="sec-hdr">
+          <h2>Forecast</h2>
+          <button class="btn btn-primary">+ Generate New Forecast</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat c-blue">
+            <div class="stat-ico">📊</div>
+            <div class="stat-val">1,078</div>
+            <div class="stat-lbl">This Week's Forecast Guests</div>
+          </div>
+          <div class="stat c-orange">
+            <div class="stat-ico">⚠️</div>
+            <div class="stat-val">3</div>
+            <div class="stat-lbl">Ingredient Short vs Stock</div>
+          </div>
+          <div class="stat c-purple">
+            <div class="stat-ico">📅</div>
+            <div class="stat-val" style="font-size:20px;">Aug 17</div>
+            <div class="stat-lbl">Next Scheduled Run</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hdr"><h3>Forecast History</h3></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Event</th><th>Generated On</th><th>Forecast Guests</th><th>Linked PR</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="tbl-main">Wedding Reception – Perera</td><td>05/08/2026</td><td>200</td><td><span class="pr-ref">PR-0042</span></td><td><div class="acts"><span class="act">View</span></div></td></tr>
+                <tr><td class="tbl-main">Corporate Function – ABC Ltd</td><td>06/08/2026</td><td>45</td><td><span class="pr-ref">PR-0043</span></td><td><div class="acts"><span class="act">View</span></div></td></tr>
+                <tr><td class="tbl-main">Birthday Dinner – Silva</td><td>06/08/2026</td><td>20</td><td><span class="pr-ref">PR-0044</span></td><td><div class="acts"><span class="act">View</span></div></td></tr>
+                <tr><td class="tbl-main">Anniversary Gala – Fernando</td><td>07/08/2026</td><td>14</td><td style="color:var(--t3);font-style:italic;">— not yet</td><td><div class="acts"><span class="act">View</span><span class="act">Regenerate</span></div></td></tr>
+                <tr><td class="tbl-main">Tech Conference – NovaTech</td><td>07/08/2026</td><td>50</td><td><span class="pr-ref">PR-0045</span></td><td><div class="acts"><span class="act">View</span></div></td></tr>
+                <tr><td class="tbl-main">Seminar – Edu Board</td><td>08/08/2026</td><td>500</td><td style="color:var(--t3);font-style:italic;">— not yet</td><td><div class="acts"><span class="act">View</span><span class="act">Regenerate</span></div></td></tr>
+                <tr><td class="tbl-main">Gov Dinner – Ministry</td><td>08/08/2026</td><td>75</td><td><span class="pr-ref">PR-0046</span></td><td><div class="acts"><span class="act">View</span></div></td></tr>
+                <tr><td class="tbl-main">Institutional Lunch</td><td>09/08/2026</td><td>300</td><td><span class="pr-ref">PR-0047</span></td><td><div class="acts"><span class="act">View</span></div></td></tr>
+                <tr><td class="tbl-main">Product Launch – XYZ Corp</td><td>09/08/2026</td><td>36</td><td style="color:var(--t3);font-style:italic;">— not yet</td><td><div class="acts"><span class="act">View</span><span class="act">Regenerate</span></div></td></tr>
+                <tr><td class="tbl-main">Community Feast</td><td>10/08/2026</td><td>80</td><td style="color:var(--t3);font-style:italic;">— not yet</td><td><div class="acts"><span class="act">View</span><span class="act">Regenerate</span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================
+           PURCHASE REQUISITIONS SECTION
+           ================================================ -->
+      <section id="sec-pr" class="section">
+        <div class="sec-hdr">
+          <h2>Purchase Requisitions</h2>
+          <button class="btn btn-primary">+ New PR</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat c-teal">
+            <div class="stat-ico">📝</div>
+            <div class="stat-val">2</div>
+            <div class="stat-lbl">Drafts</div>
+          </div>
+          <div class="stat c-orange">
+            <div class="stat-ico">⏳</div>
+            <div class="stat-val">4</div>
+            <div class="stat-lbl">Submitted – Awaiting Approval</div>
+          </div>
+          <div class="stat c-red">
+            <div class="stat-ico">❌</div>
+            <div class="stat-val">1</div>
+            <div class="stat-lbl">Rejected – Needs Rework</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hdr"><h3>All Purchase Requisitions</h3></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>PR Ref</th><th>Items</th><th>Linked Forecast</th><th>Created</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="pr-ref">PR-0042</span></td>
+                  <td style="font-size:13px;color:var(--t2);">Chicken, Rice, Spices</td>
+                  <td style="color:var(--primary);font-weight:600;font-size:13px;">Aug 12</td>
+                  <td>05/08/2026</td>
+                  <td><span class="badge bg-orange">Submitted</span></td>
+                  <td><div class="acts"><span class="act">View</span></div></td>
+                </tr>
+                <tr>
+                  <td><span class="pr-ref">PR-0043</span></td>
+                  <td style="font-size:13px;color:var(--t2);">Salmon, Butter, Lemon</td>
+                  <td style="color:var(--primary);font-weight:600;font-size:13px;">Aug 10–15</td>
+                  <td>06/08/2026</td>
+                  <td><span class="badge bg-green">Approved</span></td>
+                  <td><div class="acts"><span class="act">View</span></div></td>
+                </tr>
+                <tr>
+                  <td><span class="pr-ref">PR-0044</span></td>
+                  <td style="font-size:13px;color:var(--t2);">Vegetables, Eggs, Flour</td>
+                  <td style="color:var(--primary);font-weight:600;font-size:13px;">Aug 14</td>
+                  <td>06/08/2026</td>
+                  <td><span class="badge bg-gray">Draft</span></td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act">Submit</span></div></td>
+                </tr>
+                <tr>
+                  <td><span class="pr-ref">PR-0045</span></td>
+                  <td style="font-size:13px;color:var(--t2);">Prawns, Cream, Cheese</td>
+                  <td style="color:var(--primary);font-weight:600;font-size:13px;">Jul 28–Feb 1</td>
+                  <td>07/08/2026</td>
+                  <td><span class="badge bg-red">Rejected</span></td>
+                  <td><div class="acts"><span class="act">View Remarks</span><span class="act">Redo</span></div></td>
+                </tr>
+                <tr>
+                  <td><span class="pr-ref">PR-0046</span></td>
+                  <td style="font-size:13px;color:var(--t2);">Lamb, Herbs, Red Wine</td>
+                  <td style="color:var(--primary);font-weight:600;font-size:13px;">Aug 22</td>
+                  <td>08/08/2026</td>
+                  <td><span class="badge bg-green">Approved</span></td>
+                  <td><div class="acts"><span class="act">View</span></div></td>
+                </tr>
+                <tr>
+                  <td><span class="pr-ref">PR-0047</span></td>
+                  <td style="font-size:13px;color:var(--t2);">Beef, Mushrooms, Cream</td>
+                  <td style="color:var(--primary);font-weight:600;font-size:13px;">Aug 25</td>
+                  <td>09/08/2026</td>
+                  <td><span class="badge bg-gray">Draft</span></td>
+                  <td><div class="acts"><span class="act">Edit</span><span class="act">Submit</span></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================
+           ATTENDANCE SECTION
+           ================================================ -->
+      <section id="sec-attendance" class="section">
+        <div class="sec-hdr">
+          <h2>Attendance History</h2>
+        </div>
+
+        <div class="stats">
+          <div class="stat c-green">
+            <div class="stat-ico">🎯</div>
+            <div class="stat-val">92%</div>
+            <div class="stat-lbl">Avg Forecast Accuracy</div>
+          </div>
+          <div class="stat c-blue">
+            <div class="stat-ico">📅</div>
+            <div class="stat-val">18</div>
+            <div class="stat-lbl">Events Tracked This Month</div>
+          </div>
+          <div class="stat c-orange">
+            <div class="stat-ico">⏳</div>
+            <div class="stat-val">4</div>
+            <div class="stat-lbl">Pending Actual-Count Entry</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hdr">
+            <h3>Attendance Records</h3>
+            <p style="font-size:12px;color:var(--t3);">Enter actual count after event date has passed</p>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Event</th><th>Date</th><th>Registered Count</th><th>Actual Count</th><th>Variance</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tbl-main">Corporate Function – ABC Ltd</td><td>13/08/2026</td><td>45</td>
+                  <td style="color:var(--t3);font-style:italic;">—pending</td><td>—</td>
+                  <td><span class="act" onclick="openAttendanceForm('Corporate Function',45)">Enter Actual</span></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Birthday Dinner – Silva</td><td>14/08/2026</td><td>20</td>
+                  <td style="color:var(--t3);font-style:italic;">—pending</td><td>—</td>
+                  <td><span class="act" onclick="openAttendanceForm('Birthday Dinner',20)">Enter Actual</span></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Anniversary Gala – Fernando</td><td>15/08/2026</td><td>14</td>
+                  <td style="color:var(--t3);font-style:italic;">—pending</td><td>—</td>
+                  <td><span class="act" onclick="openAttendanceForm('Anniversary Gala',14)">Enter Actual</span></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Tech Conference – NovaTech</td><td>16/08/2026</td><td>50</td>
+                  <td style="color:var(--t3);font-style:italic;">—pending</td><td>—</td>
+                  <td><span class="act" onclick="openAttendanceForm('Tech Conference',50)">Enter Actual</span></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Seminar – Edu Board</td><td>20/07/2026</td><td>500</td>
+                  <td>485</td>
+                  <td><span class="var-neg">-3.0%</span></td>
+                  <td><span style="color:var(--t3);font-size:12px;">Recorded</span></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Gov Dinner – Ministry</td><td>15/07/2026</td><td>75</td>
+                  <td>67</td>
+                  <td><span class="var-neg">-10.7%</span></td>
+                  <td><span style="color:var(--t3);font-size:12px;">Recorded</span></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Institutional Lunch – State Bank</td><td>08/07/2026</td><td>300</td>
+                  <td>222</td>
+                  <td><span class="var-neg">-26.0%</span></td>
+                  <td><span style="color:var(--t3);font-size:12px;">Recorded</span></td>
+                </tr>
+                <tr>
+                  <td class="tbl-main">Wedding Reception – Perera</td><td>01/07/2026</td><td>180</td>
+                  <td>186</td>
+                  <td><span class="var-pos">+3.3%</span></td>
+                  <td><span style="color:var(--t3);font-size:12px;">Recorded</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Inline attendance form -->
+          <div class="inline-form" id="attendance-inline-form">
+            <h4>Enter Actual Attendance</h4>
+            <p class="sub">Event: <strong class="att-event">—</strong> &nbsp;|&nbsp; Registered: <strong class="att-registered">—</strong></p>
+            <div class="row-form">
+              <input type="number" id="actual-count" placeholder="Enter actual headcount..." min="0" max="9999">
+              <button class="btn btn-primary" onclick="saveAttendance()">Save</button>
+              <button class="btn btn-ghost" onclick="document.getElementById('attendance-inline-form').classList.remove('open')">Cancel</button>
+            </div>
+            <p style="font-size:11.5px;color:var(--t3);margin-top:10px;">System auto-calculates variance % and records it upon save. Only enabled once event date has passed.</p>
+          </div>
+        </div>
+      </section>
+
+    </main><!-- /content -->
+  </div><!-- /main-area -->
+</div><!-- /dash -->
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
