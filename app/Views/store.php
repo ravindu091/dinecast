@@ -278,9 +278,71 @@
       <section id="sec-ingredients" class="section">
         <div class="sec-hdr">
           <h2>Ingredients</h2>
-          <button class="btn btn-primary">+ Add Ingredient</button>
+          <button class="btn btn-primary" onclick="toggleModal('model-overlay-ingredient')">+ Add Ingredient</button>
         </div>
+          
+        <!-- Add ingredient form -->
+        <div class="modal-overlay" id="model-overlay-ingredient" onclick="if(event.target ===this)toggleModal('model-overlay-ingredient')">
+            <div class="modal">
+              <div class="modal-hdr">
+                <h3>Add new Ingredient</h3>
+                <button class="modal-close" onclick="toggleModal('model-overlay-ingredient')">✕</button>
+              </div>
+              <form action="">
+                <div class="form-grid">
+                  <div class="form-grp">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" placeholder="eg. Basmathi Samba" required>
+                  </div>
+                  <div class="form-grp">
+                    <label for="unit-of-measure">Unit of Measure</label>
+                    <select name="unit-of-measure" id="uom">
+                      <?php
+                          require_once __DIR__ . '/../Model/Ingredient/Unit.php';
 
+                          $unit = new Unit();
+                          $units = $unit->getAll();
+
+                          foreach ($units as $u) {
+                              echo '<option value="' . $u['id'] . '">' . $u['name'] . '</option>';
+                          }
+                      ?>
+                    </select>
+                  </div>
+                  <div class="form-grp">
+                    <label for="unit-price">price</label>
+                    <input type="number" name="price" id="price" placeholder="100.00" required>
+                  </div>
+                  <div class="form-grp">
+                    <label for="stock-level">Min Stock level</label>
+                    <input type="number" name="min-stock-level" id="min-stock-level" placeholder="12.00" required>
+                  </div>
+                  <div class="form-grp">
+                    <label for="status">Status</label>
+                    <div class="row-form">
+                      <label class="radio-option">
+                        <input type="radio" name="status" id="active-status" value="active">
+                        <span>Active</span>
+                      </label>
+                      <label class="radio-option">
+                        <input type="radio" name="status" id="deactivate-status" value="inactive">
+                        <span>Deactivate</span>
+                      </label>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="form-grp form-full">
+                    <label for="Notes">Notes</label>
+                    <textarea name="notes" id="notes" class="form-full"></textarea>
+                  </div>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:4px;">
+                <button type="submit" class="btn btn-primary">Create Ingredient</button>
+                <button type="button" class="btn btn-outline" onclick="toggleModal('modal-add-user')">Cancel</button>
+                </div>
+              </form>
+            </div>
+        </div>
         <div class="stats">
           <div class="stat c-blue"><div class="stat-ico">🧂</div><div class="stat-val">1,284</div><div class="stat-lbl">Total Ingredient Lines</div></div>
           <div class="stat c-red"><div class="stat-ico">⬇️</div><div class="stat-val">12</div><div class="stat-lbl">Below Minimum</div></div>
