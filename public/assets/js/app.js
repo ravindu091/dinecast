@@ -2,44 +2,12 @@
 const BASE_URL = window.BASE_URL || '/dinecast';
 
 document.addEventListener('DOMContentLoaded', () => {
-  initSidebarNav();
+
   initInnerTabs();
   initFilters();
   setCurrentDate();
 });
 
-/* -----------------------------------------------
-   SIDEBAR NAVIGATION
-   ----------------------------------------------- */
-function initSidebarNav() {
-  const navLinks = document.querySelectorAll('.nav-link[data-section]');
-  const sections  = document.querySelectorAll('.section');
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      const target = link.dataset.section;
-      const title  = link.dataset.title
-                  || link.querySelector('.nav-label')?.textContent?.trim()
-                  || '';
-
-      // Update active nav link
-      navLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-
-      // Show target section, hide others
-      sections.forEach(s => s.classList.remove('active'));
-      const targetEl = document.getElementById(target);
-      if (targetEl) targetEl.classList.add('active');
-
-      // Update topbar heading
-      const tbTitle = document.querySelector('.topbar-left h1');
-      if (tbTitle && title) tbTitle.textContent = title;
-
-      // Scroll content to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
-}
 
 /* -----------------------------------------------
    INNER TABS  (e.g. Inventory Active / Used-up)

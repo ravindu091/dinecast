@@ -17,9 +17,16 @@ $router->post('/login',      'AuthController@login');
 $router->get('/admin',       'AdminController@dashboard');
 $router->get('/chef',        'ChefController@dashboard');
 $router->get('/kitchen',     'KitchenController@dashboard');
-$router->get('/store',       'StoreController@dashboard');
 $router->get('/procurement', 'ProcurementController@dashboard');
 $router->get('/ceo',         'CeoController@dashboard');
+
+// store
+
+$router->get('/store', 'StoreController@home');
+$router->get('/store/ingredient', 'StoreController@ingredient');
+$router->get('/store/po', 'StoreController@po');
+$router->get('/store/stock', 'StoreController@stock');
+$router->get('/store/inventory', 'StoreController@inventory');
 
 // ── Dispatch ─────────────────────────────────────────
 $router->dispatch();
