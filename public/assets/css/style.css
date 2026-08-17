@@ -278,8 +278,8 @@ img { max-width: 100%; }
 .content { padding: 26px 32px; flex: 1; }
 
 /* ===== SECTIONS ===== */
-.section { display: none; }
-.section.active { display: block; animation: fadeIn 0.25s ease; }
+
+.section { display: block; animation: fadeIn 0.25s ease; }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
