@@ -4,80 +4,117 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="DineCast — Forecast-Driven Procurement and Food Planning System. Sign in to your account.">
+  
   <title>DineCast — Login</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!--link rel="stylesheet" href="<!?= $baseUrl ?>/assets/css/style.css"-->
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/login.css">
 </head>
-<body class="login-page">
 
-  <div class="login-wrapper" >
+<body class="login-page">
+  <div class="login-wrapper">
 
     <!-- ===== LEFT: Brand Panel ===== -->
     <div class="login-brand">
-      <div class="brand-logo">
-        <div class="brand-icon">🍽️</div>
-        <div class="brand-name-block">
-          <div class="brand-name">Dine<span>Cast</span></div>
-          <div class="brand-slogan">Forecast · Plan · Procure · Serve</div>
+      <div class="brand-inner">
+
+        <div class="brand-logo">
+          <!-- Logo should be the icon + "DineCast" wordmark ONLY.
+               Tagline and subtext below are real text, not part of the image,
+               so keep logo.png cropped tight (no tagline baked in). -->
+          <img src="<?= $baseUrl ?>/assets/img/logo.png" alt="DineCast Logo" class="brand-logo-img">
         </div>
-      </div>
 
-      <div class="brand-mid">
-        <h2>Smart Dining,<br>Better Planning.</h2>
-        <p>A forecast-driven procurement and<br>food planning system for modern<br>catering &amp; event operations.</p>
-      </div>
+        <div class="brand-tagline">
+          <span>FORECAST</span><i>&bull;</i>
+          <span>PLAN</span><i>&bull;</i>
+          <span>PROCURE</span><i>&bull;</i>
+          <span>SERVE</span>
+        </div>
 
-      <div class="brand-pills">
-        <span class="brand-pill">Forecast</span>
-        <span class="brand-pill">Plan</span>
-        <span class="brand-pill">Procure</span>
-        <span class="brand-pill">Serve</span>
+        <p class="brand-subtext">Forecast-Driven Procurement and Food Planning System</p>
+
       </div>
     </div>
 
-    <!-- ===== RIGHT: Login Form ===== -->
+    <!-- ===== RIGHT: Login Form Panel ===== -->
     <div class="login-form-panel">
+      <div class="login-form-inner">
 
-      <h1>Welcome!</h1>
-      <p class="login-subtitle">Sign in to your account...</p>
+        <h1>Welcome!</h1>
+        <p class="login-subtitle">Sign in to your account...</p>
 
-      <form onsubmit="handleLogin(); return false;">
+        <div class="login-card">
+          <h2 class="login-card-title">Login</h2>
 
-        <div class="fg">
-          <label for="login-user">User Name</label>
-          <input type="text" id="login-user" placeholder="Enter your username" autocomplete="username">
+          <form onsubmit="handleLogin(); return false;">
+
+            <div class="fg">
+              <label for="login-user">User Name</label>
+              <div class="input-field">
+                <input type="text" id="login-user" placeholder="Enter your username" autocomplete="username">
+                <span class="input-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <div class="fg">
+              <label for="login-pass">Password</label>
+              <div class="input-field">
+                <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password">
+                <span class="input-icon input-icon--toggle" id="pwd-toggle" aria-label="Toggle password visibility">
+                  <img src="<?= $baseUrl ?>/assets/img/show.png" alt="" class="icon-eye">
+                  <img src="<?= $baseUrl ?>/assets/img/hide.png" alt="" class="icon-eye-off">
+                </span>
+              </div>
+            </div>
+
+            <div class="form-opts">
+              <label class="cb-row">
+                <input type="checkbox" id="remember-me"> Remember me
+              </label>
+              <a href="#" class="text-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-login" id="login-submit-btn">Login</button>
+
+            <p class="login-note">
+              Don't have an account? <a href="#">Contact Admin Support</a>
+            </p>
+
+          </form>
         </div>
 
-        <div class="fg">
-          <label for="login-pass">Password</label>
-          <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password">
-        </div>
+        <p class="login-footer">All rights reserved &copy; DineCast 2026</p>
 
-        <div class="form-opts">
-          <label class="cb-row">
-            <input type="checkbox" id="remember-me"> Remember me
-          </label>
-          <a href="#" class="text-link">Forgot password?</a>
-        </div>
-
-        <button type="submit" class="btn-login" id="login-submit-btn">Login</button>
-
-        <p class="login-note">
-          Don't have an account? <a href="#">Contact Admin Support</a>
-        </p>
-
-      </form>
-
-      <p style="margin-top:48px;font-size:11px;color:var(--t3);text-align:center;">
-        All rights reserved © DineCast 2026
-      </p>
+      </div>
     </div>
+
   </div>
+
   <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
   <!--script src="<!?= $baseUrl ?>/assets/js/app.js"></script-->
+
+  <!-- password visibility toggle -->
+  <script>
+    (function () {
+      var toggle = document.getElementById('pwd-toggle');
+      var pass   = document.getElementById('login-pass');
+      if (!toggle || !pass) return;
+      toggle.addEventListener('click', function () {
+        pass.type = pass.type === 'password' ? 'text' : 'password';
+        toggle.classList.toggle('active');
+      });
+    })();
+  </script>
+
   <script src="<?= $baseUrl ?>/assets/js/login.js"></script>
 </body>
 </html>
