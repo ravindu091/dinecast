@@ -172,6 +172,12 @@
 .sb-logout:hover {
     color: #fff;
 }
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+}
+
 @media (min-width: 769px) {
     .sidebar {
         position: fixed;
