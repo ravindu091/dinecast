@@ -6,9 +6,9 @@
         <div class="sec-hdr"><h2>Purchase Orders</h2></div>
 
         <div class="stats">
-          <div class="stat c-orange"><div class="stat-ico">📋</div><div class="stat-val">6</div><div class="stat-lbl">Pending Delivery</div></div>
-          <div class="stat c-green"><div class="stat-ico">✅</div><div class="stat-val">3</div><div class="stat-lbl">Received This Week</div></div>
-          <div class="stat c-blue"><div class="stat-ico">💰</div><div class="stat-val" style="font-size:20px;">Rs. 284K</div><div class="stat-lbl">Total Value (This Month)</div></div>
+          <div class="stat c-orange"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><div class="stat-val">6</div><div class="stat-lbl">Pending Delivery</div></div>
+          <div class="stat c-green"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l4 4L19 6"/></svg></div><div class="stat-val">3</div><div class="stat-lbl">Received This Week</div></div>
+          <div class="stat c-blue"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.5 8.5c-.5-.5-1.3-.8-2.2-.8-1.4 0-2.3.7-2.3 1.7 0 2.5 4.8 1.1 4.8 3.8 0 1-.9 1.7-2.4 1.7-1 0-1.9-.3-2.5-.9"/></svg></div><div class="stat-val" style="font-size:20px;">Rs. 284K</div><div class="stat-lbl">Total Value (This Month)</div></div>
         </div>
 
         <div class="card">
