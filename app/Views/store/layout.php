@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/style.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/store.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/sidebar.css">
+
 </head>
 <body>
 <div class="dash">
@@ -18,12 +20,18 @@
        ==================================================== -->
   <aside class="sidebar">
     <div class="sb-logo">
-      <div class="sb-logo-icon">🍽️</div>
+      <div class="sb-logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+          <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+      </div>
       <span class="sb-logo-name">Dine<span>Cast</span></span>
     </div>
 
     <div class="sb-section">Main Menu</div>
-    <nav>
+
+    <nav class="sb-links">
       <a href="<?= $baseUrl ?>/store" class="nav-link <?= $activePage === 'home' ? 'active' : '' ?>">
         <span class="nav-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -79,7 +87,7 @@
 
     <div class="sb-footer">
       <div class="sb-user">
-        <div class="sb-avatar">NK</div>
+        <div class="sb-avatar"><span>NK</span></div>
         <div>
           <div class="sb-user-name">Nadeesha Kumari</div>
           <div class="sb-user-role">Store Manager</div>
@@ -93,6 +101,7 @@
         Logout
       </div>
     </div>
+
   </aside>
 
   <!-- ====================================================

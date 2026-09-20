@@ -8,7 +8,7 @@
         <div class="card">
           <div class="card-hdr">
             <div>
-              <h3>📥 Log Incoming Delivery</h3>
+              <h3><svg class="inline-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Log Incoming Delivery</h3>
               <p style="font-size:12px;color:var(--t3);margin-top:3px;">Use this form to receive stock against a Purchase Order or ad-hoc delivery.</p>
             </div>
           </div>

@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/style.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/ceo.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/sidebar.css">
 </head>
 <body>
 <div class="dash">
@@ -22,7 +23,7 @@
     </div>
 
     <div class="sb-section">Overview</div>
-    <nav>
+    <nav class="sb-links">
       <div class="nav-link active" data-section="sec-overview" data-title="CEO Dashboard">
         <span class="nav-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
