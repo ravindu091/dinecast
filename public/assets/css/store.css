@@ -371,7 +371,7 @@ body {
 
 @media (max-width: 768px) {
 	.main-area {
-		margin-left: 0;
+		margin-left: 220px;
 	}
 
 	.topbar,
@@ -385,7 +385,11 @@ body {
 	}
 }
 
-@media (max-width: 520px) {
+@media (max-width: 600px) {
+	.main-area {
+		margin-left: 0;
+	}
+
 	.topbar {
 		align-items: flex-start;
 		gap: .75rem;

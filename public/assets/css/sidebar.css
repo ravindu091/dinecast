@@ -172,24 +172,20 @@
 .sb-logout:hover {
     color: #fff;
 }
-@media (max-width: 768px) {
+@media (max-width: 768px) and (min-width: 601px) {
     .sidebar {
-        display: none;
+        width: 220px;
+        padding: 1.25rem;
+    }
+
+    .sb-footer {
+        width: calc(100% + 2.5rem);
+        margin-right: -1.25rem;
+        margin-left: -1.25rem;
     }
 }
 
-@media (min-width: 769px) {
-    .sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: auto;
-        transform: translateX(0);
-    }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .sidebar {
         display: none;
     }

@@ -101,7 +101,8 @@ img { max-width: 100%; }
 /* ===== TOPBAR ===== */
 .topbar {
   background: transparent;
-  height: var(--topbar-h);
+  height: auto;
+  min-height: var(--topbar-h);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -994,14 +995,15 @@ tbody td {
 }
 @media (max-width: 768px) {
   .main-area {
-        margin-left: 0;
-    }
+    margin-left: 220px;
+  }
   .content { padding: 18px 16px; }
-  .topbar { padding: 0 16px; }
+  .topbar { padding: 16px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .form-grid { grid-template-columns: 1fr; }
   .health-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 600px) {
+  .main-area { margin-left: 0; }
   .kpi-bar { grid-template-columns: 1fr 1fr; }
 }
