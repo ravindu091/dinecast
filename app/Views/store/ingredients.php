@@ -5,9 +5,9 @@
         </div>
 
         <div class="stats">
-          <div class="stat c-blue"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M14.25 3.104v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M4.2 15.3A2.25 2.25 0 003 17.33v.42A2.25 2.25 0 005.25 20h13.5A2.25 2.25 0 0021 17.75v-.42a2.25 2.25 0 00-1.2-2.03"/></svg></div><div class="stat-val">1,284</div><div class="stat-lbl">Total Ingredient Lines</div></div>
-          <div class="stat c-red"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg></div><div class="stat-val">12</div><div class="stat-lbl">Below Minimum</div></div>
-          <div class="stat c-green"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg></div><div class="stat-val">1,264</div><div class="stat-lbl">In Stock (Normal)</div></div>
+          <div class="stat c-blue"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M14.25 3.104v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M4.2 15.3A2.25 2.25 0 003 17.33v.42A2.25 2.25 0 005.25 20h13.5A2.25 2.25 0 0021 17.75v-.42a2.25 2.25 0 00-1.2-2.03"/></svg></div><div class="stat-val">1,284</div><div class="stat-lbl">Total Ingredient Lines</div></div>
+          <div class="stat c-red"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg></div><div class="stat-val">12</div><div class="stat-lbl">Below Minimum</div></div>
+          <div class="stat c-green"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l4 4L19 6"/></svg></div><div class="stat-val">1,264</div><div class="stat-lbl">In Stock (Normal)</div></div>
         </div>
 
         <!-- Filter bar -->
