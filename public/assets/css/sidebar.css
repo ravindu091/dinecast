@@ -10,7 +10,7 @@
     flex-direction: column;
     width: 256px;
     height: 100vh;
-    overflow-y: hidden;
+    overflow-y: auto;
     border: 0;
     outline: 0;
     scrollbar-width: none;
