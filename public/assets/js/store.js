@@ -8,7 +8,33 @@ document.addEventListener('DOMContentLoaded', () => {
   initIssuePopup();
   initWastePopup();
   initAddStockPopup();
+  initTabs();
 });
+
+function initTabs() {
+  document.querySelectorAll('.tab-group').forEach(group => {
+    const tabs = group.querySelectorAll('.tabs .tab');
+    const panes = group.querySelectorAll('.tab-pane');
+    
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        // Remove active class from all tabs & panes
+        tabs.forEach(t => t.classList.remove('active'));
+        panes.forEach(p => {
+          p.classList.remove('active');
+          p.style.display = 'none';
+        });
+        
+        // Add active class to selected tab & pane
+        tab.classList.add('active');
+        if (panes[index]) {
+          panes[index].classList.add('active');
+          panes[index].style.display = 'block';
+        }
+      });
+    });
+  });
+}
 
 function initIngredientToolbar() {
   const search = document.getElementById('ingredient-search');

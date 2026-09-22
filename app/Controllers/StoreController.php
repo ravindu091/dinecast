@@ -28,10 +28,10 @@ class StoreController extends Controller {
         ]);
     }
 
-    public function po(array $params = []){
-        $this->renderWithLayout('store/po', 'store/layout',[
-            'title'=>'Purchase Orders',
-            'activePage'=>'po',
+    public function issue(array $params = []){
+        $this->renderWithLayout('store/issue', 'store/layout',[
+            'title'=>'Issue Stocks',
+            'activePage'=>'issue',
         ]);
     }
 

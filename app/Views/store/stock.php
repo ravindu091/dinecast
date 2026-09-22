@@ -1,123 +1,347 @@
 
 <!-- ================================================
-           RECEIVE STOCK SECTION
+           RECEIVE STOCK SECTION (DASHBOARD)
            ================================================ -->
       <section id="sec-receive" class="section active">
-        <div class="sec-hdr"><h2>Receive Stock</h2></div>
+        <div class="rs-dashboard">
+          
+          <!-- Dashboard Header -->
+          <div class="sec-hdr">
+            <h2>Receive Stocks</h2>
+            <p>Inbound inspection, purchase order verification, and stock intake logging.</p>
+          </div>
 
-        <div class="card">
-          <div class="card-hdr">
-            <div>
-              <h3><svg class="inline-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Log Incoming Delivery</h3>
-              <p style="font-size:12px;color:var(--t3);margin-top:3px;">Use this form to receive stock against a Purchase Order or ad-hoc delivery.</p>
+          <!-- Metrics Cards -->
+          <div class="stats metric-stats" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+            
+            <article class="metric-card metric-card-orange">
+              <div class="metric-value">06</div>
+              <div class="metric-label">Awaiting Inspection</div>
+              <div class="metric-footer">
+                <span>inbound shipments<br>pending intake</span>
+                <strong>Pending<br>Review</strong>
+              </div>
+            </article>
+
+            <article class="metric-card metric-card-green">
+              <div class="metric-value">18</div>
+              <div class="metric-label">Approved</div>
+              <div class="metric-footer">
+                <span>verified and added<br>to inventory</span>
+                <strong>Received<br>to Stock</strong>
+              </div>
+            </article>
+
+            <article class="metric-card metric-card-red">
+              <div class="metric-value">02</div>
+              <div class="metric-label">Rejected</div>
+              <div class="metric-footer">
+                <span>shortage/damage<br>rejections</span>
+                <strong>Disputed /<br>Returned</strong>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Main Table Card -->
+          <div class="tab-group" style="margin-top:32px;">
+            <div class="tabs" style="margin-bottom:12px;">
+              <button class="tab active" style="display:flex; align-items:center; gap:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="10" cy="13" r="2"></circle><path d="m14 17-2-2"></path></svg>
+                Awaiting Inspection <span class="rs-tab-count">6</span>
+              </button>
+              <button class="tab" style="display:flex; align-items:center; gap:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Past Purchase Orders <span class="rs-tab-count" style="background:#f1f5f9;color:#475569;">20</span>
+              </button>
+            </div>
+
+            <div class="tab-pane active">
+              <div class="card" style="margin-bottom:0;">
+                <div class="inventory-toolbar">
+                  <label class="inventory-search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    <input type="search" placeholder="Search PO / Supplier..." autocomplete="off">
+                  </label>
+                  <div class="inventory-filters">
+                    <span style="font-size:14px;color:var(--store-muted);display:flex;align-items:center;gap:6px;">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg> Filters:
+                    </span>
+                    <label class="inventory-sort">
+                      <select aria-label="Status">
+                        <option>All Statuses</option>
+                      </select>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </label>
+                    <label class="inventory-sort">
+                      <select aria-label="Dates">
+                        <option>All Dates</option>
+                      </select>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </label>
+                    <button class="btn btn-primary toolbar-btn" type="button" style="background:#065f46; border-color:#065f46; padding-top:8px; padding-bottom:8px;">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                      <span>Receive Stock Manually</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="tbl-wrap">
+                  <table>
+                <thead>
+                  <tr>
+                    <th>PO ID</th>
+                    <th>SUPPLIER</th>
+                    <th>PO DATE</th>
+                    <th>ARRIVED</th>
+                    <th>ITEMS</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>PO-2026-0042</td>
+                    <td>
+                      <div class="rs-sup-col">
+                        <div class="rs-sup-dot"></div> Cargills Food City
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>18 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>22 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td><span class="rs-items-badge">8 Items</span></td>
+                    <td><span class="rs-status-badge"><div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting Inspection</span></td>
+                    <td><button class="rs-btn-action"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14l2 2 4-4"></path></svg> Inspect</button></td>
+                  </tr>
+                  <tr>
+                    <td>PO-2026-0041</td>
+                    <td>
+                      <div class="rs-sup-col">
+                        <div class="rs-sup-dot"></div> Keells Supplies
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>20 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>22 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td><span class="rs-items-badge">5 Items</span></td>
+                    <td><span class="rs-status-badge"><div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting Inspection</span></td>
+                    <td><button class="rs-btn-action"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14l2 2 4-4"></path></svg> Inspect</button></td>
+                  </tr>
+                  <tr>
+                    <td>PO-2026-0040</td>
+                    <td>
+                      <div class="rs-sup-col">
+                        <div class="rs-sup-dot"></div> Prima Flour Mills
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>19 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>21 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td><span class="rs-items-badge" style="background:#eff6ff;color:#3b82f6;">12 Items</span></td>
+                    <td><span class="rs-status-badge"><div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting Inspection</span></td>
+                    <td><button class="rs-btn-action"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14l2 2 4-4"></path></svg> Inspect</button></td>
+                  </tr>
+                  <tr>
+                    <td>PO-2026-0039</td>
+                    <td>
+                      <div class="rs-sup-col">
+                        <div class="rs-sup-dot"></div> Lanka Fresh Produce
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>19 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>21 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td><span class="rs-items-badge">9 Items</span></td>
+                    <td><span class="rs-status-badge"><div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting Inspection</span></td>
+                    <td><button class="rs-btn-action"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14l2 2 4-4"></path></svg> Inspect</button></td>
+                  </tr>
+                  <tr>
+                    <td>PO-2026-0036</td>
+                    <td>
+                      <div class="rs-sup-col">
+                        <div class="rs-sup-dot"></div> Ceylon Dairy Direct
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>17 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>20 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td><span class="rs-items-badge">6 Items</span></td>
+                    <td><span class="rs-status-badge"><div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting Inspection</span></td>
+                    <td><button class="rs-btn-action"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14l2 2 4-4"></path></svg> Inspect</button></td>
+                  </tr>
+                  <tr>
+                    <td>PO-2026-0034</td>
+                    <td>
+                      <div class="rs-sup-col">
+                        <div class="rs-sup-dot"></div> Global Seafoods Ltd
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>16 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="rs-date-col">
+                        <span>20 Sep</span>
+                        <span class="rs-date-year">2026</span>
+                      </div>
+                    </td>
+                    <td><span class="rs-items-badge">4 Items</span></td>
+                    <td><span class="rs-status-badge"><div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting Inspection</span></td>
+                    <td><button class="rs-btn-action"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14l2 2 4-4"></path></svg> Inspect</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             </div>
           </div>
 
-          <form onsubmit="submitReceiveStock(event)">
-            <div class="form-grid">
-
-              <div class="form-grp">
-                <label>Purchase Order (Optional)</label>
-                <select id="rs-po">
-                  <option value="">— Select PO (if applicable) —</option>
-                  <option>PO-0018 &nbsp;·&nbsp; Negombo Sea Foods</option>
-                  <option>PO-0019 &nbsp;·&nbsp; Lakmal &amp; Sons Poultry</option>
-                  <option>PO-0020 &nbsp;·&nbsp; Ceylon Agro Exports</option>
-                </select>
+          <!-- ===== TAB 2: Past Purchase Orders ===== -->
+          <div class="tab-pane" style="display:none;">
+            <div class="card" style="margin-bottom:0;">
+              <div class="inventory-toolbar">
+                <label class="inventory-search">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                  </svg>
+                  <input type="search" placeholder="Search PO / Supplier..." autocomplete="off">
+                </label>
+                <div class="inventory-filters">
+                  <span style="font-size:14px;color:var(--store-muted);display:flex;align-items:center;gap:6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg> Filters:
+                  </span>
+                  <label class="inventory-sort">
+                    <select aria-label="Status">
+                      <option>All Statuses</option>
+                    </select>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </label>
+                  <label class="inventory-sort">
+                    <select aria-label="Dates">
+                      <option>All Dates</option>
+                    </select>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </label>
+                </div>
               </div>
 
-              <div class="form-grp">
-                <label>Ingredient *</label>
-                <select id="rs-ingredient" required>
-                  <option value="">— Select Ingredient —</option>
-                  <option>Fresh Salmon Fillet</option>
-                  <option>Unsalted Butter</option>
-                  <option>Chicken (Whole)</option>
-                  <option>Basmati Rice</option>
-                  <option>Fresh Curry Leaves</option>
-                  <option>Coconut Milk (Canned)</option>
-                  <option>Dark Chocolate (70%)</option>
-                  <option>Lamb Shoulder (Bone-in)</option>
-                  <option>Garlic (Peeled)</option>
-                </select>
+              <div class="tbl-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>PO ID</th>
+                      <th>SUPPLIER</th>
+                      <th>ORDER<br>DATE</th>
+                      <th>ARRIVAL<br>DATE</th>
+                      <th>DECISION<br>DATE</th>
+                      <th>ITEMS</th>
+                      <th>STATUS</th>
+                      <th>ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="font-weight:600;color:#0f766e;">PO-2026-<br>0038</td>
+                      <td style="font-weight:500;">Cargills Food<br>City</td>
+                      <td><div class="rs-date-col"><span>14 Sep</span><span class="rs-date-year">2026</span></div></td>
+                      <td><div class="rs-date-col"><span>18 Sep</span><span class="rs-date-year">2026</span></div></td>
+                      <td style="color:#64748b;font-weight:500;">18 Sep 2026</td>
+                      <td><span class="rs-items-badge" style="background:#eff6ff;color:#3b82f6;display:inline-block;text-align:center;line-height:1.2;padding:6px 12px;font-weight:600;">8<br><span style="font-size:10px;font-weight:500;">Items</span></span></td>
+                      <td>
+                        <span style="display:inline-flex;align-items:center;gap:6px;background:#d1fae5;color:#059669;padding:6px 12px;border-radius:16px;font-size:0.75rem;font-weight:600;border:1px solid #a7f3d0;">
+                          <div style="width:6px;height:6px;border-radius:50%;background:#10b981;"></div> Approved
+                        </span>
+                      </td>
+                      <td><button class="btn btn-outline" style="font-size:12px;padding:6px 12px;border-radius:6px;color:#475569;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View</button></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;color:#0f766e;">PO-2026-<br>0037</td>
+                      <td style="font-weight:500;">Keells</td>
+                      <td><div class="rs-date-col"><span>12 Sep</span><span class="rs-date-year">2026</span></div></td>
+                      <td><div class="rs-date-col"><span>16 Sep</span><span class="rs-date-year">2026</span></div></td>
+                      <td style="color:#64748b;font-weight:500;">16 Sep 2026</td>
+                      <td><span class="rs-items-badge" style="background:#eff6ff;color:#3b82f6;display:inline-block;text-align:center;line-height:1.2;padding:6px 12px;font-weight:600;">5<br><span style="font-size:10px;font-weight:500;">Items</span></span></td>
+                      <td>
+                        <span style="display:inline-flex;align-items:center;gap:6px;background:#d1fae5;color:#059669;padding:6px 12px;border-radius:16px;font-size:0.75rem;font-weight:600;border:1px solid #a7f3d0;">
+                          <div style="width:6px;height:6px;border-radius:50%;background:#10b981;"></div> Approved
+                        </span>
+                      </td>
+                      <td><button class="btn btn-outline" style="font-size:12px;padding:6px 12px;border-radius:6px;color:#475569;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View</button></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;color:#0f766e;">PO-2026-<br>0035</td>
+                      <td style="font-weight:500;">Prima</td>
+                      <td><div class="rs-date-col"><span>10 Sep</span><span class="rs-date-year">2026</span></div></td>
+                      <td><div class="rs-date-col"><span>15 Sep</span><span class="rs-date-year">2026</span></div></td>
+                      <td style="color:#64748b;font-weight:500;">15 Sep 2026</td>
+                      <td><span class="rs-items-badge" style="background:#eff6ff;color:#3b82f6;display:inline-block;text-align:center;line-height:1.2;padding:6px 12px;font-weight:600;">12<br><span style="font-size:10px;font-weight:500;">Items</span></span></td>
+                      <td>
+                        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;">
+                          <span style="display:inline-flex;align-items:center;gap:6px;background:#fee2e2;color:#b91c1c;padding:6px 12px;border-radius:16px;font-size:0.75rem;font-weight:600;border:1px solid #fecaca;">
+                            <div style="width:6px;height:6px;border-radius:50%;background:#ef4444;"></div> Rejected
+                          </span>
+                          <span style="font-size:11px;color:#ef4444;font-weight:600;padding-left:12px;">Discrepancy</span>
+                        </div>
+                      </td>
+                      <td><button class="btn btn-outline" style="font-size:12px;padding:6px 12px;border-radius:6px;color:#ef4444;border-color:#fecaca;background:#fef2f2;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View</button></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-
-              <div class="form-grp">
-                <label>Quantity Received *</label>
-                <input type="number" id="rs-qty" placeholder="e.g. 25" step="0.01" min="0.01" required>
-              </div>
-
-              <div class="form-grp">
-                <label>Unit of Measure</label>
-                <select id="rs-uom">
-                  <option>kg</option>
-                  <option>g</option>
-                  <option>L</option>
-                  <option>ml</option>
-                  <option>units</option>
-                </select>
-              </div>
-
-              <div class="form-grp">
-                <label>Batch Number *</label>
-                <input type="text" id="rs-batch" placeholder="e.g. B-047" required>
-              </div>
-
-              <div class="form-grp">
-                <label>Expiry Date</label>
-                <input type="date" id="rs-expiry">
-              </div>
-
-              <div class="form-grp">
-                <label>Supplier Name *</label>
-                <input type="text" id="rs-supplier" placeholder="e.g. Negombo Sea Foods" required>
-              </div>
-
-              <div class="form-grp">
-                <label>Invoice Number</label>
-                <input type="text" id="rs-invoice" placeholder="e.g. INV-2026-0910">
-              </div>
-
-              <div class="form-grp">
-                <label>Unit Cost (Rs.)</label>
-                <input type="number" id="rs-cost" placeholder="e.g. 850.00" step="0.01" min="0">
-              </div>
-
-              <div class="form-grp">
-                <label>Received Date *</label>
-                <input type="date" id="rs-date" required>
-              </div>
-
-              <div class="form-grp form-full">
-                <label>Remarks / Notes</label>
-                <textarea id="rs-notes" placeholder="Any special notes about this delivery (e.g. partial shipment, quality issues…)"></textarea>
-              </div>
-
             </div>
-
-            <div style="display:flex;gap:12px;margin-top:6px;">
-              <button type="submit" class="btn btn-primary">✓ Save Delivery</button>
-              <button type="reset" class="btn btn-outline">✕ Clear Form</button>
-            </div>
-          </form>
+          </div>
         </div>
 
-        <!-- Recent deliveries -->
-        <div class="card">
-          <div class="card-hdr"><h3>Recent Deliveries</h3></div>
-          <div class="tbl-wrap">
-            <table>
-              <thead>
-                <tr><th>Ingredient</th><th>Batch</th><th>Qty</th><th>Supplier</th><th>Received On</th><th>By</th></tr>
-              </thead>
-              <tbody>
-                <tr><td class="tbl-main">Fresh Prawns</td><td><span class="tbl-id">B-046</span></td><td>8 kg</td><td>Negombo Sea Foods</td><td>11/08/2026</td><td>Nadeesha K.</td></tr>
-                <tr><td class="tbl-main">Chicken (Whole)</td><td><span class="tbl-id">B-041</span></td><td>40 kg</td><td>Lakmal &amp; Sons Poultry</td><td>10/08/2026</td><td>Nadeesha K.</td></tr>
-                <tr><td class="tbl-main">Coconut Milk</td><td><span class="tbl-id">B-042</span></td><td>20 L</td><td>Araliya Foods</td><td>05/08/2026</td><td>Nadeesha K.</td></tr>
-                <tr><td class="tbl-main">Basmati Rice</td><td><span class="tbl-id">B-038</span></td><td>100 kg</td><td>Ceylon Agro Exports</td><td>08/08/2026</td><td>Nadeesha K.</td></tr>
-              </tbody>
-            </table>
-          </div>
         </div>
       </section>
 

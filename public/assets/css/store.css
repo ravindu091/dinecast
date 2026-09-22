@@ -2854,4 +2854,83 @@ body {
 	opacity: 0.5;
 	cursor: not-allowed;
 }
+
+/* ==========================================================================
+   RECEIVE STOCKS DASHBOARD
+   ========================================================================== */
+
+
+
+
+
+.rs-sup-col {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.rs-sup-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #f59e0b;
+}
+
+.rs-date-col {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.rs-date-year {
+	font-size: 0.75rem;
+	color: #64748b;
+}
+
+.rs-items-badge {
+	background: #f1f5f9;
+	color: #475569;
+	font-size: 0.75rem;
+	font-weight: 500;
+	padding: 4px 8px;
+	border-radius: 4px;
+}
+
+.rs-status-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: #fef3c7;
+	color: #b45309;
+	padding: 6px 12px;
+	border-radius: 16px;
+	font-size: 0.75rem;
+	font-weight: 500;
+	border: 1px solid #fde68a;
+}
+
+.rs-status-badge.approved {
+	background: #d1fae5;
+	color: #059669;
+	border-color: #a7f3d0;
+}
+
+.rs-btn-action {
+	background: #065f46;
+	color: #ffffff;
+	border: none;
+	padding: 6px 12px;
+	border-radius: 6px;
+	font-size: 0.75rem;
+	font-weight: 500;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.rs-btn-action:hover {
+	background: #047857;
+}
 

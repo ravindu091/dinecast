@@ -25,7 +25,7 @@ $router->get('/ceo',         'CeoController@dashboard');
 
 $router->get('/store', 'StoreController@home');
 $router->get('/store/ingredient', 'StoreController@ingredient');
-$router->get('/store/po', 'StoreController@po');
+$router->get('/store/issue', 'StoreController@issue');
 $router->get('/store/stock', 'StoreController@stock');
 $router->get('/store/inventory', 'StoreController@inventory');
 
