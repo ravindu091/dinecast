@@ -7,9 +7,9 @@
   <title><?= $title ?></title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/style.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/store.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/sidebar.css">
+  
 
 </head>
 <body>
@@ -87,9 +87,9 @@
 
     <div class="sb-footer">
       <div class="sb-user">
-        <div class="sb-avatar"><span>NK</span></div>
+        <div class="sb-avatar"><span>AK</span></div>
         <div>
-          <div class="sb-user-name">Nadeesha Kumari</div>
+          <div class="sb-user-name">Anura Kumara</div>
           <div class="sb-user-role">Store Manager</div>
         </div>
       </div>
@@ -112,7 +112,6 @@
     <header class="topbar">
       <div class="topbar-left">
         <h1>Store Manager Dashboard</h1>
-        <p>Welcome back, Nadeesha!</p>
       </div>
       <div class="topbar-right">
         <span class="date-chip"></span>

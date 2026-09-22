@@ -6,6 +6,7 @@ define('BASE_URL', '/dinecast');
 // Load core framework
 require_once '../app/Core/Router.php';
 require_once '../app/Core/Controller.php';
+require_once __DIR__ . '/../app/lib/utility.php';
 
 $router = new Router(BASE_URL);
 
