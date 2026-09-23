@@ -24,22 +24,23 @@
     <div class="sb-section">Kitchen</div>
     <nav class="sb-links">
       <a href="<?= $baseUrl ?>/chef">
-        <div class="nav-link active" data-section="sec-home" data-title="Chef Dashboard">
+        <div class="nav-link <?= $activePage === 'home' ? 'active' : '' ?>" data-section="sec-home" data-title="Chef Dashboard">
           <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
           <span class="nav-label">Home</span>
         </div>
       </a>
-      <a href="<?= $baseUrl ?>/chef/menu">
-        <div class="nav-link" data-section="sec-menus" data-title="Menus">
+      <a href="<?= $baseUrl ?>/chef/menus">
+        <div class="nav-link <?= $activePage === 'menus' ? 'active' : '' ?>" data-section="sec-menus" data-title="Menus">
           <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></span>
           <span class="nav-label">Menus</span>
         </div>
       </a>
-      <a href="<?= $baseUrl ?>"></a>
-      <div class="nav-link" data-section="sec-recipes" data-title="Recipes">
-        <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/><path d="M2 12h20M12 2v10"/></svg></span>
-        <span class="nav-label">Recipes</span>
-      </div>
+      <a href="<?= $baseUrl ?>/chef/recipes">
+        <div class="nav-link <?= $activePage === 'recipes' ? 'active' : '' ?>" data-section="sec-recipes" data-title="Recipes">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/><path d="M2 12h20M12 2v10"/></svg></span>
+          <span class="nav-label">Recipes</span>
+        </div>
+      </a>
     </nav>
 
     <div class="sb-footer">

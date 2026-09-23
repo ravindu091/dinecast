@@ -30,8 +30,8 @@ $router->get('/store/inventory', 'StoreController@inventory');
 
 //chef
 $router->get('/chef' , 'ChefController@home');
-$router->get('/chef/menus' , 'ChefController@menu');
-$router->get('/chef/recipes' , 'ChefController@recipe');
+$router->get('/chef/menus' , 'ChefController@menus');
+$router->get('/chef/recipes' , 'ChefController@recipes');
 
 // ── Dispatch ─────────────────────────────────────────
 $router->dispatch();

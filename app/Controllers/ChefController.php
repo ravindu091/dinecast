@@ -13,17 +13,17 @@ class ChefController extends Controller {
         ]);
     }
     
-    public function menu(array $params =[]){
-        $this->renderWithLayout('chef/home','chef/layout',[
+    public function menus(array $params =[]){
+        $this->renderWithLayout('chef/menus','chef/layout',[
             'title' => 'Chef- Dashboard',
-            'activePage' => 'menu'
+            'activePage' => 'menus'
         ]);
     }
 
-    public function recipe(array $params =[]){
-        $this->renderWithLayout('chef/recipe','chef/layout',[
+    public function recipes(array $params =[]){
+        $this->renderWithLayout('chef/recipes','chef/layout',[
             'title' => 'Chef - Dashboard',
-            'activePage' => 'recipe'
+            'activePage' => 'recipes'
         ]);
     }
 }
