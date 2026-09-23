@@ -4,7 +4,43 @@
            ================================================ -->
       <section id="sec-inventory" class="section">
         <div class="sec-hdr"><h2>Inventory</h2></div>
-          
+
+        <!-- Stat Cards -->
+        <div class="stats metric-stats">
+          <article class="metric-card metric-card-blue">
+            <div class="metric-value">186</div>
+            <div class="metric-label">Active Batches</div>
+            <div class="metric-footer">
+              <span>Across 12 storage<br>zones</span>
+              <strong>+8 this<br>week</strong>
+            </div>
+          </article>
+          <article class="metric-card metric-card-red">
+            <div class="metric-value">9</div>
+            <div class="metric-label">Expiring Within 7 Days</div>
+            <div class="metric-footer">
+              <span>3 in critical<br>zone</span>
+              <strong>Review<br>FEFO</strong>
+            </div>
+          </article>
+          <article class="metric-card metric-card-orange">
+            <div class="metric-value">14</div>
+            <div class="metric-label">Low Stock Batches</div>
+            <div class="metric-footer">
+              <span>Below minimum<br>par level</span>
+              <strong>Reorder<br>Now</strong>
+            </div>
+          </article>
+          <article class="metric-card metric-card-green">
+            <div class="metric-value">$38,420</div>
+            <div class="metric-label">Total Stock Value</div>
+            <div class="metric-footer">
+              <span>Daily shrinkage rate</span>
+              <strong>&lt; 0.3%</strong>
+            </div>
+          </article>
+        </div>
+
         <!-- Inner Tabs -->
         <div class="tab-group">
           <div class="tabs">
@@ -48,7 +84,7 @@
                     </select>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                   </label>
-                  <button class="btn btn-primary inventory-count-btn" id="add-stock-btn" type="button">
+                  <button class="btn btn-primary inventory-count-btn" id="add-stock-btn" type="button" data-popup-target="addstock-overlay">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v16m8-8H4"/></svg>
                     <span>Add Stock</span>
                   </button>
@@ -99,7 +135,7 @@
                         <td><strong><?=  htmlspecialchars($item['qty']) ?></strong></td>
                         <td><?=  htmlspecialchars($item['expiryDate']) ?></td>
                         <td><span class="badge <?= htmlspecialchars(getStatusClass(getRemainingDays($item['expiryDate']))['class']) ?>"><?= htmlspecialchars(getStatusClass(getRemainingDays($item['expiryDate']))['text']) ?></span></td>
-                        <td><div class="inventory-actions"><button class="inventory-action inventory-action-waste" type="button">Waste</button><button class="inventory-action inventory-action-transfer" type="button" data-issue>Issue</button></div></td>
+                        <td><div class="inventory-actions"><button class="inventory-action inventory-action-waste" type="button" data-popup-target="waste-popup-overlay">Waste</button><button class="inventory-action inventory-action-transfer" type="button" data-popup-target="issue-popup-overlay" data-issue>Issue</button></div></td>
                       </tr>
                     <?php endforeach; ?>
 
@@ -126,7 +162,7 @@
                           </div>
                         </div>
                       </div>
-                      <button class="popup-close" id="batch-popup-close" type="button" aria-label="Close batch details">×</button>
+                      <button class="popup-close close-popup-btn" id="batch-popup-close" type="button" aria-label="Close batch details">×</button>
                     </div>
 
                     <!-- Body -->
@@ -173,7 +209,7 @@
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
                         Edit
                       </button>
-                      <button class="popup-btn popup-btn-issue" type="button">
+                      <button class="popup-btn popup-btn-issue" type="button" data-popup-target="issue-popup-overlay">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
                         Issue to Kitchen
                       </button>
@@ -208,7 +244,7 @@
                           </div>
                         </div>
                       </div>
-                      <button class="issue-close" id="issue-popup-close" type="button" aria-label="Close transfer dialog">&times;</button>
+                      <button class="issue-close close-popup-btn" id="issue-popup-close" type="button" aria-label="Close transfer dialog">&times;</button>
                     </div>
 
                     <!-- Body -->
@@ -243,7 +279,7 @@
 
                     <!-- Footer -->
                     <div class="issue-footer">
-                      <button class="issue-btn issue-btn-cancel" id="issue-cancel" type="button">Cancel</button>
+                      <button class="issue-btn issue-btn-cancel close-popup-btn" id="issue-cancel" type="button">Cancel</button>
                       <button class="issue-btn issue-btn-confirm" id="issue-confirm" type="button">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                           <path d="M20 6L9 17l-5-5"/>
@@ -281,7 +317,7 @@
                           </div>
                         </div>
                       </div>
-                      <button class="waste-close" id="waste-popup-close" type="button" aria-label="Close waste dialog">&times;</button>
+                      <button class="waste-close close-popup-btn" id="waste-popup-close" type="button" aria-label="Close waste dialog">&times;</button>
                     </div>
 
                     <!-- Warning banner -->
@@ -346,7 +382,7 @@
 
                     <!-- Footer -->
                     <div class="waste-footer">
-                      <button class="waste-btn waste-btn-cancel" id="waste-cancel" type="button">Cancel</button>
+                      <button class="waste-btn waste-btn-cancel close-popup-btn" id="waste-cancel" type="button">Cancel</button>
                       <button class="waste-btn waste-btn-confirm" id="waste-confirm" type="button">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                           <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
@@ -379,7 +415,7 @@
                           <p class="addstock-subtitle">Record incoming ingredient stock, supplier details, storage zone, and shelf life.</p>
                         </div>
                       </div>
-                      <button class="addstock-close" id="addstock-close" type="button" aria-label="Close">&times;</button>
+                      <button class="addstock-close close-popup-btn" id="addstock-close" type="button" aria-label="Close">&times;</button>
                     </div>
 
                     <!-- Body -->
@@ -476,7 +512,7 @@
 
                     <!-- Footer -->
                     <div class="addstock-footer">
-                      <button class="addstock-btn addstock-btn-cancel" id="addstock-cancel" type="button">Cancel</button>
+                      <button class="addstock-btn addstock-btn-cancel close-popup-btn" id="addstock-cancel" type="button">Cancel</button>
                       <button class="addstock-btn addstock-btn-confirm" id="addstock-confirm" type="button">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                         Save &amp; Add Stock

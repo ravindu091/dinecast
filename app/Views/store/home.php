@@ -5,7 +5,7 @@
 
         <div class="welcome">
           <div class="welcome-txt">
-            <h2>Welcome back, Nadeesha!</h2>
+            <h2>Welcome back, Anura!</h2>
             <p>Here's a snapshot of your store today.</p>
             <div class="user-id">ID: DC-STR-11 &nbsp;·&nbsp; Store Manager</div>
           </div>
