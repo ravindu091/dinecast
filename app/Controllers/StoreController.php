@@ -14,7 +14,7 @@ class StoreController extends Controller {
         ]);
     }
 
-    public function ingredient(array $params = []){
+    public function ingredients(array $params = []){
         $this->renderWithLayout('store/ingredients', 'store/layout',[
             'title'=>'Ingredient planning',
             'activePage'=>'ingredient',
@@ -44,9 +44,45 @@ class StoreController extends Controller {
     }
 
     public function createIngredient(array $param = []){
+        //get data
         if(isset($_POST['name'])){
-            echo $_POST['name'];
+
+            $name = $_POST['name'];
+            $category = $_POST['category'];
+            $uom = $_POST['uom'];
+            $minimumStock = $_POST['min_stock'];
+            $status = $_POST['status'];
+            $description = $_POST['description'];
+            $currentStock = $_POST['current_stock'];
+
+
+            require_once __DIR__.'/../models/ingredient.php';
+
+            $ingredient = new Ingredient();
+
+            $result = $ingredient->create($name,$category,$uom,$minimumStock,$status,$description,$currentStock);
+
+
+            if($result){
+                $_SESSION['message'] = "Ingredient Created successfully";
+                $_SESSION['message-type'] = "success";
+
+            }else{
+                $_SESSION['message'] = "Ingredient creation failed";
+                $_SESSION['message-type'] = "error";
+            }
+
+            header("Location:".BASE_URL."/store/ingredients");
+            exit();
         }
+
+        //validate
+
+
+        //store
+
+
+        //redirect
     }
 
 

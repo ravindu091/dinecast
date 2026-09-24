@@ -13,8 +13,56 @@ document.addEventListener('DOMContentLoaded', () => {
   initWastePopup();
   initAddStockPopup();
   initMsrPopup();
+  initAddIngredientPopup();
   initTabs();
 });
+
+/* ------------------------------------------------
+   ADD INGREDIENT POPUP
+   ------------------------------------------------ */
+function initAddIngredientPopup() {
+  const OVERLAY_ID = 'add-ingredient-overlay';
+
+  PopupManager.register(OVERLAY_ID, {
+    onOpen(overlay) {
+      // Reset form on every open
+      const form = overlay.querySelector('#add-ingredient-form');
+      if (form) form.reset();
+      // Reset UOM badges
+      const badge = overlay.querySelector('#ing-uom-badge');
+      const badgeCurr = overlay.querySelector('#ing-uom-badge-curr');
+      if (badge) badge.textContent = 'unit';
+      if (badgeCurr) badgeCurr.textContent = 'unit';
+    },
+    onClose() {}
+  });
+
+  // Keep the UOM badges in sync with the selected unit
+  const uomSelect = document.getElementById('ing-uom');
+  const uomBadge  = document.getElementById('ing-uom-badge');
+  const uomBadgeCurr = document.getElementById('ing-uom-badge-curr');
+  
+  if (uomSelect) {
+    uomSelect.addEventListener('change', () => {
+      const val = uomSelect.value || 'unit';
+      if (uomBadge) uomBadge.textContent = val;
+      if (uomBadgeCurr) uomBadgeCurr.textContent = val;
+    });
+  }
+
+  // Status radio — no manual class needed (:has() drives it via CSS)
+  // Fallback for older browsers: reflect checked state via data attribute
+  const radioGroup = document.querySelector('#add-ingredient-overlay .pm-radio-group');
+  if (radioGroup) {
+    radioGroup.addEventListener('change', () => {
+      radioGroup.querySelectorAll('.pm-radio-opt').forEach(opt => {
+        const radio = opt.querySelector('input[type="radio"]');
+        opt.toggleAttribute('data-checked', !!(radio && radio.checked));
+      });
+    });
+  }
+}
+
 
 /* ------------------------------------------------
    TABS

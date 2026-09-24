@@ -1,3 +1,14 @@
+<?php if(!empty($_SESSION['message'])): ?>
+
+  <script>
+    console.log("message function read");
+    showToast(<?= json_encode($_SESSION['message']) ?>,<?= json_encode($_SESSION['message-type']) ?>);
+  </script>
+<?php 
+  unset($_SESSION['message'],$_SESSION['message-type']);
+endif;
+?>
+
 <section id="sec-ingredients" class="section active">
         <div class="sec-hdr">
           <h2>Ingredients</h2>
@@ -66,7 +77,7 @@
               </svg>
               <span>Export CSV</span>
             </button>
-            <button class="btn btn-primary toolbar-btn" type="button">
+            <button class="btn btn-primary toolbar-btn" type="button" id="btn-add-ingredient" data-popup-target="add-ingredient-overlay">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M12 4v16m8-8H4"/>
               </svg>
@@ -163,18 +174,128 @@
           </div>
         </div>
         
-        <div class="pm-overlay open">
-          <div class="pm-model">
+        <!-- ================================================
+             ADD INGREDIENT POPUP
+             ================================================ -->
+        <div class="pm-overlay" id="add-ingredient-overlay">
+          <div class="pm-modal pm-modal--md">
+
+            <!-- Header -->
             <div class="pm-header">
-              <h2>hello world</h2>
+              <div class="pm-header-left">
+                <div class="pm-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16m8-8H4"/></svg>
+                </div>
+                <div>
+                  <h2 class="pm-title">Add New Ingredient</h2>
+                  <p class="pm-subtitle">Create a new ingredient for the <a href="#" class="pm-subtitle-link">inventory catalogue</a>.</p>
+                </div>
+              </div>
+              <button type="button" class="pm-close" aria-label="Close">&times;</button>
             </div>
-            <div class="pm-body">
-              <p>subtitle</p>
-            </div>
-            <div class="pm-footer">
-              <button class="pm-btn pm-btn-cancel">cancel</button>
-              <button class="pm-btn pm-btn-confirm">confirm</button>
-            </div>
+
+            <form action="<?= BASE_URL ?>/ingredient/create" method="post" name="add-ingredient-form" id="add-ingredient-form" autocomplete="off">
+              <!-- Body -->
+              <div class="pm-body">
+
+                <!-- Ingredient Name -->
+                <div class="pm-field">
+                  <label class="pm-label" for="ing-name">Ingredient Name <span class="pm-required">*</span></label>
+                  <input class="pm-input" type="text" id="ing-name" name="name" placeholder="Chicken Breast" required>
+                </div>
+
+                <!-- Category + Unit of Measure -->
+                <div class="pm-row-2">
+                  <div class="pm-field">
+                    <label class="pm-label" for="ing-category">Category <span class="pm-required">*</span></label>
+                    <div class="pm-select-wrap">
+                      <select class="pm-select" id="ing-category" name="category" required>
+                        <option value="" disabled selected>Select category</option>
+                        <option value="meat">Meat &amp; Poultry</option>
+                        <option value="seafood">Seafood</option>
+                        <option value="dairy">Dairy &amp; Eggs</option>
+                        <option value="produce">Produce &amp; Herbs</option>
+                        <option value="dry-goods">Dry Goods &amp; Spices</option>
+                        <option value="beverages">Beverages</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <svg class="pm-select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                  </div>
+                  <div class="pm-field">
+                    <label class="pm-label" for="ing-uom">Unit of Measure <span class="pm-required">*</span></label>
+                    <div class="pm-select-wrap">
+                      <select class="pm-select" id="ing-uom" name="uom" required>
+                        <option value="" disabled selected>Select unit</option>
+                        <option value="kg">Kilogram (kg)</option>
+                        <option value="g">Gram (g)</option>
+                        <option value="L">Litre (L)</option>
+                        <option value="mL">Millilitre (mL)</option>
+                        <option value="pcs">Pieces (pcs)</option>
+                        <option value="box">Box</option>
+                        <option value="can">Can</option>
+                      </select>
+                      <svg class="pm-select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Stock Levels -->
+                <div class="pm-row-2">
+                  <div class="pm-field">
+                    <label class="pm-label" for="ing-min-stock">Minimum Stock Level <span class="pm-required">*</span></label>
+                    <div class="pm-input-addon-wrap">
+                      <input class="pm-input pm-input--addon" type="number" id="ing-min-stock" name="min_stock" placeholder="0.00" min="0" step="0.01" required>
+                      <span class="pm-input-addon" id="ing-uom-badge">unit</span>
+                    </div>
+                  </div>
+                  <div class="pm-field">
+                    <label class="pm-label" for="ing-current-stock">Current Stock <span class="pm-required">*</span></label>
+                    <div class="pm-input-addon-wrap">
+                      <input class="pm-input pm-input--addon" type="number" id="ing-current-stock" name="current_stock" placeholder="0.00" min="0" step="0.01" required>
+                      <span class="pm-input-addon" id="ing-uom-badge-curr">unit</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Status Toggle -->
+                <div class="pm-status-block">
+                  <div class="pm-status-info">
+                    <span class="pm-label">Status</span>
+                    <span class="pm-status-hint">Enable immediately for kitchen requisition &amp; inventory tracking</span>
+                  </div>
+                  <div class="pm-radio-group" role="group" aria-label="Ingredient status">
+                    <label class="pm-radio-opt">
+                      <input type="radio" name="status" value="active" checked>
+                      <span class="pm-radio-circle"></span>
+                      Active
+                    </label>
+                    <label class="pm-radio-opt">
+                      <input type="radio" name="status" value="inactive">
+                      <span class="pm-radio-circle"></span>
+                      Inactive
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Description (optional) -->
+                <div class="pm-field">
+                  <label class="pm-label" for="ing-desc">Description <span class="pm-optional">(Optional)</span></label>
+                  <textarea class="pm-textarea" id="ing-desc" name="description" rows="3" placeholder="Fresh boneless, skinless chicken breast fillets for main course preparations."></textarea>
+                </div>
+
+              </div><!-- /pm-body -->
+
+              <!-- Footer -->
+              <div class="pm-footer pm-footer--between">
+                <button type="button" class="pm-btn pm-btn--cancel" data-popup-close>Cancel</button>
+                <button type="submit" class="pm-btn pm-btn--confirm" id="add-ingredient-submit">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 4v16m8-8H4"/></svg>
+                  Add Ingredient
+                </button>
+              </div>
+            </form>
+
           </div>
         </div>
       </section>
