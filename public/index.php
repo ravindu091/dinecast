@@ -16,9 +16,15 @@ $router->post('/login',      'AuthController@login');
 // ── 6 Actor Dashboards ───────────────────────────────
 $router->get('/admin',       'AdminController@dashboard');
 $router->get('/chef',        'ChefController@dashboard');
-$router->get('/kitchen',     'KitchenController@dashboard');
 $router->get('/procurement', 'ProcurementController@dashboard');
 $router->get('/ceo',         'CeoController@dashboard');
+//kitchen
+$router->get('/kitchen','KitchenController@home');
+$router->get('/kitchen/events','KitchenController@events');
+$router->get('/kitchen/bookings','KitchenController@bookings');
+$router->get('/kitchen/forecast','KitchenController@forecast');
+$router->get('/kitchen/pr','KitchenController@pr');
+$router->get('/kitchen/attendance','KitchenController@attendance');
 
 // store
 
