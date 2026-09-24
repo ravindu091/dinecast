@@ -30,3 +30,25 @@ function getStatusClass(int $remainingDays){
     }
 
 }
+
+function getStockLevel(int $currentStock, int $minimumStock){
+    
+
+    if($currentStock < ($minimumStock / 2)){
+        return [
+            'text' => 'Bellow Min',
+            'class' => 'bg-red'
+        ];
+    }else if($currentStock < $minimumStock){
+        return [
+            'text' => 'Low',
+            'class' => 'bg-orange'
+        ];
+    }else{
+        return [
+            'text' => 'In Stock',
+            'class' => 'bg-green'
+        ];
+    }
+
+}
