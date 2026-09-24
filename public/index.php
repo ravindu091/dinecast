@@ -21,6 +21,9 @@ $router->get('/ceo',         'CeoController@dashboard');
 //kitchen
 $router->get('/kitchen','KitchenController@home');
 $router->get('/kitchen/events','KitchenController@events');
+$router->post('/kitchen/events/create','KitchenController@createEvent');
+$router->post('/kitchen/events/update/:id','KitchenController@updateEvent');
+$router->post('/kitchen/events/delete/:id','KitchenController@deleteEvent');
 $router->get('/kitchen/bookings','KitchenController@bookings');
 $router->get('/kitchen/forecast','KitchenController@forecast');
 $router->get('/kitchen/pr','KitchenController@pr');

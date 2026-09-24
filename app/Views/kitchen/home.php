@@ -13,34 +13,53 @@
           <div class="action-card" onclick="document.querySelector('[data-section=sec-events]').click()">
             <div class="ac-icon">📅</div>
             <div class="ac-title">Events</div>
-            <div class="ac-badge">8 upcoming</div>
           </div>
           <div class="action-card" onclick="document.querySelector('[data-section=sec-bookings]').click()">
             <div class="ac-icon">✅</div>
             <div class="ac-title">Bookings</div>
-            <div class="ac-badge">12 bookings</div>
           </div>
           <div class="action-card" onclick="document.querySelector('[data-section=sec-forecast]').click()">
             <div class="ac-icon">📈</div>
             <div class="ac-title">Forecast</div>
-            <div class="ac-badge warn">3 short items</div>
           </div>
           <div class="action-card" onclick="document.querySelector('[data-section=sec-pr]').click()">
             <div class="ac-icon">🛒</div>
             <div class="ac-title">Purchase Req.</div>
-            <div class="ac-badge">4 submitted</div>
           </div>
           <div class="action-card" onclick="document.querySelector('[data-section=sec-attendance]').click()">
             <div class="ac-icon">👥</div>
             <div class="ac-title">Attendance</div>
-            <div class="ac-badge">Log actual</div>
+          </div>
+        </div>
+
+        <!-- Overview Title -->
+
+        <div class="sec-hdr" style="margin-top: 15px; margin-bottom: 14px;">
+          <div>
+            <h2>Overview</h2>
           </div>
         </div>
 
         <div class="stats">
-          <div class="stat c-blue"><div class="stat-ico">📅</div><div class="stat-val">8</div><div class="stat-lbl">Upcoming Events</div></div>
-          <div class="stat c-green"><div class="stat-ico">✅</div><div class="stat-val">5</div><div class="stat-lbl">Confirmed</div></div>
-          <div class="stat c-orange"><div class="stat-ico">⏰</div><div class="stat-val">3</div><div class="stat-lbl">Tentative</div></div>
-          <div class="stat c-purple"><div class="stat-ico">📋</div><div class="stat-val">1</div><div class="stat-lbl">PR Rejected / Redo</div></div>
+          <div class="stat c-blue">
+            <div class="stat-ico">📅</div>
+            <div class="stat-val"><?= $stats['total'] ?></div>
+            <div class="stat-lbl">Upcoming Events</div>
+          </div>
+          <div class="stat c-green">
+            <div class="stat-ico">✅</div>
+            <div class="stat-val"><?= $stats['confirmed'] ?></div>
+            <div class="stat-lbl">Confirmed</div>
+          </div>
+          <div class="stat c-orange">
+            <div class="stat-ico">⏰</div>
+            <div class="stat-val"><?= $stats['tentative'] ?></div>
+            <div class="stat-lbl">Tentative</div>
+          </div>
+          <div class="stat c-purple">
+            <div class="stat-ico">📋</div>
+            <div class="stat-val">1</div>
+            <div class="stat-lbl">PR Rejected / Redo</div>
+          </div>
         </div>
       </section>
