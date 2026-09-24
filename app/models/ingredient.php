@@ -36,7 +36,9 @@ class Ingredient{
     }
 
     public function getAllIngredients(){
-
+        $stmt = $this->conn->prepare("SELECT * FROM ingredients ORDER BY id DESC");
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     public function getIngredientRange(int $range){

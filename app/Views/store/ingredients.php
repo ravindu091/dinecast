@@ -97,81 +97,31 @@ endif;
                 </tr>
               </thead>
               <tbody>
-                <tr data-category="Dairy" data-status="low">
-                  <td class="tbl-main">Fresh Salmon Fillet</td><td>Meat &amp; Seafood</td><td>kg</td>
-                  <td>10</td><td style="color:var(--danger);font-weight:700;">2.5</td>
+                <?php 
+
+                  require_once __DIR__. '/../../models/ingredient.php';
+                  $ingredient = new Ingredient();
+
+                  $items = $ingredient->getAllIngredients();
+                while($item = $items->fetch_assoc()): ?>
+                
+                <tr data-category="<?= htmlspecialchars($item['category']) ?>" data-status="low">
+                  <td class="tbl-main"><?= htmlspecialchars($item['name']) ?></td>
+                  <td><?= htmlspecialchars($item['category']) ?></td>
+                  <td><?= htmlspecialchars($item['unitName']) ?></td>
+                  <td><?= htmlspecialchars($item['minimum']) ?></td>
+                  <td><?= htmlspecialchars($item['currentStock']) ?></td>
                   <td><span class="badge bg-red">Below Min</span></td>
                   <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
                 </tr>
-                <tr data-category="Meat &amp; Seafood" data-status="optimal">
-                  <td class="tbl-main">Unsalted Butter</td><td>Dairy</td><td>kg</td>
-                  <td>5</td><td style="color:var(--danger);font-weight:700;">0.8</td>
-                  <td><span class="badge bg-red">Below Min</span></td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                </tr>
-                <tr data-category="Dry Goods" data-status="optimal">
-                  <td class="tbl-main">Chicken (Whole)</td><td>Meat &amp; Seafood</td><td>kg</td>
-                  <td>20</td><td>35.5</td>
-                  <td><span class="badge bg-green">In Stock</span></td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                </tr>
-                <tr data-category="Spices &amp; Herbs" data-status="low">
-                  <td class="tbl-main">Basmati Rice</td><td>Dry Goods</td><td>kg</td>
-                  <td>50</td><td>88</td>
-                  <td><span class="badge bg-green">In Stock</span></td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                </tr>
-                <tr data-category="Dry Goods" data-status="optimal">
-                  <td class="tbl-main">Fresh Curry Leaves</td><td>Spices &amp; Herbs</td><td>g</td>
-                  <td>500</td><td style="color:var(--danger);font-weight:700;">50</td>
-                  <td><span class="badge bg-red">Below Min</span></td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                </tr>
-                <tr data-category="Vegetables" data-status="low">
-                  <td class="tbl-main">Coconut Milk (Canned)</td><td>Dry Goods</td><td>L</td>
-                  <td>10</td><td>14</td>
-                  <td><span class="badge bg-green">In Stock</span></td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                </tr>
-                <tr data-category="Dry Goods" data-status="optimal">
-                  <td class="tbl-main">Romaine Lettuce</td><td>Vegetables</td><td>kg</td>
-                  <td>5</td><td>3.2</td>
-                  <td><span class="badge bg-orange">Low</span></td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                </tr>
-                <tr data-category="Meat &amp; Seafood" data-status="low">
-                  <td class="tbl-main">Dark Chocolate (70%)</td><td>Dry Goods</td><td>kg</td>
-                  <td>3</td><td>6.5</td>
-                  <td><span class="badge bg-green">In Stock</span></td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                </tr>
-                <tr data-category="Spices &amp; Herbs" data-status="low">
-                  <td class="tbl-main">Lamb Shoulder (Bone-in)</td><td>Meat &amp; Seafood</td><td>kg</td>
-                  <td>6</td><td style="color:var(--warning);font-weight:700;">4</td>
-                  <td><span class="badge bg-orange">Low</span></td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                </tr>
-                <tr>
-                  <td class="tbl-main">Garlic (Peeled)</td><td>Spices &amp; Herbs</td><td>g</td>
-                  <td>1000</td><td style="color:var(--danger);font-weight:700;">300</td>
-                  <td><span class="badge bg-red">Below Min</span></td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                </tr>
+
+                <?php endwhile; ?> 
+
+                
               </tbody>
             </table>
           </div>
-          <div class="pagination">
-            <span>Showing 1–10 of 1,284 ingredients</span>
-            <div class="page-btns">
-              <button class="page-btn">‹</button>
-              <button class="page-btn active">1</button>
-              <button class="page-btn">2</button>
-              <button class="page-btn">3</button>
-              <button class="page-btn">…</button>
-              <button class="page-btn">129</button>
-              <button class="page-btn">›</button>
-            </div>
-          </div>
+          
         </div>
         
         <!-- ================================================
