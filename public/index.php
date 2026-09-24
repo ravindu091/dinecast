@@ -18,7 +18,14 @@ $router->post('/login',      'AuthController@login');
 $router->get('/admin',       'AdminController@dashboard');
 $router->get('/kitchen',     'KitchenController@dashboard');
 $router->get('/procurement', 'ProcurementController@dashboard');
-$router->get('/ceo',         'CeoController@dashboard');
+// ceo
+$router->get('/ceo',              'CeoController@home');
+$router->get('/ceo/events',       'CeoController@events');
+$router->get('/ceo/procurement',  'CeoController@procurement');
+$router->get('/ceo/inventory',    'CeoController@inventory');
+$router->get('/ceo/approvals',    'CeoController@approvals');
+$router->get('/ceo/users',        'CeoController@users');
+$router->get('/ceo/reports',      'CeoController@reports');
 
 // store
 
@@ -29,7 +36,7 @@ $router->get('/store/stock', 'StoreController@stock');
 $router->get('/store/inventory', 'StoreController@inventory');
 
 //store post request
-$router->post('ingredient/create','StoreController@createIngredient');
+$router->post('/store/ingredient/create','StoreController@createIngredient');
 
 //chef
 $router->get('/chef' , 'ChefController@home');

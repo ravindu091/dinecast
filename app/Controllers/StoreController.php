@@ -45,7 +45,7 @@ class StoreController extends Controller {
 
     public function createIngredient(array $param = []){
         if(isset($_POST['name'])){
-            echo $_POST['name'];
+            
         }
     }
 
