@@ -162,4 +162,19 @@
             </div>
           </div>
         </div>
+        
+        <div class="pm-overlay open">
+          <div class="pm-model">
+            <div class="pm-header">
+              <h2>hello world</h2>
+            </div>
+            <div class="pm-body">
+              <p>subtitle</p>
+            </div>
+            <div class="pm-footer">
+              <button class="pm-btn pm-btn-cancel">cancel</button>
+              <button class="pm-btn pm-btn-confirm">confirm</button>
+            </div>
+          </div>
+        </div>
       </section>

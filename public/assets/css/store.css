@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* Store dashboard reference theme */
 :root {
@@ -1377,213 +1377,7 @@ body {
 	background: var(--store-green-soft);
 }
 
-.popup-overlay {
-	position: fixed;
-	inset: 0;
-	z-index: 1000;
-
-	display: none;
-	align-items: center;
-	justify-content: center;
-
-	padding: 1rem;
-	background: rgba(0, 0, 0, .5);
-}
-
-.popup {
-	width: min(90%, 32rem);
-	padding: 2rem;
-	border-radius: 12px;
-	background: #fff;
-	color: #0f172a;
-	box-shadow: 0 1rem 3rem rgba(0, 0, 0, .25);
-}
-
-.popup-footer {
-	display: flex;
-	justify-content: end;
-}
-
-@media (max-width: 1024px) {
-	.stats {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-
-	.grid-2 {
-		grid-template-columns: 1fr;
-	}
-}
-
-@media (max-width: 768px) {
-	.main-area {
-		margin-left: 220px;
-	}
-
-	.topbar,
-	.content {
-		padding-right: 1rem;
-		padding-left: 1rem;
-	}
-
-	.topbar-left h1 {
-		font-size: 1.125rem;
-	}
-}
-
-@media (max-width: 600px) {
-	.main-area {
-		margin-left: 0;
-	}
-
-	.topbar {
-		align-items: flex-start;
-		gap: .75rem;
-	}
-
-	.date-chip {
-		display: none;
-	}
-
-	.stats {
-		gap: .75rem;
-	}
-
-	.stat {
-		padding: 1rem;
-	}
-
-	.metric-stats {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-
-	.batch-item {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-}
-
-@media (max-width: 900px) {
-	.inventory-toolbar {
-		align-items: stretch;
-		flex-direction: column;
-	}
-
-	.inventory-search {
-		max-width: none;
-	}
-
-	.inventory-filters {
-		justify-content: stretch;
-	}
-
-	.inventory-status-filter,
-	.inventory-sort,
-	.inventory-count-btn {
-		flex: 1;
-	}
-
-	.inventory-filter-btn,
-	.inventory-sort {
-		width: 100%;
-	}
-
-	.inventory-count-btn {
-		justify-content: center;
-	}
-}
-
-@media (max-width: 560px) {
-	.inventory-filters {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-	}
-
-	.inventory-status-filter,
-	.inventory-sort,
-	.inventory-count-btn {
-		width: 100%;
-	}
-
-	.inventory-count-btn {
-		grid-column: 1 / -1;
-	}
-}
-
-@media (max-width: 900px) {
-	.ingredient-toolbar {
-		align-items: stretch;
-		flex-direction: column;
-	}
-
-	.ingredient-filters {
-		width: 100%;
-	}
-
-	.ingredient-filters select,
-	.ingredient-filters .toolbar-btn {
-		flex: 1;
-	}
-}
-
-@media (max-width: 600px) {
-	.ingredient-filters {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-	}
-
-	.ingredient-filters select,
-	.ingredient-filters .toolbar-btn {
-		width: 100%;
-	}
-
-	.ingredient-filters .toolbar-btn:last-child {
-		grid-column: 1 / -1;
-	}
-}
-
-
-.popup-overlay {
-	display: none;
-	position: fixed;
-	inset: 0;
-	z-index: 1000;
-	background: rgba(15, 23, 42, 0.45);
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
-	align-items: center;
-	justify-content: center;
-	padding: 1rem;
-}
-
-.popup-overlay.open {
-	display: flex;
-	animation: overlayFadeIn 0.2s ease;
-}
-
-@keyframes overlayFadeIn {
-	from {
-		opacity: 0;
-	}
-
-	to {
-		opacity: 1;
-	}
-}
-
-.popup {
-	background: #ffffff;
-	border-radius: 16px;
-	box-shadow: 0 24px 64px rgba(15, 23, 42, 0.18), 0 4px 16px rgba(15, 23, 42, 0.08);
-	width: 100%;
-	max-width: 480px;
-	overflow: hidden;
-	animation: popupSlideIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes popupSlideIn {
-	from {
-		opacity: 0;
-		transform: translateY(-18px) scale(0.97);
-	}
+/* Batch Details popup shell — moved to popup.css (.pm-overlay / .pm-modal) */
 
 	to {
 		opacity: 1;
@@ -1591,83 +1385,7 @@ body {
 	}
 }
 
-/* Header */
-.popup-header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 1.25rem 1.5rem 1rem;
-	border-bottom: 1px solid var(--border);
-}
-
-.popup-header-left {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-}
-
-.popup-icon {
-	width: 44px;
-	height: 44px;
-	border-radius: 10px;
-	background: var(--primary);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #ffffff;
-	flex-shrink: 0;
-}
-
-.popup-title {
-	font-size: 1.1rem;
-	font-weight: 700;
-	color: var(--t1);
-	line-height: 1.2;
-}
-
-.popup-meta {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	margin-top: 0.2rem;
-}
-
-.popup-batch-id {
-	font-size: 0.72rem;
-	font-weight: 600;
-	color: var(--primary);
-	background: var(--primary-light);
-	border-radius: 5px;
-	padding: 0.15rem 0.5rem;
-	letter-spacing: 0.04em;
-}
-
-.popup-close {
-	width: 30px;
-	height: 30px;
-	border-radius: 8px;
-	border: none;
-	background: transparent;
-	color: var(--t3);
-	font-size: 1.3rem;
-	line-height: 1;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: background 0.15s, color 0.15s;
-	flex-shrink: 0;
-}
-
-.popup-close:hover {
-	background: var(--danger-bg);
-	color: var(--danger);
-}
-
-/* Body */
-.popup-body {
-	padding: 1.25rem 1.5rem;
-}
+/* popup header + body shell — see .pm-header / .pm-body in popup.css */
 
 .popup-detail-card {
 	background: var(--bg);
@@ -1765,193 +1483,13 @@ body {
 	background: var(--success);
 }
 
-/* Footer */
-.popup-footer {
-	display: flex;
-	align-items: center;
-	gap: 0.6rem;
-	padding: 1rem 1.5rem 1.25rem;
-	border-top: 1px solid var(--border);
-}
-
-.popup-btn {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.4rem;
-	padding: 0.5rem 1rem;
-	border-radius: 8px;
-	font-size: 0.82rem;
-	font-weight: 600;
-	cursor: pointer;
-	border: 1.5px solid transparent;
-	transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
-	white-space: nowrap;
-}
-
-.popup-btn:active {
-	transform: scale(0.97);
-}
-
-.popup-btn-delete {
-	background: transparent;
-	border-color: var(--danger);
-	color: var(--danger);
-}
-
-.popup-btn-delete:hover {
-	background: var(--danger-bg);
-}
-
-.popup-btn-edit {
-	background: transparent;
-	border-color: var(--border);
-	color: var(--t2);
-}
-
-.popup-btn-edit:hover {
-	background: var(--bg);
-	border-color: var(--t2);
-	color: var(--t1);
-}
-
-.popup-btn-issue {
-	margin-left: auto;
-	background: var(--primary);
-	color: #ffffff;
-	border-color: var(--primary);
-}
-
-.popup-btn-issue:hover {
-	background: var(--primary-hover);
-	border-color: var(--primary-hover);
-}
+/* popup footer + buttons — see .pm-footer / .pm-btn in popup.css */
 
 /* ================================================
    ISSUE TO KITCHEN MODAL
    ================================================ */
 
-/* Overlay */
-.issue-overlay {
-	display: none;
-	position: fixed;
-	inset: 0;
-	z-index: 1100;
-	background: rgba(15, 23, 42, 0.5);
-	backdrop-filter: blur(4px);
-	align-items: center;
-	justify-content: center;
-	padding: 1rem;
-}
-
-.issue-overlay.open {
-	display: flex;
-	animation: overlayFadeIn 0.2s ease;
-}
-
-/* Modal card */
-.issue-modal {
-	background: #fff;
-	border-radius: 14px;
-	box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
-	width: 100%;
-	max-width: 480px;
-	overflow: hidden;
-	animation: popupSlideIn 0.25s ease;
-}
-
-/* Header */
-.issue-header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 1.2rem 1.4rem;
-	border-bottom: 1px solid var(--border);
-	gap: 1rem;
-}
-
-.issue-header-left {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-}
-
-.issue-icon {
-	width: 42px;
-	height: 42px;
-	border-radius: 10px;
-	background: var(--primary);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #fff;
-	flex-shrink: 0;
-}
-
-.issue-title {
-	font-size: 1rem;
-	font-weight: 700;
-	color: var(--t1);
-}
-
-.issue-meta {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 0.4rem;
-	margin-top: 0.2rem;
-	font-size: 0.8rem;
-}
-
-.issue-batch-id {
-	font-weight: 600;
-	color: var(--primary);
-	background: var(--primary-light);
-	border-radius: 4px;
-	padding: 0.1rem 0.45rem;
-}
-
-.issue-meta-sep,
-.issue-available-label,
-.issue-ingredient-name {
-	color: var(--t2);
-}
-
-.issue-meta-sep {
-	color: var(--t3);
-}
-
-.issue-available {
-	font-weight: 700;
-	color: var(--primary);
-}
-
-.issue-close {
-	width: 30px;
-	height: 30px;
-	border: none;
-	border-radius: 6px;
-	background: transparent;
-	color: var(--t3);
-	font-size: 1.3rem;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: background 0.15s, color 0.15s;
-}
-
-.issue-close:hover {
-	background: var(--danger-bg);
-	color: var(--danger);
-}
-
-/* Body */
-.issue-body {
-	padding: 1.4rem;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
+/* Issue to Kitchen popup shell — moved to popup.css (.pm-overlay / .pm-modal) */
 
 .issue-section-label {
 	font-size: 0.88rem;
@@ -2101,179 +1639,13 @@ body {
 	color: var(--danger);
 }
 
-/* Footer */
-.issue-footer {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 0.75rem;
-	padding: 1rem 1.4rem;
-	border-top: 1px solid var(--border);
-}
-
-.issue-btn {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.4rem;
-	padding: 0.55rem 1.3rem;
-	border-radius: 8px;
-	font-size: 0.86rem;
-	font-weight: 600;
-	cursor: pointer;
-	border: 1px solid transparent;
-	transition: background 0.15s, color 0.15s, border-color 0.15s;
-}
-
-.issue-btn:active {
-	transform: scale(0.97);
-}
-
-.issue-btn-cancel {
-	background: transparent;
-	border-color: var(--border);
-	color: var(--t2);
-}
-
-.issue-btn-cancel:hover {
-	background: var(--bg);
-	border-color: var(--t2);
-	color: var(--t1);
-}
-
-.issue-btn-confirm {
-	background: var(--primary);
-	color: #fff;
-	border-color: var(--primary);
-}
-
-.issue-btn-confirm:hover {
-	background: var(--primary-hover);
-	border-color: var(--primary-hover);
-}
-
-.issue-btn-confirm:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
+/* Issue footer + buttons — see .pm-footer / .pm-btn in popup.css */
 
 /* ================================================
    LOG WASTE & DISCARD MODAL
    ================================================ */
 
-/* Overlay */
-.waste-overlay {
-	display: none;
-	position: fixed;
-	inset: 0;
-	z-index: 1100;
-	background: rgba(15, 23, 42, 0.5);
-	backdrop-filter: blur(4px);
-	align-items: center;
-	justify-content: center;
-	padding: 1rem;
-}
-
-.waste-overlay.open {
-	display: flex;
-	animation: overlayFadeIn 0.2s ease;
-}
-
-/* Modal card */
-.waste-modal {
-	background: #fff;
-	border-radius: 14px;
-	box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
-	width: 100%;
-	max-width: 480px;
-	overflow: hidden;
-	animation: popupSlideIn 0.25s ease;
-}
-
-/* Header */
-.waste-header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 1.2rem 1.4rem;
-	border-bottom: 1px solid var(--border);
-	gap: 1rem;
-}
-
-.waste-header-left {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-}
-
-.waste-icon {
-	width: 42px;
-	height: 42px;
-	border-radius: 10px;
-	background: var(--danger-bg);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: var(--danger);
-	flex-shrink: 0;
-}
-
-.waste-title {
-	font-size: 1rem;
-	font-weight: 700;
-	color: var(--t1);
-}
-
-.waste-meta {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 0.4rem;
-	margin-top: 0.2rem;
-	font-size: 0.8rem;
-}
-
-.waste-batch-id {
-	font-weight: 600;
-	color: var(--danger);
-	background: var(--danger-bg);
-	border-radius: 4px;
-	padding: 0.1rem 0.45rem;
-}
-
-.waste-meta-sep,
-.waste-available-label,
-.waste-ingredient-name {
-	color: var(--t2);
-}
-
-.waste-meta-sep {
-	color: var(--t3);
-}
-
-.waste-available {
-	font-weight: 700;
-	color: var(--danger);
-}
-
-.waste-close {
-	width: 30px;
-	height: 30px;
-	border: none;
-	border-radius: 6px;
-	background: transparent;
-	color: var(--t3);
-	font-size: 1.3rem;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: background 0.15s, color 0.15s;
-}
-
-.waste-close:hover {
-	background: var(--danger-bg);
-	color: var(--danger);
-}
+/* Waste popup shell — moved to popup.css (.pm-overlay / .pm-modal) */
 
 /* Warning banner */
 .waste-warning {
@@ -2296,13 +1668,7 @@ body {
 	margin-top: 1px;
 }
 
-/* Body */
-.waste-body {
-	padding: 1.2rem 1.4rem 1rem;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
+/* waste-body shell — moved to popup.css (.pm-body) */
 
 .waste-field {
 	display: flex;
@@ -2472,169 +1838,15 @@ body {
 	color: var(--t1);
 }
 
-/* Footer */
-.waste-footer {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 0.75rem;
-	padding: 1rem 1.4rem;
-	border-top: 1px solid var(--border);
-}
-
-.waste-btn {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.4rem;
-	padding: 0.55rem 1.3rem;
-	border-radius: 8px;
-	font-size: 0.86rem;
-	font-weight: 600;
-	cursor: pointer;
-	border: 1px solid transparent;
-	transition: background 0.15s, color 0.15s, border-color 0.15s;
-}
-
-.waste-btn:active {
-	transform: scale(0.97);
-}
-
-.waste-btn-cancel {
-	background: transparent;
-	border-color: var(--border);
-	color: var(--t2);
-}
-
-.waste-btn-cancel:hover {
-	background: var(--bg);
-	border-color: var(--t2);
-	color: var(--t1);
-}
-
-.waste-btn-confirm {
-	background: var(--danger);
-	color: #fff;
-	border-color: var(--danger);
-}
-
-.waste-btn-confirm:hover {
-	background: #be123c;
-	border-color: #be123c;
-}
-
-.waste-btn-confirm:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
+/* Waste footer + buttons — see .pm-footer / .pm-btn in popup.css */
 
 /* ==========================================================================
    ADD STOCK MODAL
    ========================================================================== */
 
-.addstock-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(15, 23, 42, 0.4);
-	backdrop-filter: blur(4px);
-	display: none;
-	align-items: center;
-	justify-content: center;
-	z-index: 1000;
-	opacity: 0;
-	visibility: hidden;
-	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Add Stock popup shell — moved to popup.css (.pm-overlay / .pm-modal) */
 
-.addstock-overlay.active {
-	display: flex;
-	opacity: 1;
-	visibility: visible;
-}
-
-.addstock-modal {
-	background: #ffffff;
-	border-radius: 12px;
-	width: 100%;
-	max-width: 600px;
-	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-	transform: scale(0.96) translateY(10px);
-	transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-	display: flex;
-	flex-direction: column;
-	max-height: 90vh;
-}
-
-.addstock-overlay.active .addstock-modal {
-	transform: scale(1) translateY(0);
-}
-
-/* Header */
-.addstock-header {
-	padding: 16px 24px;
-	border-bottom: 1px solid #e2e8f0;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.addstock-header-left {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-}
-
-.addstock-icon {
-	width: 40px;
-	height: 40px;
-	border-radius: 8px;
-	background: #065f46;
-	color: #ffffff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.addstock-title {
-	margin: 0;
-	font-size: 1.125rem;
-	font-weight: 600;
-	color: #0f172a;
-}
-
-.addstock-subtitle {
-	margin: 2px 0 0 0;
-	font-size: 0.8125rem;
-	color: #64748b;
-}
-
-.addstock-close {
-	background: none;
-	border: none;
-	font-size: 1.5rem;
-	line-height: 1;
-	color: #94a3b8;
-	cursor: pointer;
-	padding: 4px;
-	border-radius: 6px;
-	transition: all 0.2s;
-}
-
-.addstock-close:hover {
-	background: #f1f5f9;
-	color: #475569;
-}
-
-/* Body */
-.addstock-body {
-	padding: 24px;
-	overflow-y: auto;
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-}
+/* Add Stock header + body shell — moved to popup.css */
 
 .addstock-row {
 	display: flex;
@@ -2798,62 +2010,7 @@ body {
 	pointer-events: none;
 }
 
-/* Footer */
-.addstock-footer {
-	padding: 16px 24px;
-	border-top: 1px solid #e2e8f0;
-	display: flex;
-	justify-content: flex-end;
-	gap: 12px;
-	background: #f8fafc;
-	border-radius: 0 0 12px 12px;
-}
-
-.addstock-btn {
-	height: 36px;
-	padding: 0 16px;
-	border-radius: 6px;
-	font-size: 0.875rem;
-	font-weight: 500;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	transition: all 0.2s;
-}
-
-.addstock-btn-cancel {
-	background: #ffffff;
-	border: 1px solid #e2e8f0;
-	color: #475569;
-}
-
-.addstock-btn-cancel:hover {
-	background: #f8fafc;
-	color: #0f172a;
-}
-
-.addstock-btn-confirm {
-	background: #065f46;
-	border: 1px solid #065f46;
-	color: #ffffff;
-}
-
-.addstock-btn-confirm:hover {
-	background: #047857;
-	border-color: #047857;
-}
-
-.addstock-hint-green {
-	font-size: 0.75rem;
-	font-weight: 500;
-	color: #059669;
-}
-
-.addstock-btn-confirm:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
+/* Add Stock footer + buttons — see .pm-footer / .pm-btn in popup.css */
 
 /* ==========================================================================
    RECEIVE STOCKS DASHBOARD
@@ -3073,7 +2230,7 @@ body {
 .page-num { background: none; color: #334155; border: none; cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 600; border-radius: 6px; }
 .page-num.active { background: #065f46; color: white; }
 
-/* ── Home KPI Cards ───────────────────────────────────── */
+/* â”€â”€ Home KPI Cards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .home-kpi-card {
 	display: flex;
 	flex-direction: column;
@@ -3142,7 +2299,7 @@ body {
 	margin-top: auto;
 }
 
-/* ── Attention Required Section ───────────────────────── */
+/* â”€â”€ Attention Required Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .attn-card { padding: 0; overflow: hidden; }
 
 .attn-card-hdr {
@@ -3296,3 +2453,7 @@ body {
 	color: #fff;
 }
 .attn-btn-primary:hover { background: #047857; }
+
+
+
+

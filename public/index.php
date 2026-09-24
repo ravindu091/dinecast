@@ -28,6 +28,9 @@ $router->get('/store/issue', 'StoreController@issue');
 $router->get('/store/stock', 'StoreController@stock');
 $router->get('/store/inventory', 'StoreController@inventory');
 
+//store post request
+$router->post('ingredient/create','StoreController@createIngredient');
+
 //chef
 $router->get('/chef' , 'ChefController@home');
 $router->get('/chef/menus' , 'ChefController@menus');

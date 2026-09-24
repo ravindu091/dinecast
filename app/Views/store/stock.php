@@ -1,4 +1,4 @@
-<!-- ================================================
+﻿<!-- ================================================
            RECEIVE STOCK SECTION (DASHBOARD)
            ================================================ -->
 <section id="sec-receive" class="section active">
@@ -478,25 +478,25 @@
 
   </div>
   <!-- MANUAL STOCK RECEIVING MODAL -->
-<div class="addstock-overlay" id="msr-overlay" aria-modal="true" role="dialog">
-  <div class="addstock-modal" style="width: 850px; max-width: 95vw;">
+<div class="pm-overlay" id="msr-overlay" aria-modal="true" role="dialog">
+  <div class="pm-modal pm-modal--lg">
     
     <!-- 1. Green Header -->
-    <div class="addstock-header">
-      <div class="addstock-header-left">
-        <div class="addstock-icon">
+    <div class="pm-header">
+      <div class="pm-header-left">
+        <div class="pm-icon">
           <!-- You can insert your document SVG icon here -->
         </div>
         <div>
-          <h2 class="addstock-title">Add Manual Stock Receiving</h2>
-          <p class="addstock-subtitle">Log direct inbound intake and schedule for verification audit</p>
+          <h2 class="pm-title">Add Manual Stock Receiving</h2>
+          <p class="pm-subtitle">Log direct inbound intake and schedule for verification audit</p>
         </div>
       </div>
-      <button class="addstock-close close-popup-btn" id="msr-close" type="button">&times;</button>
+      <button class="pm-close" data-popup-close id="msr-close" type="button">&times;</button>
     </div>
 
     <!-- 2. Body -->
-    <div class="addstock-body" style="padding: 24px;">
+    <div class="pm-body addstock-body">
       
       <!-- Top Form Row -->
       <div style="display: grid; grid-template-columns: 2fr 1.5fr 1.5fr; gap: 16px; margin-bottom: 24px;">
@@ -591,9 +591,9 @@
     </div>
 
     <!-- 3. Footer -->
-    <div class="addstock-footer" style="display: flex; justify-content: space-between; padding: 16px 24px;">
-      <button class="btn btn-outline close-popup-btn" id="msr-cancel" type="button">Cancel</button>
-      <button class="btn btn-primary" type="button" style="background:#059669;">Submit for Inspection</button>
+    <div class="pm-footer pm-footer--between">
+      <button class="pm-btn pm-btn--cancel" id="msr-cancel" data-popup-close type="button">Cancel</button>
+      <button class="pm-btn pm-btn--confirm" type="button">Submit for Inspection</button>
     </div>
 
   </div>
