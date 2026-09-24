@@ -135,6 +135,6 @@
 <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
 <script src="<?= $baseUrl ?>/assets/js/app.js"></script>
 <script src="<?= $baseUrl ?>/assets/js/popup.js"></script>
-<script src="<?= $baseUrl ?>/assets/js/store.js"></script>
+<script src="<?= $baseUrl ?>/assets/js/store/store.js"></script>
 </body>
 </html>
