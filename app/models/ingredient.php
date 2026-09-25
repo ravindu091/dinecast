@@ -63,4 +63,47 @@ class Ingredient{
         ];
     }
 
+    public function updateIngredient(
+        int $id,
+        string $name,
+        string $category,
+        string $unitName,
+        float $minimum,
+        string $status,
+        string $description,
+        float $currentStock
+    ){
+        $stmt = $this->conn->prepare("UPDATE ingredients SET 
+        name = :name,
+        category = :category,
+        unitName = :unitName,
+        minimum = :minimum,
+        status = :status,
+        description = :description,
+        currentStock = :currentStock
+         WHERE id = :id" );
+
+        return $stmt->execute([
+            ':id' => $id,
+            ':name'=> $name,
+            ':category'=>$category,
+            ':unitName'=>$unitName,
+            ':minimum'=>$minimum,
+            ':status'=> $status,
+            ':description'=>$description,
+            ':currentStock'=>$currentStock
+
+        ]);
+        
+    }
+
+    public function deleteIngredient(int $id){
+
+        $stmt = $this->conn->prepare('DELETE FROM ingredients WHERE id = :id');
+
+        return $stmt->execute([
+            'id'=>$id
+        ]);
+    }
+
 }

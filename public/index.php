@@ -31,6 +31,8 @@ $router->get('/store/inventory', 'StoreController@inventory');
 
 //store post request
 $router->post('/ingredient/create','StoreController@createIngredient');
+$router->post('/ingredient/edit','StoreController@editIngredient');
+$router->post('/ingredient/delete','StoreController@deleteIngredient');
 
 //chef
 $router->get('/chef' , 'ChefController@home');
