@@ -18,17 +18,17 @@ class AuthController extends Controller {
                 $_SESSION['message'] = "Enter the username and password";
                 $_SESSION['message-type'] = "error";
 
-                header("Location:/".BASE_URL. "/" ,true, 302);
+                header("Location: " . BASE_URL . "/");
                 exit;
             }
             $user = new User();
             $existingUser = $user->getUserByUsername($username);
 
             if(!$existingUser){
-                $_SESSION['message'] = "There are no account from that username.";
+                $_SESSION['message'] = "There is no account with that username.";
                 $_SESSION['message-type'] = "error";
 
-                header("Location:/".BASE_URL. "/" ,true, 302);
+                header("Location: " . BASE_URL . "/");
                 exit;
             }
 
@@ -43,7 +43,7 @@ class AuthController extends Controller {
                     $_SESSION['message'] = "This user is not active. Please contact Admin";
                     $_SESSION['message-type'] = "error";
 
-                    header("Location:/".BASE_URL. "/" ,true, 302);
+                    header("Location: " . BASE_URL . "/");
                     exit;
                 }
 
@@ -55,28 +55,26 @@ class AuthController extends Controller {
                 $_SESSION['username'] = $existingUser['username'];
                 $_SESSION['role'] = $existingUser['role'];
 
-                header('Location:'.BASE_URL .'/'.$_SESSION['role'].'/',true,200);
+                header("Location: " . BASE_URL . "/" . $_SESSION['role']);
                 exit;
 
             }else{
                 //password doesn't matched
                 
-                $_SESSION['message'] = "Username and password not matched";
+                $_SESSION['message'] = "Username and password do not match";
                 $_SESSION['message-type'] = "error";
 
-                header("Location:/".BASE_URL. "/" ,true, 302);
+                header("Location: " . BASE_URL . "/");
                 exit;
 
             }
 
-
-            
         }else{
             //username and password not found
             $_SESSION['message'] = "Please enter username and password";
             $_SESSION['message-type'] = "error";
 
-            header("Location:/".BASE_URL. "/" ,true, 302);
+            header("Location: " . BASE_URL . "/");
             exit;
 
         }

@@ -49,12 +49,22 @@
         <div class="login-card">
           <h2 class="login-card-title">Login</h2>
 
+          <?php if (isset($_SESSION['message'])): ?>
+            <div style="padding: 12px 16px; margin-bottom: 20px; border-radius: 8px; font-size: 14px; font-weight: 500; background-color: <?= $_SESSION['message-type'] === 'error' ? '#fee2e2' : '#dcfce7' ?>; color: <?= $_SESSION['message-type'] === 'error' ? '#991b1b' : '#166534' ?>; border: 1px solid <?= $_SESSION['message-type'] === 'error' ? '#f87171' : '#86efac' ?>;">
+                <?= htmlspecialchars($_SESSION['message']) ?>
+            </div>
+            <?php 
+               unset($_SESSION['message']);
+               unset($_SESSION['message-type']);
+            ?>
+          <?php endif; ?>
+
           <form action="<?= BASE_URL ?>/login" method="post">
 
             <div class="fg">
               <label for="login-user">User Name</label>
               <div class="input-field">
-                <input type="text" id="login-user" name="username" placeholder="Enter your username" autocomplete="username">
+                <input type="text" id="login-user" name="username" placeholder="Enter your username" autocomplete="username" required>
                 <span class="input-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -67,7 +77,7 @@
             <div class="fg">
               <label for="login-pass">Password</label>
               <div class="input-field">
-                <input type="password" name="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password">
+                <input type="password" name="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password" required>
                 <span class="input-icon input-icon--toggle" id="pwd-toggle" aria-label="Toggle password visibility">
                   <img src="<?= BASE_URL ?>/assets/img/show.png" alt="" class="icon-eye">
                   <img src="<?= BASE_URL ?>/assets/img/hide.png" alt="" class="icon-eye-off">
@@ -99,7 +109,6 @@
   </div>
 
   <script>window.BASE_URL = '<?= BASE_URL ?>';</script>
-  <!--script src="<!?= $baseUrl ?>/assets/js/app.js"></script-->
 
   <!-- password visibility toggle -->
   <script>
@@ -113,7 +122,5 @@
       });
     })();
   </script>
-
-  <script src="<?= BASE_URL ?>/assets/js/login.js"></script>
 </body>
 </html>
