@@ -1,41 +1,78 @@
 <section id="sec-ingredients" class="section active">
         <div class="sec-hdr">
           <h2>Ingredients</h2>
-          <button class="btn btn-primary">+ Add Ingredient</button>
+          <p>Manage specifications, safety pars, supplier links, and live inventory allocations.</p>
         </div>
 
-        <div class="stats">
-          <div class="stat c-blue"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M14.25 3.104v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M4.2 15.3A2.25 2.25 0 003 17.33v.42A2.25 2.25 0 005.25 20h13.5A2.25 2.25 0 0021 17.75v-.42a2.25 2.25 0 00-1.2-2.03"/></svg></div><div class="stat-val">1,284</div><div class="stat-lbl">Total Ingredient Lines</div></div>
-          <div class="stat c-red"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg></div><div class="stat-val">12</div><div class="stat-lbl">Below Minimum</div></div>
-          <div class="stat c-green"><div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l4 4L19 6"/></svg></div><div class="stat-val">1,264</div><div class="stat-lbl">In Stock (Normal)</div></div>
+        <div class="stats metric-stats">
+          <article class="metric-card metric-card-blue">
+            <div class="metric-value">1,284</div>
+            <div class="metric-label">Total Ingredient SKUs</div>
+            <div class="metric-footer">
+              <span>Across 6 food<br>categories</span>
+              <strong>+14 this<br>month</strong>
+            </div>
+          </article>
+          <article class="metric-card metric-card-red">
+            <div class="metric-value">12</div>
+            <div class="metric-label">Below Minimum Safety Par</div>
+            <div class="metric-footer">
+              <span>5 in Critical Red zone</span>
+              <strong>Resolve Now</strong>
+            </div>
+          </article>
+          <article class="metric-card metric-card-orange">
+            <div class="metric-value">8</div>
+            <div class="metric-label">Near Expiration Batches</div>
+            <div class="metric-footer">
+              <span>Oldest: Fresh Prawns<br>(3d)</span>
+              <strong>Review<br>FIFO</strong>
+            </div>
+          </article>
+          <article class="metric-card metric-card-green">
+            <div class="metric-value">$42,850</div>
+            <div class="metric-label">Total Holding Asset Value</div>
+            <div class="metric-footer">
+              <span>Daily shrinkage rate</span>
+              <strong>&lt; 0.4%</strong>
+            </div>
+          </article>
         </div>
 
-        <!-- Filter bar -->
-        <div class="filter-bar">
-          <input type="text" placeholder="Search ingredients..." style="padding:9px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:14px;font-family:inherit;outline:none;flex:1;max-width:340px;transition:border 0.18s;" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'">
-          <button class="btn btn-outline btn-sm" data-toggle-filter="filter-ing">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-            Filter
-          </button>
-        </div>
-        <div class="filter-popup" id="filter-ing">
-          <div class="filter-ttl">Filter by Status</div>
-          <div class="filter-opts">
-            <label class="filter-opt"><input type="checkbox" checked> All</label>
-            <label class="filter-opt"><input type="checkbox"> Below Minimum</label>
-            <label class="filter-opt"><input type="checkbox"> Near Expiry</label>
-            <label class="filter-opt"><input type="checkbox"> Out of Stock</label>
+        <div class="ingredient-toolbar">
+          <label class="ingredient-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input id="ingredient-search" type="search" placeholder="Search ingredient name, SKU, zone, or supplier..." autocomplete="off">
+          </label>
+          <div class="ingredient-filters">
+            <select id="category-filter" aria-label="Filter by category">
+              <option value="all">All Categories</option>
+              <option value="Meat &amp; Seafood">Proteins &amp; Seafood</option>
+              <option value="Dairy">Dairy &amp; Eggs</option>
+              <option value="Vegetables">Produce &amp; Herbs</option>
+              <option value="Spices &amp; Herbs">Dry Goods &amp; Spices</option>
+              <option value="Dry Goods">Dry Goods &amp; Spices</option>
+            </select>
+            <select id="status-filter" aria-label="Filter by stock status">
+              <option value="all">All Statuses</option>
+              <option value="low">Low / Critical Par</option>
+              <option value="optimal">Optimal Par</option>
+            </select>
+            <button class="btn btn-outline toolbar-btn" type="button" data-export-ingredients>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1m-4-4-4 4-4-4m4 4V4"/>
+              </svg>
+              <span>Export CSV</span>
+            </button>
+            <button class="btn btn-primary toolbar-btn" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M12 4v16m8-8H4"/>
+              </svg>
+              <span>Add Ingredient</span>
+            </button>
           </div>
-          <div class="filter-ttl" style="margin-top:12px;">Filter by Category</div>
-          <div class="filter-opts">
-            <label class="filter-opt"><input type="checkbox" checked> All Categories</label>
-            <label class="filter-opt"><input type="checkbox"> Meat &amp; Seafood</label>
-            <label class="filter-opt"><input type="checkbox"> Dairy</label>
-            <label class="filter-opt"><input type="checkbox"> Vegetables</label>
-            <label class="filter-opt"><input type="checkbox"> Spices &amp; Herbs</label>
-            <label class="filter-opt"><input type="checkbox"> Dry Goods</label>
-          </div>
-          <span class="clear-link">Clear all filters</span>
         </div>
 
         <div class="card">
@@ -43,61 +80,61 @@
           <div class="tbl-wrap">
             <table>
               <thead>
-                <tr>
+                <tr data-category="Meat &amp; Seafood" data-status="low">
                   <th>Ingredient</th><th>Category</th><th>UOM</th>
                   <th>Min Stock</th><th>Current Stock</th><th>Status</th><th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr data-category="Dairy" data-status="low">
                   <td class="tbl-main">Fresh Salmon Fillet</td><td>Meat &amp; Seafood</td><td>kg</td>
                   <td>10</td><td style="color:var(--danger);font-weight:700;">2.5</td>
                   <td><span class="badge bg-red">Below Min</span></td>
                   <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
                 </tr>
-                <tr>
+                <tr data-category="Meat &amp; Seafood" data-status="optimal">
                   <td class="tbl-main">Unsalted Butter</td><td>Dairy</td><td>kg</td>
                   <td>5</td><td style="color:var(--danger);font-weight:700;">0.8</td>
                   <td><span class="badge bg-red">Below Min</span></td>
                   <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
                 </tr>
-                <tr>
+                <tr data-category="Dry Goods" data-status="optimal">
                   <td class="tbl-main">Chicken (Whole)</td><td>Meat &amp; Seafood</td><td>kg</td>
                   <td>20</td><td>35.5</td>
                   <td><span class="badge bg-green">In Stock</span></td>
                   <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
                 </tr>
-                <tr>
+                <tr data-category="Spices &amp; Herbs" data-status="low">
                   <td class="tbl-main">Basmati Rice</td><td>Dry Goods</td><td>kg</td>
                   <td>50</td><td>88</td>
                   <td><span class="badge bg-green">In Stock</span></td>
                   <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
                 </tr>
-                <tr>
+                <tr data-category="Dry Goods" data-status="optimal">
                   <td class="tbl-main">Fresh Curry Leaves</td><td>Spices &amp; Herbs</td><td>g</td>
                   <td>500</td><td style="color:var(--danger);font-weight:700;">50</td>
                   <td><span class="badge bg-red">Below Min</span></td>
                   <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
                 </tr>
-                <tr>
+                <tr data-category="Vegetables" data-status="low">
                   <td class="tbl-main">Coconut Milk (Canned)</td><td>Dry Goods</td><td>L</td>
                   <td>10</td><td>14</td>
                   <td><span class="badge bg-green">In Stock</span></td>
                   <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
                 </tr>
-                <tr>
+                <tr data-category="Dry Goods" data-status="optimal">
                   <td class="tbl-main">Romaine Lettuce</td><td>Vegetables</td><td>kg</td>
                   <td>5</td><td>3.2</td>
                   <td><span class="badge bg-orange">Low</span></td>
                   <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
                 </tr>
-                <tr>
+                <tr data-category="Meat &amp; Seafood" data-status="low">
                   <td class="tbl-main">Dark Chocolate (70%)</td><td>Dry Goods</td><td>kg</td>
                   <td>3</td><td>6.5</td>
                   <td><span class="badge bg-green">In Stock</span></td>
                   <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
                 </tr>
-                <tr>
+                <tr data-category="Spices &amp; Herbs" data-status="low">
                   <td class="tbl-main">Lamb Shoulder (Bone-in)</td><td>Meat &amp; Seafood</td><td>kg</td>
                   <td>6</td><td style="color:var(--warning);font-weight:700;">4</td>
                   <td><span class="badge bg-orange">Low</span></td>
