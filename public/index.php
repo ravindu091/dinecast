@@ -20,10 +20,15 @@ $router->get('/procurement', 'ProcurementController@dashboard');
 $router->get('/ceo',         'CeoController@dashboard');
 
 // admin
-$router->get('/admin', 'AdminController@dashboard');
+$router->get('/admin', 'AdminController@home');
+$router->get('/admin/users', 'AdminController@users');
 $router->post('/admin/users/create', 'AdminController@createUser');
 $router->post('/admin/users/update', 'AdminController@updateUser');
 $router->post('/admin/users/delete', 'AdminController@deleteUser');
+$router->get('/admin/params', 'AdminController@params');
+$router->get('/admin/uom', 'AdminController@uom');
+$router->get('/admin/holidays', 'AdminController@holidays');
+$router->get('/admin/logs', 'AdminController@logs');
 
 // store
 
