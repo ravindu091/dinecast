@@ -17,10 +17,15 @@ $router->post('/login',      'AuthController@login');
 $router->get('/logout' , 'AuthController@logOut');
 
 // ── 6 Actor Dashboards ───────────────────────────────
-$router->get('/admin',       'AdminController@dashboard');
 $router->get('/kitchen',     'KitchenController@dashboard');
 $router->get('/procurement', 'ProcurementController@dashboard');
 $router->get('/ceo',         'CeoController@dashboard');
+
+// admin
+$router->get('/admin', 'AdminController@dashboard');
+$router->post('/admin/users/create', 'AdminController@createUser');
+$router->post('/admin/users/update', 'AdminController@updateUser');
+$router->post('/admin/users/delete', 'AdminController@deleteUser');
 
 // store
 

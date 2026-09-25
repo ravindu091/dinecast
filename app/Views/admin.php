@@ -97,6 +97,7 @@
         </div>
 
         <div class="grid-2">
+          
           <!-- User Summary -->
           <div class="card">
             <div class="card-hdr"><h3>Users by Role</h3><button class="btn btn-primary btn-sm" onclick="document.querySelector('[data-section=sec-users]').click()">+ Add User</button></div>
@@ -155,62 +156,33 @@
             <table>
               <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Status</th><th>Last Login</th><th>Actions</th></tr></thead>
               <tbody>
+              <?php foreach ($users as $user): ?>
                 <tr>
-                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="sb-avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0;">SA</div><div class="tbl-main">System Admin</div></div></td>
-                  <td style="color:var(--t2);font-size:13px;">admin</td>
-                  <td><span class="badge bg-purple">Admin</span></td>
-                  <td><span class="badge bg-green">Active</span></td>
-                  <td style="font-size:12px;color:var(--t3);">Today 08:30</td>
-                  <td><div class="acts"><span class="act">Edit</span></div></td>
+                  <td class="tbl-main"><?= htmlspecialchars($user['full_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                  <td style="color:var(--t2);font-size:13px;"><?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') ?></td>
+                  <td><?= htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8') ?></td>
+                  <td><?= $user['is_active'] ? 'Active' : 'Inactive' ?></td>
+                  <td style="font-size:12px;color:var(--t3);"><?= htmlspecialchars($user['last_login'] ?? 'Never', ENT_QUOTES, 'UTF-8') ?></td>
+                  <td>
+                    <div class="acts">
+                      <button
+                        type="button"
+                        class="act update-user-btn"
+                        onclick="openUpdateUser(this)"
+                        data-id="<?= (int) $user['id'] ?>"
+                        data-full-name="<?= htmlspecialchars($user['full_name'], ENT_QUOTES, 'UTF-8') ?>"
+                        data-username="<?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') ?>"
+                        data-email="<?= htmlspecialchars($user['email'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                        data-role="<?= htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8') ?>"
+                      >Update</button>
+                      <form method="POST" action="<?= $baseUrl ?>/admin/users/delete" onsubmit="return confirm('Delete this user?');" style="display:inline;">
+                        <input type="hidden" name="id" value="<?= (int) $user['id'] ?>">
+                        <button type="submit" class="act del">Delete</button>
+                      </form>
+                    </div>
+                  </td>
                 </tr>
-                <tr>
-                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="sb-avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0;background:var(--warning-bg);color:var(--warning);">CS</div><div class="tbl-main">Chef Sudath</div></div></td>
-                  <td style="color:var(--t2);font-size:13px;">chef</td>
-                  <td><span class="badge bg-orange">Chef</span></td>
-                  <td><span class="badge bg-green">Active</span></td>
-                  <td style="font-size:12px;color:var(--t3);">Today 09:15</td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Deactivate</span></div></td>
-                </tr>
-                <tr>
-                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="sb-avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0;background:var(--info-bg);color:var(--info);">SB</div><div class="tbl-main">Sudath Bandaranayake</div></div></td>
-                  <td style="color:var(--t2);font-size:13px;">kitchen</td>
-                  <td><span class="badge bg-teal">Kitchen Mgr</span></td>
-                  <td><span class="badge bg-green">Active</span></td>
-                  <td style="font-size:12px;color:var(--t3);">Today 07:45</td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Deactivate</span></div></td>
-                </tr>
-                <tr>
-                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="sb-avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0;background:var(--purple-bg);color:var(--purple);">NK</div><div class="tbl-main">Nadeesha Kumari</div></div></td>
-                  <td style="color:var(--t2);font-size:13px;">store</td>
-                  <td><span class="badge bg-blue">Store Mgr</span></td>
-                  <td><span class="badge bg-green">Active</span></td>
-                  <td style="font-size:12px;color:var(--t3);">Yesterday</td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Deactivate</span></div></td>
-                </tr>
-                <tr>
-                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="sb-avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0;background:var(--success-bg);color:var(--success);">RM</div><div class="tbl-main">Ravi Mendis</div></div></td>
-                  <td style="color:var(--t2);font-size:13px;">procure</td>
-                  <td><span class="badge bg-green">Procurement Mgr</span></td>
-                  <td><span class="badge bg-green">Active</span></td>
-                  <td style="font-size:12px;color:var(--t3);">Today 10:02</td>
-                  <td><div class="acts"><span class="act">Edit</span><span class="act del">Deactivate</span></div></td>
-                </tr>
-                <tr>
-                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="sb-avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0;">AP</div><div class="tbl-main">Amara Perera</div></div></td>
-                  <td style="color:var(--t2);font-size:13px;">ceo</td>
-                  <td><span class="badge bg-red">CEO</span></td>
-                  <td><span class="badge bg-green">Active</span></td>
-                  <td style="font-size:12px;color:var(--t3);">Today 08:00</td>
-                  <td><div class="acts"><span class="act">Edit</span></div></td>
-                </tr>
-                <tr style="opacity:0.55;">
-                  <td><div style="display:flex;align-items:center;gap:10px;"><div class="sb-avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0;background:#e5e7eb;color:#9ca3af;">OD</div><div class="tbl-main">Old Driver</div></div></td>
-                  <td style="color:var(--t2);font-size:13px;">driver01</td>
-                  <td><span class="badge bg-gray">—</span></td>
-                  <td><span class="badge bg-gray">Inactive</span></td>
-                  <td style="font-size:12px;color:var(--t3);">Never</td>
-                  <td><div class="acts"><span class="act">Activate</span><span class="act del">Delete</span></div></td>
-                </tr>
+              <?php endforeach; ?>
               </tbody>
             </table>
           </div>
@@ -223,29 +195,63 @@
               <h3>Add New User</h3>
               <button class="modal-close" onclick="toggleModal('modal-add-user')">✕</button>
             </div>
-            <form onsubmit="submitForm(event,'User created successfully!')">
+
+            <!-- ADD_NEW_USER FORM -->
+            <form method="POST" action="<?= $baseUrl ?>/admin/users/create">
               <div class="form-grid">
-                <div class="form-grp"><label>Full Name *</label><input type="text" placeholder="e.g. Kasun Perera" required></div>
-                <div class="form-grp"><label>Username *</label><input type="text" placeholder="e.g. kasun_p" required></div>
-                <div class="form-grp form-full"><label>Email Address</label><input type="email" placeholder="e.g. kasun@dinecast.lk"></div>
+                <div class="form-grp"><label>Full Name *</label><input type="text" name="full_name" placeholder="e.g. Kasun Perera" required></div>
+                <div class="form-grp"><label>Username *</label><input type="text" name="username" placeholder="e.g. kasun_p" required></div>
+                <div class="form-grp form-full"><label>Email Address</label><input type="email" name="email" placeholder="e.g. kasun@dinecast.lk"></div>
                 <div class="form-grp">
                   <label>Role *</label>
-                  <select required>
-                    <option value="">— Select Role —</option>
-                    <option>Admin</option>
-                    <option>Chef</option>
-                    <option>Kitchen Manager</option>
-                    <option>Store Manager</option>
-                    <option>Procurement Manager</option>
-                    <option>CEO</option>
-                  </select>
+                  <select name="role" required>
+                    <option value="">Select Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="chef">Chef</option>
+                    <option value="kitchen">Kitchen Manager</option>
+                    <option value="store">Store Manager</option>
+                    <option value="procurement">Procurement Manager</option>
+                    <option value="ceo">CEO</option>
+                </select>
                 </div>
-                <div class="form-grp"><label>Password *</label><input type="password" placeholder="Min. 8 characters" required></div>
+                <div class="form-grp"><label>Password *</label><input type="password" name="password" placeholder="Min. 8 characters" minlength="8" required></div>
                 <div class="form-grp"><label>Confirm Password *</label><input type="password" placeholder="Repeat password" required></div>
               </div>
               <div style="display:flex;gap:10px;margin-top:4px;">
                 <button type="submit" class="btn btn-primary">Create User</button>
                 <button type="button" class="btn btn-outline" onclick="toggleModal('modal-add-user')">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Update User Modal -->
+        <div class="modal-overlay" id="modal-update-user" onclick="if(event.target===this)toggleModal('modal-update-user')">
+          <div class="modal">
+            <div class="modal-hdr">
+              <h3>Update User</h3>
+              <button class="modal-close" type="button" onclick="toggleModal('modal-update-user')">✕</button>
+            </div>
+            <form method="POST" action="<?= $baseUrl ?>/admin/users/update">
+              <input type="hidden" name="id" id="update-user-id">
+              <div class="form-grid">
+                <div class="form-grp"><label>Full Name *</label><input type="text" name="full_name" id="update-full-name" required></div>
+                <div class="form-grp"><label>Username *</label><input type="text" name="username" id="update-username" required></div>
+                <div class="form-grp form-full"><label>Email Address</label><input type="email" name="email" id="update-email"></div>
+                <div class="form-grp"><label>Role *</label>
+                  <select name="role" id="update-role" required>
+                    <option value="admin">Admin</option>
+                    <option value="chef">Chef</option>
+                    <option value="kitchen">Kitchen Manager</option>
+                    <option value="store">Store Manager</option>
+                    <option value="procurement">Procurement Manager</option>
+                    <option value="ceo">CEO</option>
+                  </select>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;margin-top:4px;">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-outline" onclick="toggleModal('modal-update-user')">Cancel</button>
               </div>
             </form>
           </div>
@@ -369,6 +375,7 @@
                 <tr><td style="font-size:12px;color:var(--t3);">12/08/26 07:45:03</td><td class="tbl-main">Sudath Bandaranayake</td><td>Kitchen Mgr</td><td>Login</td><td>192.168.1.13</td><td><span class="badge bg-green">Success</span></td></tr>
                 <tr><td style="font-size:12px;color:var(--t3);">11/08/26 17:30:00</td><td class="tbl-main">Nadeesha Kumari</td><td>Store Mgr</td><td>Logout</td><td>192.168.1.15</td><td><span class="badge bg-gray">Logout</span></td></tr>
                 <tr><td style="font-size:12px;color:var(--t3);">11/08/26 08:22:41</td><td class="tbl-main">Nadeesha Kumari</td><td>Store Mgr</td><td>Login</td><td>192.168.1.15</td><td><span class="badge bg-green">Success</span></td></tr>
+    
               </tbody>
             </table>
           </div>
@@ -379,7 +386,8 @@
   </div>
 </div>
 <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
-<script src="<?= $baseUrl ?>/assets/js/app.js"></script>
-<script src="<?= $baseUrl ?>/assets/js/admin.js"></script>
+<script src="<?= $baseUrl ?>/public/assets/js/app.js"></script>
+<script src="<?= $baseUrl ?>/public/assets/js/admin.js"></script>
+
 </body>
 </html>
