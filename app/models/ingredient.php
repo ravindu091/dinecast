@@ -3,7 +3,7 @@
 require_once __DIR__."/../config/database.php";
 
 class Ingredient{
-    private mysqli $conn;
+    private PDO $conn;
 
     public function __construct()
     {
@@ -22,43 +22,27 @@ class Ingredient{
     ):bool{
        
 
-        $stmt = $this->conn->prepare('INSERT INTO ingredients(name,category,unitName,minimum,status,description,currentStock) VALUES(?,?,?,?,?,?,?)');
-        $stmt->bind_param('sssdssd',$name,$category,$unitName,$minimum,$status,$description,$currentStock);
+        $stmt = $this->conn->prepare('INSERT INTO ingredients(name,category,unitName,minimum,status,description,currentStock)
+         VALUES(:name,:category,:unitName,:minimum,:status,:description,:currentStock)');
+       
 
-        return $stmt->execute();
-    }
-    public function getIngredient(){
-        $stmt = $this->conn->prepare("SELECT * FROM ingredients");
-        
-        $stmt->execute();
-
-        return $stmt->get_result();
+        return $stmt->execute([
+            ':name' => $name,
+            ':category' => $category,
+            ':unitName' => $unitName,
+            ':minimum' => $minimum,
+            ':status' => $status,
+            ':description' => $description,
+            ':currentStock' => $currentStock
+        ]);
     }
 
     public function getAllIngredients(){
         $stmt = $this->conn->prepare("SELECT * FROM ingredients ORDER BY id DESC");
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    public function getIngredientRange(int $range){
-
-    }
-    public function update(){
-
-    }
-
-    public function delete(){
-
-    }
-
-    public function getUnits(){
-        global $conn;
-
-        $stmt = $conn->prepare('SELECT * FROM unit_of_measure');
 
         $stmt->execute();
 
-        return $stmt->get_result();
+        return $stmt->fetchAll();
     }
+
 }
