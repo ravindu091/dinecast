@@ -2,6 +2,7 @@
 
 // Application base URL
 define('BASE_URL', '/dinecast');
+session_start();
 
 // Load core framework
 require_once '../app/Core/Router.php';
@@ -23,10 +24,15 @@ $router->get('/ceo',         'CeoController@dashboard');
 // store
 
 $router->get('/store', 'StoreController@home');
-$router->get('/store/ingredient', 'StoreController@ingredient');
+$router->get('/store/ingredients', 'StoreController@ingredients');
 $router->get('/store/issue', 'StoreController@issue');
 $router->get('/store/stock', 'StoreController@stock');
 $router->get('/store/inventory', 'StoreController@inventory');
+
+//store post request
+$router->post('/ingredient/create','StoreController@createIngredient');
+$router->post('/ingredient/edit','StoreController@editIngredient');
+$router->post('/ingredient/delete','StoreController@deleteIngredient');
 
 //chef
 $router->get('/chef' , 'ChefController@home');
