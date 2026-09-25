@@ -5,7 +5,7 @@
 
         <div class="welcome">
           <div class="welcome-txt">
-            <h2>Welcome back, Nadeesha!</h2>
+            <h2>Welcome back, Anura!</h2>
             <p>Here's a snapshot of your store today.</p>
             <div class="user-id">ID: DC-STR-11 &nbsp;·&nbsp; Store Manager</div>
           </div>
@@ -17,85 +17,164 @@
         </div>
 
         <!-- KPI Stats -->
-        <div class="stats">
-          <div class="stat c-blue">
-            <div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0115.918 17H8.082a4.5 4.5 0 01-2.312-.758L4.2 15.3m15.6 0A2.25 2.25 0 0021 13.37V9.75a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9.75v3.62c0 .878.508 1.67 1.2 2.03"/></svg></div>
-            <div class="stat-val">1,284</div>
-            <div class="stat-lbl">Total Ingredient Lines</div>
-          </div>
-          <div class="stat c-red">
-            <div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg></div>
-            <div class="stat-val">12</div>
-            <div class="stat-lbl">Below Minimum Stock</div>
-          </div>
-          <div class="stat c-orange">
-            <div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-            <div class="stat-val">8</div>
-            <div class="stat-lbl">Near Expiry (7 days)</div>
-          </div>
-          <div class="stat c-green">
-            <div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg></div>
-            <div class="stat-val">6</div>
-            <div class="stat-lbl">Pending Purchase Orders</div>
-          </div>
+        <div class="stats metric-stats home-kpi-grid">
+
+          <!-- Low Stock -->
+          <article class="metric-card metric-card-red home-kpi-card">
+            <div class="hkc-top">
+              <span class="hkc-label">LOW STOCK</span>
+              <span class="hkc-icon hkc-icon-red">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </span>
+            </div>
+            <div class="hkc-mid">
+              <span class="hkc-value">08</span>
+              <span class="hkc-badge hkc-badge-red">+2 vs yest</span>
+            </div>
+            <div class="hkc-desc">Ingredients below par threshold</div>
+          </article>
+
+          <!-- Expiring Soon -->
+          <article class="metric-card metric-card-orange home-kpi-card">
+            <div class="hkc-top">
+              <span class="hkc-label">EXPIRING SOON</span>
+              <span class="hkc-icon hkc-icon-orange">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </span>
+            </div>
+            <div class="hkc-mid">
+              <span class="hkc-value">05</span>
+              <span class="hkc-badge hkc-badge-orange">FIFO Action</span>
+            </div>
+            <div class="hkc-desc">Batches approaching expiry (&lt;48h)</div>
+          </article>
+
+          <!-- Pending Receive -->
+          <article class="metric-card metric-card-blue home-kpi-card">
+            <div class="hkc-top">
+              <span class="hkc-label">PENDING RECEIVE</span>
+              <span class="hkc-icon hkc-icon-blue">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8zM5 21a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+              </span>
+            </div>
+            <div class="hkc-mid">
+              <span class="hkc-value">06</span>
+              <span class="hkc-badge hkc-badge-blue">Active POs</span>
+            </div>
+            <div class="hkc-desc">Inbound shipments awaiting intake</div>
+          </article>
+
+          <!-- Pending Issues -->
+          <article class="metric-card metric-card-green home-kpi-card">
+            <div class="hkc-top">
+              <span class="hkc-label">PENDING ISSUES</span>
+              <span class="hkc-icon hkc-icon-green">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+              </span>
+            </div>
+            <div class="hkc-mid">
+              <span class="hkc-value">04</span>
+              <span class="hkc-badge hkc-badge-green">Requisitions</span>
+            </div>
+            <div class="hkc-desc">Kitchen ingredient fulfillment queues</div>
+          </article>
+
         </div>
 
         <!-- Grid: Low Stock Alerts + Quick Links -->
         <div class="grid-2">
 
-          <!-- Low Stock Alerts -->
-          <div class="card">
-            <div class="card-hdr">
-              <div>
-                <h3><span class="status-dot danger" aria-hidden="true"></span>Low Stock Alerts</h3>
-                <p>Items requiring immediate attention</p>
+          <!-- Attention Required -->
+          <div class="card attn-card">
+            <div class="attn-card-hdr">
+              <div class="attn-card-hdr-left">
+                <span class="attn-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </span>
+                <div>
+                  <div class="attn-title">Attention Required</div>
+                  <div class="attn-subtitle">5 items require immediate manager authorization</div>
+                </div>
               </div>
-              <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-section=sec-inventory]').click()">View Inventory</button>
+              <a href="#" class="attn-view-all">View All Alerts (8) ↗</a>
             </div>
-            <div class="stock-alerts">
-              <div class="stock-alert">
-                <div class="stock-alert-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-4 8-5 14-3l4-2-1 4 1 4-4-2c-6 2-11 1-14-1z"/><path d="M7 10v4M16 9v6"/></svg></div>
-                <div class="stock-alert-body">
-                  <div class="stock-alert-name">Fresh Salmon Fillet</div>
-                  <div class="stock-alert-desc">Current: 2.5 kg &nbsp;·&nbsp; Minimum: 10 kg</div>
+
+            <div class="attn-list">
+
+              <!-- Item 1 — Critical Deficit (red dot) -->
+              <div class="attn-item">
+                <span class="attn-dot attn-dot-red"></span>
+                <div class="attn-body">
+                  <div class="attn-item-top">
+                    <span class="attn-item-name">Chicken Breast (Fresh)</span>
+                    <span class="attn-badge attn-badge-red">Critical Deficit</span>
+                    <span class="attn-sku">SKU-PRT-012</span>
+                  </div>
+                  <div class="attn-item-desc">5.00 kg remaining • Safety Minimum: 10.00 kg <span class="attn-highlight-red">(Deficit −50%)</span></div>
                 </div>
-                <div class="stock-shortfall">-7.5 kg</div>
+                <button class="attn-btn attn-btn-outline">View Inventory ›</button>
               </div>
-              <div class="stock-alert">
-                <div class="stock-alert-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16v10H4zM7 9V6h10v3M8 13h8"/></svg></div>
-                <div class="stock-alert-body">
-                  <div class="stock-alert-name">Unsalted Butter</div>
-                  <div class="stock-alert-desc">Current: 0.8 kg &nbsp;·&nbsp; Minimum: 5 kg</div>
+
+              <!-- Item 2 — Expiring (red dot) -->
+              <div class="attn-item">
+                <span class="attn-dot attn-dot-red"></span>
+                <div class="attn-body">
+                  <div class="attn-item-top">
+                    <span class="attn-item-name">Fresh Prawns (Jumbo Grade)</span>
+                    <span class="attn-badge attn-badge-orange">Expires 24 Sep</span>
+                  </div>
+                  <div class="attn-item-desc">Batch #BAT-8824 &nbsp;·&nbsp; Batch of 8.2 kg expires in <strong>22 hours</strong> · Cold Room Zone 02</div>
                 </div>
-                <div class="stock-shortfall">-4.2 kg</div>
+                <button class="attn-btn attn-btn-outline">View Batch ›</button>
               </div>
-              <div class="stock-alert">
-                <div class="stock-alert-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4C10 4 5 8 5 14c0 3 2 5 5 5 6 0 10-5 10-15zM4 20c2-4 5-7 10-10"/></svg></div>
-                <div class="stock-alert-body">
-                  <div class="stock-alert-name">Fresh Curry Leaves</div>
-                  <div class="stock-alert-desc">Current: 50 g &nbsp;·&nbsp; Minimum: 500 g</div>
+
+              <!-- Item 3 — Pending PO (orange dot) -->
+              <div class="attn-item">
+                <span class="attn-dot attn-dot-orange"></span>
+                <div class="attn-body">
+                  <div class="attn-item-top">
+                    <span class="attn-item-name">PO-2026-0042 · Cargills Food City</span>
+                    <span class="attn-badge attn-badge-blue">At Loading Bay 2</span>
+                  </div>
+                  <div class="attn-item-desc">Delivery arrived at 08:45 AM • 8 items pending physical inspection &amp; temp check</div>
                 </div>
-                <div class="stock-shortfall">-450 g</div>
+                <button class="attn-btn attn-btn-primary">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                  Inspect PO
+                </button>
               </div>
-              <div class="stock-alert warn">
-                <div class="stock-alert-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5c2 0 4 2 4 4 0 2-1 3-3 4-2 1-3 3-5 4-3 2-7 0-7-3 0-2 2-3 4-4 2-1 3-5 7-5z"/><circle cx="9" cy="15" r="1"/></svg></div>
-                <div class="stock-alert-body">
-                  <div class="stock-alert-name">Lamb (Bone-in)</div>
-                  <div class="stock-alert-desc">Current: 4 kg &nbsp;·&nbsp; Minimum: 6 kg</div>
+
+              <!-- Item 4 — Requisition (orange dot) -->
+              <div class="attn-item">
+                <span class="attn-dot attn-dot-orange"></span>
+                <div class="attn-body">
+                  <div class="attn-item-top">
+                    <span class="attn-item-name">REQ-2026-0042 · Main Hot Kitchen</span>
+                    <span class="attn-badge attn-badge-green">Lunch Service</span>
+                  </div>
+                  <div class="attn-item-desc">Chef Sudath requested 5 ingredient lines (18.4 kg) for 11:30 AM Service</div>
                 </div>
-                <div class="stock-shortfall">-2 kg</div>
+                <button class="attn-btn attn-btn-outline">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                  Review &amp; Issue
+                </button>
               </div>
-              <div class="stock-alert warn">
-                <div class="stock-alert-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 2-5 5-5 9 0 5 2 8 5 9 3-1 5-4 5-9 0-4-2-7-5-9zM9 7c1 1 2 2 3 2s2-1 3-2"/></svg></div>
-                <div class="stock-alert-body">
-                  <div class="stock-alert-name">Garlic (Peeled)</div>
-                  <div class="stock-alert-desc">Current: 300 g &nbsp;·&nbsp; Minimum: 1 kg</div>
+
+              <!-- Item 5 — Buffer Zone (orange dot) -->
+              <div class="attn-item">
+                <span class="attn-dot attn-dot-orange"></span>
+                <div class="attn-body">
+                  <div class="attn-item-top">
+                    <span class="attn-item-name">Basmati Rice (Grade AAA)</span>
+                    <span class="attn-badge attn-badge-gray">Buffer Zone</span>
+                  </div>
+                  <div class="attn-item-desc">12.00 kg remaining • Suggested re-order batch: 50.00 kg (Supplier: Keells)</div>
                 </div>
-                <div class="stock-shortfall">-700 g</div>
+                <button class="attn-btn attn-btn-outline">View Item ›</button>
               </div>
+
             </div>
           </div>
-
           <!-- Quick Links -->
           <div class="card">
             <div class="card-hdr"><h3>Quick Actions</h3></div>
@@ -127,7 +206,7 @@
               <div class="quick-link" onclick="document.querySelector('[data-section=sec-purchase-orders]').click()">
                 <div class="ql-icon" style="background:var(--purple-bg);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
                 <div>
-                  <div class="ql-title">Purchase Orders</div>
+                  <div class="ql-title">Issue Stock</div>
                   <div class="ql-sub">Review approved PRs</div>
                 </div>
                 <div class="ql-arrow">›</div>
@@ -140,15 +219,15 @@
               <div style="display:flex;flex-direction:column;gap:8px;">
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--warning-bg);border-radius:8px;">
                   <div style="font-size:13px;font-weight:600;color:var(--t1);">Coconut Milk (Batch B-042)</div>
-                  <span class="badge bg-orange">Exp: 14 Aug</span>
+                  <span class="badge bg-orange">Exp: 29 Sep</span>
                 </div>
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--warning-bg);border-radius:8px;">
                   <div style="font-size:13px;font-weight:600;color:var(--t1);">Sour Cream (Batch B-039)</div>
-                  <span class="badge bg-orange">Exp: 15 Aug</span>
+                  <span class="badge bg-orange">Exp: 30 Sep</span>
                 </div>
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--danger-bg);border-radius:8px;">
                   <div style="font-size:13px;font-weight:600;color:var(--t1);">Fresh Prawns (Batch B-046)</div>
-                  <span class="badge bg-red">Exp: 13 Aug</span>
+                  <span class="badge bg-red">Exp: 29 Sep</span>
                 </div>
               </div>
             </div>
