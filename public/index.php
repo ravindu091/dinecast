@@ -12,7 +12,7 @@ require_once __DIR__ . '/../app/lib/utility.php';
 $router = new Router(BASE_URL);
 
 // ── Auth ──────────────────────────────────────────────
-$router->get('/',            'AuthController@login');
+$router->get('/',            'AuthController@loginView');
 $router->post('/login',      'AuthController@login');
 
 // ── 6 Actor Dashboards ───────────────────────────────

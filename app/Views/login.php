@@ -10,8 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!--link rel="stylesheet" href="<!?= $baseUrl ?>/assets/css/style.css"-->
-  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/login.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/login.css">
 </head>
 
 <body class="login-page">
@@ -22,10 +21,10 @@
       <div class="brand-inner">
 
         <div class="brand-logo">
-          <!-- Logo should be the icon + "DineCast" wordmark ONLY.
+          <!-- Logo should be the icon + "DineCast" ONLY.
                Tagline and subtext below are real text, not part of the image,
                so keep logo.png cropped tight (no tagline baked in). -->
-          <img src="<?= $baseUrl ?>/assets/img/logo.png" alt="DineCast Logo" class="brand-logo-img">
+          <img src="<?= BASE_URL ?>/assets/img/logo.png" alt="DineCast Logo" class="brand-logo-img">
         </div>
 
         <div class="brand-tagline">
@@ -50,12 +49,12 @@
         <div class="login-card">
           <h2 class="login-card-title">Login</h2>
 
-          <form onsubmit="handleLogin(); return false;">
+          <form action="<?= BASE_URL ?>/login" method="post">
 
             <div class="fg">
               <label for="login-user">User Name</label>
               <div class="input-field">
-                <input type="text" id="login-user" placeholder="Enter your username" autocomplete="username">
+                <input type="text" id="login-user" name="username" placeholder="Enter your username" autocomplete="username">
                 <span class="input-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -68,10 +67,10 @@
             <div class="fg">
               <label for="login-pass">Password</label>
               <div class="input-field">
-                <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password">
+                <input type="password" name="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password">
                 <span class="input-icon input-icon--toggle" id="pwd-toggle" aria-label="Toggle password visibility">
-                  <img src="<?= $baseUrl ?>/assets/img/show.png" alt="" class="icon-eye">
-                  <img src="<?= $baseUrl ?>/assets/img/hide.png" alt="" class="icon-eye-off">
+                  <img src="<?= BASE_URL ?>/assets/img/show.png" alt="" class="icon-eye">
+                  <img src="<?= BASE_URL ?>/assets/img/hide.png" alt="" class="icon-eye-off">
                 </span>
               </div>
             </div>
@@ -99,7 +98,7 @@
 
   </div>
 
-  <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
+  <script>window.BASE_URL = '<?= BASE_URL ?>';</script>
   <!--script src="<!?= $baseUrl ?>/assets/js/app.js"></script-->
 
   <!-- password visibility toggle -->
@@ -115,6 +114,6 @@
     })();
   </script>
 
-  <script src="<?= $baseUrl ?>/assets/js/login.js"></script>
+  <script src="<?= BASE_URL ?>/assets/js/login.js"></script>
 </body>
 </html>
