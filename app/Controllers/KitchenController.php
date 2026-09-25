@@ -9,17 +9,38 @@ class KitchenController extends Controller {
 
         $events = Event::all();
         $stats = Event::stats($events);
+        $today = new DateTimeImmutable('today');
+        $nextWeek = $today->modify('+7 days');
+        $upcomingEvents = array_values(array_filter($events, static function ($event) use ($today, $nextWeek) {
+            $date = new DateTimeImmutable($event['event_date']);
+            return $date >= $today && $date <= $nextWeek && ($event['status'] ?? '') !== 'Cancelled';
+        }));
+        $monthEvents = array_values(array_filter($events, static function ($event) use ($today) {
+            return (new DateTimeImmutable($event['event_date']))->format('Y-m') === $today->format('Y-m');
+        }));
+        $recentForecasts = array_map(static function ($event) {
+            $date = new DateTimeImmutable($event['event_date']);
+            return [
+                'title' => 'Forecast — ' . $event['name'],
+                'dates' => $date->format('d M Y'),
+            ];
+        }, array_slice(array_reverse($events), 0, 3));
 
         $this->renderWithLayout('kitchen/home','kitchen/layout',[
-            'title' => 'Kitchen Manager - Dashboard',
+            'title'      => 'Kitchen Manager - Dashboard',
             'activePage' => 'home',
-            'stats' => $stats,
+            'stats'      => $stats,
+            'events'     => $events,
+            'upcomingEvents' => $upcomingEvents,
+            'monthEvents' => $monthEvents,
+            'recentForecasts' => $recentForecasts,
         ]);
     }
     public function events(array $params = []){
         require_once __DIR__ . '/../Models/Event.php';
 
         $events = Event::all();
+        $events = array_values(array_filter($events, static fn($event) => (int)$event['registered_guests'] > 20));
         $stats = Event::stats($events);
         $message = $_GET['msg'] ?? null;
         $dbError = Database::getLastError();

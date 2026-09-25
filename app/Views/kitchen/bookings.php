@@ -7,11 +7,9 @@
             <table>
               <thead><tr><th>Booking Ref</th><th>Client / Organisation</th><th>Linked Event</th><th>Guests</th><th>Booked On</th><th>Status</th><th>Actions</th></tr></thead>
               <tbody>
-                <tr><td><span class="pr-ref">BK-0089</span></td><td class="tbl-main">Perera Family</td><td style="font-size:13px;color:var(--t2);">Wedding Reception – Perera</td><td>200</td><td>01/07/26</td><td><span class="badge bg-green">Confirmed</span></td><td><div class="acts"><span class="act">View</span><span class="act">Edit</span></div></td></tr>
                 <tr><td><span class="pr-ref">BK-0090</span></td><td class="tbl-main">ABC Ltd HR Dept.</td><td style="font-size:13px;color:var(--t2);">Corporate Function – ABC Ltd</td><td>45</td><td>05/07/26</td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">View</span><span class="act">Edit</span></div></td></tr>
                 <tr><td><span class="pr-ref">BK-0091</span></td><td class="tbl-main">Silva Family</td><td style="font-size:13px;color:var(--t2);">Birthday Dinner – Silva</td><td>20</td><td>10/07/26</td><td><span class="badge bg-green">Confirmed</span></td><td><div class="acts"><span class="act">View</span><span class="act">Edit</span></div></td></tr>
                 <tr><td><span class="pr-ref">BK-0092</span></td><td class="tbl-main">NovaTech (Pvt) Ltd</td><td style="font-size:13px;color:var(--t2);">Tech Conference – NovaTech</td><td>50</td><td>15/07/26</td><td><span class="badge bg-green">Confirmed</span></td><td><div class="acts"><span class="act">View</span><span class="act">Edit</span></div></td></tr>
-                <tr><td><span class="pr-ref">BK-0093</span></td><td class="tbl-main">Ministry of Education</td><td style="font-size:13px;color:var(--t2);">Seminar – Edu Board</td><td>500</td><td>20/07/26</td><td><span class="badge bg-orange">Tentative</span></td><td><div class="acts"><span class="act">View</span><span class="act">Edit</span></div></td></tr>
               </tbody>
             </table>
           </div>

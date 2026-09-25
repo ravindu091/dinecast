@@ -1,96 +1,92 @@
-<section id="sec-home" class="section active">
-        <div class="welcome">
-          <div class="welcome-txt">
-            <h2>Welcome to Kitchen Manager Dashboard</h2>
-            <p>Manage events, generate forecasts and submit purchase requisitions.</p>
-            <div class="user-id">ID: DC-KM-07 &nbsp;·&nbsp; Kitchen Manager</div>
-          </div>
-          <div class="welcome-illo">👨‍💼</div>
-        </div>
+<?php
+$e = static fn($value) => htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+$eventCount = count($upcomingEvents ?? []);
+$guestCount = array_sum(array_map(static fn($event) => (int)($event['forecast_guests'] ?? 0), $upcomingEvents ?? []));
+$confirmedCount = count(array_filter($monthEvents ?? [], static fn($event) => ($event['status'] ?? '') === 'Confirmed'));
+$tentativeCount = count(array_filter($monthEvents ?? [], static fn($event) => ($event['status'] ?? '') === 'Tentative'));
+?>
+<section id="sec-home" class="section active kitchen-home">
+  <div class="home-stats">
+    <div class="home-stat">
+      <div class="home-stat-label">Upcoming Events</div>
+      <div class="home-stat-val"><?= $eventCount ?></div>
+    </div>
+    <div class="home-stat">
+      <div class="home-stat-label">Expected Guests</div>
+      <div class="home-stat-val"><?= number_format($guestCount) ?></div>
+    </div>
+    <div class="home-stat">
+      <div class="home-stat-label">Draft PRs </div>
+      <div class="home-stat-val">3</div>
+      <div class="home-stat-sub warn">● Awaiting submission</div>
+    </div>
+    <div class="home-stat">
+      <div class="home-stat-label">Pending Approval </div>
+      <div class="home-stat-val">1</div>
+    </div>
+    <div class="home-stat rejected">
+      <div class="home-stat-label">Rejected PRs </div>
+      <div class="home-stat-val">1</div>
+      <div class="home-stat-sub danger">● Needs Revision</div>
+      <div class="home-stat-pr-ref">PR-2026-084</div>
+      <a class="home-stat-pr-link" href="<?= $baseUrl ?>/kitchen/pr">Review PR →</a>
+    </div>
+  </div>
 
-        <!-- Modern Action Cards  -->
-        <div class="action-cards action-cards-5">
-          <a href="<?= $baseUrl ?>/kitchen/events" class="action-card ac-events">
-            <div class="ac-icon-box">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="3.5" ry="3.5"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-            </div>
-            <div class="ac-title">Events</div>
-          </a>
+  <div class="action-banner">
+    <div class="action-banner-ico">ⓘ</div>
+    <div class="action-banner-body">
+      <div class="action-banner-title"><span class="ab-label">ACTION REQUIRED</span><span class="ab-ref">PR #PR-2026-084 — Daily &amp; Frozen Items Revision</span></div>
+      <div class="action-banner-reason"><strong>Reason:</strong> Rejected by F&amp;B Director: <em>“Exceeds weekly dairy budget quota by $420. Please trim quantities or substitute premium heavy cream line items.”</em></div>
+    </div>
+  </div>
 
-          <a href="<?= $baseUrl ?>/kitchen/bookings" class="action-card ac-bookings">
-            <div class="ac-icon-box">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                <rect x="8" y="2" width="8" height="4" rx="1.5" ry="1.5"></rect>
-                <path d="m9 14 2 2 4-4"></path>
-              </svg>
-            </div>
-            <div class="ac-title">Bookings</div>
-          </a>
+  <div class="home-grid">
+    <section class="events-card">
+      <div class="events-card-hdr">
+        <div class="events-card-hdr-left"><h3>▣ &nbsp;Upcoming Events — Next 7 Days</h3><p>Scheduled banquets, guest headcounts &amp; hall allocations</p></div>
+        <a class="view-all-link" href="<?= $baseUrl ?>/kitchen/events">View All ›</a>
+      </div>
+      <div class="home-event-list">
+        <?php if (empty($upcomingEvents)): ?>
+          <div class="home-empty">No upcoming events in the next 7 days.</div>
+        <?php else: ?>
+          <?php foreach (array_slice($upcomingEvents, 0, 5) as $index => $event): ?>
+            <?php $date = new DateTimeImmutable($event['event_date']); $daysLeft = (int)(new DateTimeImmutable('today'))->diff($date)->format('%r%a'); $type = strtolower((string)($event['type'] ?? 'other')); $typeClass = str_contains($type, 'banquet') ? 'banquet' : (str_contains($type, 'buffet') ? 'buffet' : (str_contains($type, 'gala') ? 'gala' : (str_contains($type, 'conf') ? 'conf' : 'other'))); $statusClass = strtolower((string)($event['status'] ?? 'tentative')); ?>
+            <article class="event-row">
+              <div class="event-date-badge <?= $index % 2 ? 'teal' : 'blue' ?>"><span class="edb-day"><?= $date->format('d') ?></span><span class="edb-mon"><?= $date->format('M') ?></span></div>
+              <div class="event-info">
+                <div class="event-name"><?= $e($event['name'] ?? 'Event') ?><span class="ev-type-badge <?= $typeClass ?>"><?= $e($event['type'] ?? 'Other') ?></span></div>
+              </div>
+              <div class="event-meta">
+                <span class="event-guests"><?= number_format((int)($event['forecast_guests'] ?? 0)) ?></span><span class="event-guests-lbl">guests</span>
+                <span class="event-status-badge esb-<?= $e($statusClass) ?>">● <?= $e($event['status'] ?? 'Tentative') ?></span>
+                <span class="event-days-left"><?= $daysLeft === 0 ? 'Today' : 'in ' . $daysLeft . ' days' ?></span>
+              </div>
+            </article>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </div>
+    </section>
 
-          <a href="<?= $baseUrl ?>/kitchen/forecast" class="action-card ac-forecast">
-            <div class="ac-icon-box">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-                <polyline points="16 7 22 7 22 13"></polyline>
-              </svg>
-            </div>
-            <div class="ac-title">Forecast</div>
-          </a>
-
-          <a href="<?= $baseUrl ?>/kitchen/pr" class="action-card ac-purchase">
-            <div class="ac-icon-box">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="9" cy="20" r="1.5"></circle>
-                <circle cx="18" cy="20" r="1.5"></circle>
-                <path d="M2.5 3h3l2.6 11.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22.5 7H6.5"></path>
-              </svg>
-            </div>
-            <div class="ac-title">Purchase</div>
-          </a>
-
-          <a href="<?= $baseUrl ?>/kitchen/attendance" class="action-card ac-roster">
-            <div class="ac-icon-box">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
-            </div>
-            <div class="ac-title">Roster</div>
-          </a>
-        </div>
-
-        <!-- Overview Title -->
-
-        <div class="sec-hdr" style="margin-top: 15px; margin-bottom: 14px;">
-          <div>
-            <h2>Overview</h2>
-          </div>
-        </div>
-
-        <div class="stats">
-          <div class="stat c-blue">
-            <div class="stat-val"><?= $stats['total'] ?></div>
-            <div class="stat-lbl">Upcoming Events</div>
-          </div>
-          <div class="stat c-green">
-            <div class="stat-val"><?= $stats['confirmed'] ?></div>
-            <div class="stat-lbl">Confirmed</div>
-          </div>
-          <div class="stat c-orange">
-            <div class="stat-val"><?= $stats['tentative'] ?></div>
-            <div class="stat-lbl">Tentative</div>
-          </div>
-          <div class="stat c-purple">
-            <div class="stat-val">1</div>
-            <div class="stat-lbl">PR Rejected / Redo</div>
-          </div>
+    <aside class="home-right">
+      <section class="booking-summary-card">
+        <div class="booking-summary-hdr"><h3>▥ &nbsp;Booking Summary</h3><span class="period-tag">This Month</span></div>
+        <div class="booking-summary-body">
+          <div class="booking-stat"><div class="bs-val green"><?= $confirmedCount ?></div><div class="bs-lbl">Confirmed</div></div>
+          <div class="booking-stat"><div class="bs-val orange"><?= $tentativeCount ?></div><div class="bs-lbl">Tentative</div></div>
         </div>
       </section>
+
+      <section class="forecasts-card">
+        <div class="forecasts-hdr"><h3>↗ &nbsp;Recent Forecasts</h3><a class="view-all-link" href="<?= $baseUrl ?>/kitchen/forecast">View All</a></div>
+        <?php foreach (array_slice($recentForecasts ?? [], 0, 3) as $forecast): ?>
+          <a class="forecast-row" href="<?= $baseUrl ?>/kitchen/forecast" style="text-decoration:none;">
+            <span class="forecast-ico">▥</span><span class="forecast-info"><span class="forecast-title"><?= $e($forecast['title']) ?></span><span class="forecast-dates"><?= $e($forecast['dates']) ?></span></span><span class="forecast-arrow">›</span>
+          </a>
+        <?php endforeach; ?>
+        <?php if (empty($recentForecasts)): ?><div class="home-empty">No forecasts have been generated yet.</div><?php endif; ?>
+      </section>
+    </aside>
+  </div>
+</section>
