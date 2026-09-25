@@ -1,28 +1,127 @@
+<?php
+/**
+ * CEO View – All Events
+ * Read-only listing of scheduled events with attendance & forecast status.
+ * Covers: FR6 (event details), FR7 (booking status), FR8 (attendance-adjusted forecast)
+ * Displayed for executive oversight (FR29).
+ */
+?>
+
 <!-- ================================================
      EVENTS SECTION
      ================================================ -->
 
-<div class="sec-hdr"><h2>All Events</h2></div>
-<div class="stats">
-  <div class="stat c-blue"><div class="stat-ico">📅</div><div class="stat-val">19</div><div class="stat-lbl">Total This Month</div></div>
-  <div class="stat c-green"><div class="stat-ico">✅</div><div class="stat-val">11</div><div class="stat-lbl">Confirmed</div></div>
-  <div class="stat c-orange"><div class="stat-ico">🔄</div><div class="stat-val">8</div><div class="stat-lbl">Tentative</div></div>
-  <div class="stat c-purple"><div class="stat-ico">👥</div><div class="stat-val" style="font-size:20px;">3,214</div><div class="stat-lbl">Total Guests</div></div>
+<div class="sec-hdr">
+  <h2>All Events</h2>
 </div>
+
+<!-- ===== STATS ===== -->
+<div class="stats">
+  <div class="stat c-blue">
+    <div class="stat-ico">📅</div>
+    <div class="stat-val"><?= (int)($data['stats']['total'] ?? 0) ?></div>
+    <div class="stat-lbl">Total This Month</div>
+  </div>
+  <div class="stat c-green">
+    <div class="stat-ico">✅</div>
+    <div class="stat-val"><?= (int)($data['stats']['confirmed'] ?? 0) ?></div>
+    <div class="stat-lbl">Confirmed</div>
+  </div>
+  <div class="stat c-orange">
+    <div class="stat-ico">🔄</div>
+    <div class="stat-val"><?= (int)($data['stats']['tentative'] ?? 0) ?></div>
+    <div class="stat-lbl">Tentative</div>
+  </div>
+  <div class="stat c-purple">
+    <div class="stat-ico">👥</div>
+    <div class="stat-val" style="font-size:20px;">
+      <?= number_format((int)($data['stats']['total_guests'] ?? 0)) ?>
+    </div>
+    <div class="stat-lbl">Total Guests</div>
+  </div>
+</div>
+
+<!-- ===== TABLE ===== -->
 <div class="card">
-  <div class="card-hdr"><h3>Events — August 2026</h3></div>
+  <div class="card-hdr">
+    <h3>Events — <?= htmlspecialchars($data['monthLabel'] ?? date('F Y')) ?></h3>
+    <a href="<?= BASE_URL ?>/ceo/forecast" class="link-view-all">
+      View Forecast →
+    </a>
+  </div>
+
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>Event</th><th>Date</th><th>Type</th><th>Guests</th><th>Menu</th><th>Forecast</th><th>Status</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Guests</th>
+          <th>Menu</th>
+          <th>Forecast</th>
+          <th>Status</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td class="tbl-main">Wedding Reception – Perera</td><td>12/08</td><td>Wedding</td><td>200</td><td><span class="ico-yes">✓</span></td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-green">Confirmed</span></td></tr>
-        <tr><td class="tbl-main">Corporate Function – ABC Ltd</td><td>13/08</td><td>Function</td><td>45</td><td><span class="ico-no">✗</span></td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td></tr>
-        <tr><td class="tbl-main">Birthday Dinner – Silva</td><td>14/08</td><td>Birthday</td><td>20</td><td><span class="ico-yes">✓</span></td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-green">Confirmed</span></td></tr>
-        <tr><td class="tbl-main">Anniversary Gala – Fernando</td><td>15/08</td><td>Anniversary</td><td>14</td><td><span class="ico-no">✗</span></td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td></tr>
-        <tr><td class="tbl-main">Tech Conference – NovaTech</td><td>16/08</td><td>Conference</td><td>50</td><td><span class="ico-yes">✓</span></td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-teal">Upcoming</span></td></tr>
-        <tr><td class="tbl-main">Seminar – Edu Board</td><td>20/08</td><td>Seminar</td><td>500</td><td><span class="ico-no">✗</span></td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td></tr>
-        <tr><td class="tbl-main">Gov Dinner – Ministry</td><td>22/08</td><td>Government</td><td>75</td><td><span class="ico-yes">✓</span></td><td><span class="ico-yes">✓</span></td><td><span class="badge bg-green">Confirmed</span></td></tr>
-        <tr><td class="tbl-main">Institutional Lunch – State Bank</td><td>25/08</td><td>Institutional</td><td>300</td><td><span class="ico-no">✗</span></td><td><span class="ico-no">✗</span></td><td><span class="badge bg-orange">Tentative</span></td></tr>
+        <?php if (!empty($data['events'])): ?>
+          <?php foreach ($data['events'] as $ev): ?>
+            <?php
+              // ---- Status badge mapping ----
+              $statusKey = strtolower($ev->status ?? '');
+              $badgeMap = [
+                'confirmed' => 'bg-green',
+                'tentative' => 'bg-orange',
+                'upcoming'  => 'bg-teal',
+                'completed' => 'bg-grey',
+                'cancelled' => 'bg-red',
+              ];
+              $badgeClass = $badgeMap[$statusKey] ?? 'bg-grey';
+              $statusLabel = ucfirst($statusKey);
+
+              // ---- Date format (short d/m) ----
+              $eventDate = !empty($ev->event_date)
+                ? date('d/m', strtotime($ev->event_date))
+                : '—';
+
+              // ---- Boolean flags (menu assigned? forecast generated?) ----
+              $hasMenu     = !empty($ev->menu_id);
+              $hasForecast = !empty($ev->forecast_guests) && $ev->forecast_guests > 0;
+            ?>
+            <tr>
+              <td class="tbl-main">
+                <a href="<?= BASE_URL ?>/ceo/viewEvent/<?= (int)$ev->event_id ?>"
+                   class="event-link">
+                  <?= htmlspecialchars($ev->event_name) ?>
+                </a>
+              </td>
+              <td><?= $eventDate ?></td>
+              <td><?= htmlspecialchars($ev->event_type ?? '—') ?></td>
+              <td><?= number_format((int)$ev->registered_guests) ?></td>
+              <td>
+                <span class="<?= $hasMenu ? 'ico-yes' : 'ico-no' ?>">
+                  <?= $hasMenu ? '✓' : '✗' ?>
+                </span>
+              </td>
+              <td>
+                <span class="<?= $hasForecast ? 'ico-yes' : 'ico-no' ?>">
+                  <?= $hasForecast ? '✓' : '✗' ?>
+                </span>
+              </td>
+              <td>
+                <span class="badge <?= $badgeClass ?>">
+                  <?= htmlspecialchars($statusLabel) ?>
+                </span>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <tr>
+            <td colspan="7" style="text-align:center;color:var(--t2);padding:24px;">
+              No events found for this period.
+            </td>
+          </tr>
+        <?php endif; ?>
       </tbody>
     </table>
   </div>
