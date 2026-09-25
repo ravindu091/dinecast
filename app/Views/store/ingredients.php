@@ -17,7 +17,7 @@ endif;
 
   <div class="stats metric-stats">
     <article class="metric-card metric-card-blue">
-      <div class="metric-value">1,284</div>
+      <div class="metric-value"><?= htmlspecialchars($ingredientCount) ?></div>
       <div class="metric-label">Total Ingredient SKUs</div>
       <div class="metric-footer">
         <span>Across 6 food<br>categories</span>
@@ -25,10 +25,10 @@ endif;
       </div>
     </article>
     <article class="metric-card metric-card-red">
-      <div class="metric-value">12</div>
+      <div class="metric-value"><?= htmlspecialchars($lowStockCount['bellowMin']) ?></div>
       <div class="metric-label">Below Minimum Safety Par</div>
       <div class="metric-footer">
-        <span>5 in Critical Red zone</span>
+        <span><?= htmlspecialchars($lowStockCount['redZone']) ?> in Critical Red zone</span>
         <strong>Resolve Now</strong>
       </div>
     </article>
@@ -112,12 +112,8 @@ endif;
         <tbody>
           <?php
 
-          require_once __DIR__ . '/../../models/ingredient.php';
-
-          $ingredient = new Ingredient();
-
-          $items = $ingredient->getAllIngredients();
-          while ($item = $items->fetch_assoc()): ?>
+          
+          foreach ($ingredients as $item): ?>
 
             <tr data-category="<?= htmlspecialchars($item['category']) ?>" data-status="low">
               <td class="tbl-main"><?= htmlspecialchars($item['name']) ?></td>
@@ -125,13 +121,14 @@ endif;
               <td><?= htmlspecialchars($item['unitName']) ?></td>
               <td><?= htmlspecialchars($item['minimum']) ?></td>
               <td><?= htmlspecialchars($item['currentStock']) ?></td>
-              <td><span class="badge bg-red">Below Min</span></td>
+              <?php $level = getStockLevel($item['currentStock'],$item['minimum']) ?>
+              <td><span class="badge <?= htmlspecialchars($level['class']) ?>"><?= htmlspecialchars($level['text']) ?></span></td>
               <td>
                 <div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div>
               </td>
             </tr>
 
-          <?php endwhile; ?>
+          <?php endforeach; ?>
 
 
         </tbody>
