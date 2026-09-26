@@ -77,21 +77,70 @@
             <p>Review and approve purchase requisitions, manage suppliers, and track orders.</p>
             <div class="user-id">ID: DC-PM-03 &nbsp;·&nbsp; Procurement Manager</div>
           </div>
-          <div class="welcome-illo">🛒</div>
         </div>
 
-        <div class="stats">
-          <div class="stat c-orange"><div class="stat-ico">⏳</div><div class="stat-val">3</div><div class="stat-lbl">PRs Awaiting Your Approval</div></div>
-          <div class="stat c-green"><div class="stat-ico">📦</div><div class="stat-val">4</div><div class="stat-lbl">Active Purchase Orders</div></div>
-          <div class="stat c-blue"><div class="stat-ico">🏪</div><div class="stat-val">6</div><div class="stat-lbl">Registered Suppliers</div></div>
-          <div class="stat c-purple"><div class="stat-ico">📝</div><div class="stat-val">1</div><div class="stat-lbl">Approved PRs Awaiting PO</div></div>
+        <!-- KPI Cards -->
+        <div class="stats pm-kpi-grid">
+
+          <!-- PRs Awaiting Approval -->
+          <article class="pm-kpi pm-kpi-amber">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">PRs Awaiting Approval</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">3</div>
+            <div class="pm-kpi-desc">Submitted by the Kitchen Manager</div>
+            <button type="button" class="pm-kpi-link" onclick="document.querySelector('[data-section=sec-requisitions]').click()">Review &rarr;</button>
+          </article>
+
+          <!-- Active Purchase Orders -->
+          <article class="pm-kpi pm-kpi-blue">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Active Purchase Orders</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">4</div>
+            <div class="pm-kpi-desc">Issued or received, not yet closed</div>
+            <button type="button" class="pm-kpi-link" onclick="document.querySelector('[data-section=sec-orders]').click()">Track &rarr;</button>
+          </article>
+
+          <!-- Registered Suppliers -->
+          <article class="pm-kpi pm-kpi-gray">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Registered Suppliers</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">6</div>
+            <div class="pm-kpi-desc">Available for purchase orders</div>
+            <button type="button" class="pm-kpi-link" onclick="document.querySelector('[data-section=sec-suppliers]').click()">Manage &rarr;</button>
+          </article>
+
+          <!-- Approved PRs Awaiting PO -->
+          <article class="pm-kpi pm-kpi-green">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Approved PRs Awaiting PO</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 12h6M9 16h4"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">1</div>
+            <div class="pm-kpi-desc">Ready to convert into purchase orders</div>
+            <button type="button" class="pm-kpi-link" onclick="document.querySelector('[data-section=sec-requisitions]').click()">Create POs &rarr;</button>
+          </article>
+
         </div>
 
         <div class="grid-2">
           <!-- Pending PRs -->
           <div class="card">
             <div class="card-hdr">
-              <div><h3>⏳ PRs Awaiting Approval</h3></div>
+              <div><h3>PRs Awaiting Approval</h3></div>
               <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-section=sec-requisitions]').click()">View All</button>
             </div>
             <div style="display:flex;flex-direction:column;gap:8px;">
@@ -131,7 +180,7 @@
           <!-- Active POs -->
           <div class="card">
             <div class="card-hdr">
-              <div><h3>📦 Active Purchase Orders</h3></div>
+              <div><h3>Active Purchase Orders</h3></div>
               <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-section=sec-orders]').click()">View All</button>
             </div>
             <div style="display:flex;flex-direction:column;gap:8px;">
@@ -160,10 +209,45 @@
       <section id="sec-requisitions" class="section">
         <div class="sec-hdr"><h2>Requisitions</h2></div>
 
-        <div class="stats">
-          <div class="stat c-orange"><div class="stat-ico">⏳</div><div class="stat-val">3</div><div class="stat-lbl">Pending Approval</div></div>
-          <div class="stat c-green"><div class="stat-ico">✅</div><div class="stat-val">5</div><div class="stat-lbl">Approved</div></div>
-          <div class="stat c-red"><div class="stat-ico">❌</div><div class="stat-val">1</div><div class="stat-lbl">Rejected</div></div>
+        <!-- KPI Cards -->
+        <div class="stats pm-kpi-grid">
+
+          <!-- Pending Approval -->
+          <article class="pm-kpi pm-kpi-amber">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Pending Approval</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">3</div>
+            <div class="pm-kpi-desc">Waiting for your decision</div>
+          </article>
+
+          <!-- Approved -->
+          <article class="pm-kpi pm-kpi-green">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Approved</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">5</div>
+            <div class="pm-kpi-desc">Cleared for purchase orders</div>
+          </article>
+
+          <!-- Rejected -->
+          <article class="pm-kpi pm-kpi-red">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Rejected</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">1</div>
+            <div class="pm-kpi-desc">Returned with remarks</div>
+          </article>
+
         </div>
 
         <div class="card">
@@ -210,7 +294,7 @@
                   <td style="font-weight:700;">Rs. 10,100</td>
                   <td style="font-size:12px;color:var(--t3);">09/08/2026</td>
                   <td><span class="badge bg-orange">Pending</span></td>
-                  <td><div class="acts"><span class="act" onclick="showToast('✓ PR-0047 Approved!')">Approve</span><span class="act del" onclick="toggleModal('modal-reject')">Reject</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="showToast('PR-0047 Approved!')">Approve</span><span class="act del" onclick="toggleModal('modal-reject')">Reject</span></div></td>
                 </tr>
                 <tr class="expand-row" id="pr-detail-0047">
                   <td colspan="9">
@@ -228,8 +312,8 @@
                         </table>
                       </div>
                       <div style="display:flex;gap:10px;margin-top:10px;">
-                        <button class="btn btn-primary btn-sm" onclick="showToast('✓ PR-0047 Approved!')">✓ Approve</button>
-                        <button class="btn btn-outline btn-sm" onclick="toggleModal('modal-reject')">✗ Reject with Remarks</button>
+                        <button class="btn btn-primary btn-sm" onclick="showToast('PR-0047 Approved!')">Approve</button>
+                        <button class="btn btn-outline btn-sm" onclick="toggleModal('modal-reject')">Reject with Remarks</button>
                       </div>
                     </div>
                   </td>
@@ -282,7 +366,7 @@
                   <td style="font-weight:700;">Rs. 3,264</td>
                   <td style="font-size:12px;color:var(--t3);">06/08/2026</td>
                   <td><span class="badge bg-orange">Pending</span></td>
-                  <td><div class="acts"><span class="act" onclick="showToast('✓ PR-0044 Approved!')">Approve</span><span class="act del" onclick="toggleModal('modal-reject')">Reject</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="showToast('PR-0044 Approved!')">Approve</span><span class="act del" onclick="toggleModal('modal-reject')">Reject</span></div></td>
                 </tr>
                 <tr class="expand-row" id="pr-detail-0044">
                   <td colspan="9">
@@ -300,8 +384,8 @@
                         </table>
                       </div>
                       <div style="display:flex;gap:10px;margin-top:10px;">
-                        <button class="btn btn-primary btn-sm" onclick="showToast('✓ PR-0044 Approved!')">✓ Approve</button>
-                        <button class="btn btn-outline btn-sm" onclick="toggleModal('modal-reject')">✗ Reject with Remarks</button>
+                        <button class="btn btn-primary btn-sm" onclick="showToast('PR-0044 Approved!')">Approve</button>
+                        <button class="btn btn-outline btn-sm" onclick="toggleModal('modal-reject')">Reject with Remarks</button>
                       </div>
                     </div>
                   </td>
@@ -315,7 +399,7 @@
                   <td style="font-weight:700;">Rs. 91,240</td>
                   <td style="font-size:12px;color:var(--t3);">05/08/2026</td>
                   <td><span class="badge bg-orange">Pending</span></td>
-                  <td><div class="acts"><span class="act" onclick="showToast('✓ PR-0043 Approved!')">Approve</span><span class="act del" onclick="toggleModal('modal-reject')">Reject</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="showToast('PR-0043 Approved!')">Approve</span><span class="act del" onclick="toggleModal('modal-reject')">Reject</span></div></td>
                 </tr>
                 <tr class="expand-row" id="pr-detail-0043">
                   <td colspan="9">
@@ -333,8 +417,8 @@
                         </table>
                       </div>
                       <div style="display:flex;gap:10px;margin-top:10px;">
-                        <button class="btn btn-primary btn-sm" onclick="showToast('✓ PR-0043 Approved!')">✓ Approve</button>
-                        <button class="btn btn-outline btn-sm" onclick="toggleModal('modal-reject')">✗ Reject with Remarks</button>
+                        <button class="btn btn-primary btn-sm" onclick="showToast('PR-0043 Approved!')">Approve</button>
+                        <button class="btn btn-outline btn-sm" onclick="toggleModal('modal-reject')">Reject with Remarks</button>
                       </div>
                     </div>
                   </td>
@@ -383,11 +467,57 @@
       <section id="sec-orders" class="section">
         <div class="sec-hdr"><h2>Purchase Orders</h2></div>
 
-        <div class="stats">
-          <div class="stat c-blue"><div class="stat-ico">📤</div><div class="stat-val">3</div><div class="stat-lbl">Issued (Awaiting Delivery)</div></div>
-          <div class="stat c-teal"><div class="stat-ico">✅</div><div class="stat-val">1</div><div class="stat-lbl">Received</div></div>
-          <div class="stat c-gray"><div class="stat-ico">🔒</div><div class="stat-val">1</div><div class="stat-lbl">Closed</div></div>
-          <div class="stat c-blue"><div class="stat-ico">💰</div><div class="stat-val" style="font-size:18px;">Rs. 128,260</div><div class="stat-lbl">Total PO Value</div></div>
+        <!-- KPI Cards -->
+        <div class="stats pm-kpi-grid">
+
+          <!-- Issued -->
+          <article class="pm-kpi pm-kpi-blue">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Issued</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8zM5 21a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">3</div>
+            <div class="pm-kpi-desc">Sent to suppliers, awaiting delivery</div>
+          </article>
+
+          <!-- Received -->
+          <article class="pm-kpi pm-kpi-teal">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Received</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">1</div>
+            <div class="pm-kpi-desc">Delivered, not yet closed</div>
+          </article>
+
+          <!-- Closed -->
+          <article class="pm-kpi pm-kpi-gray">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Closed</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value">1</div>
+            <div class="pm-kpi-desc">Completed orders</div>
+          </article>
+
+          <!-- Total PO Value -->
+          <article class="pm-kpi pm-kpi-gray">
+            <div class="pm-kpi-top">
+              <span class="pm-kpi-label">Total PO Value</span>
+              <span class="pm-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg>
+              </span>
+            </div>
+            <div class="pm-kpi-value pm-kpi-value-sm">Rs. 128,260</div>
+            <div class="pm-kpi-desc">Across all purchase orders</div>
+          </article>
+
         </div>
 
         <div class="card">
