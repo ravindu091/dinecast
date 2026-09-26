@@ -128,7 +128,7 @@ class ProfileController extends Controller {
             exit;
         }
 
-        $databasePath = (string)'assets/uploads/profiles/' . $filename;
+        $databasePath = (string)'uploads/profiles/' . $filename;
         $user = new User();
         $userId = (int) $_SESSION['userId'];
 
