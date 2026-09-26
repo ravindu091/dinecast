@@ -1,31 +1,6 @@
 /* Procurement Specific JS */
 
 /* -----------------------------------------------
-   SIDEBAR NAVIGATION
-   Shows one section at a time and updates the
-   topbar title to match the selected nav item.
-   ----------------------------------------------- */
-document.addEventListener('DOMContentLoaded', () => {
-  const links    = document.querySelectorAll('.nav-link[data-section]');
-  const sections = document.querySelectorAll('.content .section');
-  const title    = document.querySelector('.topbar-left h1');
-
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      links.forEach(l => l.classList.remove('active'));
-      sections.forEach(s => s.classList.remove('active'));
-
-      link.classList.add('active');
-      const target = document.getElementById(link.dataset.section);
-      if (target) target.classList.add('active');
-      if (title && link.dataset.title) title.textContent = link.dataset.title;
-
-      window.scrollTo(0, 0);
-    });
-  });
-});
-
-/* -----------------------------------------------
    PO DETAIL DIALOG
    Reads the clicked order row, its line items and
    the supplier's contact details, then shows the
@@ -48,11 +23,9 @@ function openPoDetail(trigger) {
   document.getElementById('po-d-status').textContent   = status;
   document.getElementById('po-d-total').textContent    = cells[5].textContent.trim();
 
-  // Supplier contact comes from the Suppliers table
-  const supplierRow = [...document.querySelectorAll('#sec-suppliers tbody tr')]
-    .find(r => r.children[0].textContent.trim() === supplierName);
-  document.getElementById('po-d-contact').textContent = supplierRow ? supplierRow.children[2].textContent : '—';
-  document.getElementById('po-d-phone').textContent   = supplierRow ? supplierRow.children[3].textContent : '—';
+  // Supplier contact is stored on the order row itself
+  document.getElementById('po-d-contact').textContent = row.dataset.contact || '—';
+  document.getElementById('po-d-phone').textContent   = row.dataset.phone || '—';
 
   // Line items come from the order's expandable detail row
   const lines = document.getElementById('po-d-lines');
