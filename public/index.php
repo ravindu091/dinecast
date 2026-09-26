@@ -16,17 +16,25 @@ $router->get('/',            'AuthController@loginView');
 $router->post('/login',      'AuthController@login');
 $router->get('/logout' , 'AuthController@logOut');
 
-// ── Actor Dashboards ─────────────────────────────────
+// ── 6 Actor Dashboards ───────────────────────────────
 
-// Admin
-$router->get('/admin',       'AdminController@dashboard');
-
-// Procurement Manager
 $router->get('/procurement', 'ProcurementController@dashboard');
 
 // CEO
 $router->get('/ceo',         'CeoController@dashboard');
 
+// admin
+$router->get('/admin', 'AdminController@home');
+$router->get('/admin/users', 'AdminController@users');
+$router->post('/admin/users/create', 'AdminController@createUser');
+$router->post('/admin/users/update', 'AdminController@updateUser');
+$router->post('/admin/users/delete', 'AdminController@deleteUser');
+$router->get('/admin/params', 'AdminController@params');
+$router->get('/admin/uom', 'AdminController@uom');
+$router->get('/admin/holidays', 'AdminController@holidays');
+$router->get('/admin/logs', 'AdminController@logs');
+
+// store
 
 // ── Kitchen Manager ──────────────────────────────────
 $router->get('/kitchen', 'KitchenController@home');
