@@ -16,7 +16,7 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
 ?>
 <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/profile.css">
 
-<div class="profile-container">
+<div class="profile-container" data-base-url="<?= BASE_URL ?>">
   
   <div class="profile-header">
     <div class="ph-left">

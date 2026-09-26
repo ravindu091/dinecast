@@ -41,6 +41,7 @@ $router->get('/chef/recipes' , 'ChefController@recipes');
 
 //profile
 $router->get('/profile', 'ProfileController@profile');
+$router->post('/profile/upload','ProfileController@uploadProfilePicture');
 
 // ── Dispatch ─────────────────────────────────────────
 $router->dispatch();
