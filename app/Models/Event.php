@@ -8,7 +8,7 @@ class Event {
      * Retrieve all events ordered by date.
      */
     public static function all(): array {
-        $pdo = Database::getConnection();
+        $pdo = (new Database())->getConnection();
         if (!$pdo) {
             return [];
         }
@@ -21,7 +21,7 @@ class Event {
      * Find a single event by ID.
      */
     public static function find(int $id): ?array {
-        $pdo = Database::getConnection();
+        $pdo = (new Database())->getConnection();
         if (!$pdo) {
             return null;
         }
@@ -36,7 +36,7 @@ class Event {
      * Create a new event.
      */
     public static function create(array $data): bool {
-        $pdo = Database::getConnection();
+        $pdo = (new Database())->getConnection();
         if (!$pdo) {
             return false;
         }
@@ -69,7 +69,7 @@ class Event {
      * Update an existing event.
      */
     public static function update(int $id, array $data): bool {
-        $pdo = Database::getConnection();
+        $pdo = (new Database())->getConnection();
         if (!$pdo) {
             return false;
         }
@@ -110,7 +110,7 @@ class Event {
      * Delete an event by ID.
      */
     public static function delete(int $id): bool {
-        $pdo = Database::getConnection();
+        $pdo = (new Database())->getConnection();
         if (!$pdo) {
             return false;
         }
