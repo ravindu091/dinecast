@@ -2,9 +2,9 @@
 <section id="sec-home" class="section active">
   <div class="welcome">
     <div class="welcome-txt">
-      <h2>Welcome back, <?= htmlspecialchars(explode(" ", trim($_SESSION["fullName"] ?? "Kavindu Silva"))[0]) ?>!</h2>
+      <h2>Welcome back, <?= htmlspecialchars(explode(" ", trim($_SESSION["fullName"]))[0]) ?>!</h2>
       <p>Review and approve purchase requisitions, manage suppliers, and track orders.</p>
-      <div class="user-id">ID: DC-PM-<?= sprintf("%02d", (int) ($_SESSION["userId"] ?? 14)) ?> &nbsp;·&nbsp; Procurement Manager</div>
+      <div class="user-id">@<?= htmlspecialchars($_SESSION["username"]) ?> &nbsp;·&nbsp; <?= htmlspecialchars(getRole($_SESSION["role"])) ?></div>
     </div>
   </div>
 

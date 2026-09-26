@@ -41,8 +41,8 @@
     </nav>
 
     <?php
-      //signed-in user's name from the session (set at login); the design persona is the fallback
-      $fullName = $_SESSION['fullName'] ?? 'Kavindu Silva';
+      //signed-in user's details from the session (set at login from the users table)
+      $fullName = $_SESSION['fullName'];
       $nameParts = explode(' ', trim($fullName));
       $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
     ?>
@@ -51,7 +51,7 @@
         <div class="sb-avatar" style="background:var(--success-bg);color:var(--success);"><?= htmlspecialchars($initials) ?></div>
         <div>
           <div class="sb-user-name"><?= htmlspecialchars($fullName) ?></div>
-          <div class="sb-user-role">Procurement Manager</div>
+          <div class="sb-user-role"><?= htmlspecialchars(getRole($_SESSION['role'])) ?></div>
         </div>
       </div>
       <a href="<?= $baseUrl ?>/logout" class="sb-logout">
