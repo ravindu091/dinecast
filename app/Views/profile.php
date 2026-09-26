@@ -48,6 +48,7 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
         $err = $_GET['error'];
         if ($err === 'password_incorrect') echo 'The current password you entered is incorrect.';
         elseif ($err === 'password_mismatch') echo 'New passwords do not match.';
+        elseif ($err === 'invalid_email') echo 'Please enter a valid email address.';
         else echo 'An error occurred while updating your profile.';
       ?>
     </div>

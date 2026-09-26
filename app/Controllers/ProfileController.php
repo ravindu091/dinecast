@@ -174,6 +174,11 @@ class ProfileController extends Controller {
             exit;
         }
 
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header("Location: " . BASE_URL . '/profile?error=invalid_email');
+            exit;
+        }
+
         $user = new User();
         $success = $user->updateUser($userId, $fullName, $email);
 
