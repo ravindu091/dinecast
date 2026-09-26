@@ -17,12 +17,12 @@ $tentativeCount = count(array_filter($monthEvents ?? [], static fn($event) => ($
     </div>
     <div class="home-stat">
       <div class="home-stat-label">Draft PRs </div>
-      <div class="home-stat-val">3</div>
+      <div class="home-stat-val">2</div>
       <div class="home-stat-sub warn">● Awaiting submission</div>
     </div>
     <div class="home-stat">
       <div class="home-stat-label">Pending Approval </div>
-      <div class="home-stat-val">1</div>
+      <div class="home-stat-val">4</div>
     </div>
     <div class="home-stat rejected">
       <div class="home-stat-label">Rejected PRs </div>
