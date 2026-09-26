@@ -141,7 +141,7 @@ class ProfileController extends Controller {
             exit;
         }
 
-        if ($oldPicture && strpos($oldPicture, 'assets/uploads/profiles/') !== false) {
+        if ($oldPicture && strpos($oldPicture, 'uploads/profiles/') !== false) {
             $oldFilePath = __DIR__ . '/../../public/' . $oldPicture;
             if (file_exists($oldFilePath) && is_file($oldFilePath)) {
                 @unlink($oldFilePath);
