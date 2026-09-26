@@ -26,11 +26,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('edit-ing-desc').value = triggerBtn.dataset.desc || '';
                 
                 // Handle status radio buttons
-                const status = triggerBtn.dataset.status || 'active';
-                if (status === 'active') {
-                    document.getElementById('edit-status-active').checked = true;
-                } else {
-                    document.getElementById('edit-status-inactive').checked = true;
+                const status = String(triggerBtn.dataset.status || 'active').trim().toLowerCase();
+                const activeRadio = document.getElementById('edit-status-active');
+                const inactiveRadio = document.getElementById('edit-status-inactive');
+                
+                if (activeRadio && inactiveRadio) {
+                    const activeOpt = activeRadio.closest('.pm-radio-opt');
+                    const inactiveOpt = inactiveRadio.closest('.pm-radio-opt');
+
+                    if (status === 'active') {
+                        activeRadio.checked = true;
+                        if (activeOpt) activeOpt.setAttribute('data-checked', '');
+                        if (inactiveOpt) inactiveOpt.removeAttribute('data-checked');
+                    } else {
+                        inactiveRadio.checked = true;
+                        if (inactiveOpt) inactiveOpt.setAttribute('data-checked', '');
+                        if (activeOpt) activeOpt.removeAttribute('data-checked');
+                    }
                 }
                 
                 // Handle uom badges

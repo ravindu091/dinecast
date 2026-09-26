@@ -14,11 +14,9 @@ $router = new Router(BASE_URL);
 // ── Auth ──────────────────────────────────────────────
 $router->get('/',            'AuthController@loginView');
 $router->post('/login',      'AuthController@login');
+$router->get('/logout' , 'AuthController@logOut');
 
 // ── 6 Actor Dashboards ───────────────────────────────
-$router->get('/admin',       'AdminController@dashboard');
-$router->get('/kitchen',     'KitchenController@dashboard');
-$router->get('/ceo',         'CeoController@dashboard');
 
 // procurement
 $router->get('/procurement',              'ProcurementController@home');
@@ -26,8 +24,37 @@ $router->get('/procurement/suppliers',    'ProcurementController@suppliers');
 $router->get('/procurement/requisitions', 'ProcurementController@requisitions');
 $router->get('/procurement/orders',       'ProcurementController@orders');
 
+// CEO
+$router->get('/ceo',         'CeoController@dashboard');
+
+// admin
+$router->get('/admin', 'AdminController@home');
+$router->get('/admin/users', 'AdminController@users');
+$router->post('/admin/users/create', 'AdminController@createUser');
+$router->post('/admin/users/update', 'AdminController@updateUser');
+$router->post('/admin/users/delete', 'AdminController@deleteUser');
+$router->get('/admin/params', 'AdminController@params');
+$router->get('/admin/uom', 'AdminController@uom');
+$router->get('/admin/holidays', 'AdminController@holidays');
+$router->get('/admin/logs', 'AdminController@logs');
+
 // store
 
+// ── Kitchen Manager ──────────────────────────────────
+$router->get('/kitchen', 'KitchenController@home');
+
+$router->get('/kitchen/events', 'KitchenController@events');
+$router->post('/kitchen/events/create', 'KitchenController@createEvent');
+$router->post('/kitchen/events/update/:id', 'KitchenController@updateEvent');
+$router->post('/kitchen/events/delete/:id', 'KitchenController@deleteEvent');
+
+$router->get('/kitchen/bookings', 'KitchenController@bookings');
+$router->get('/kitchen/forecast', 'KitchenController@forecast');
+$router->get('/kitchen/pr', 'KitchenController@pr');
+$router->get('/kitchen/attendance', 'KitchenController@attendance');
+
+
+// ── Store Manager ────────────────────────────────────
 $router->get('/store', 'StoreController@home');
 $router->get('/store/ingredients', 'StoreController@ingredients');
 $router->get('/store/issue', 'StoreController@issue');
@@ -39,10 +66,15 @@ $router->post('/ingredient/create','StoreController@createIngredient');
 $router->post('/ingredient/edit','StoreController@editIngredient');
 $router->post('/ingredient/delete','StoreController@deleteIngredient');
 
-//chef
-$router->get('/chef' , 'ChefController@home');
-$router->get('/chef/menus' , 'ChefController@menus');
-$router->get('/chef/recipes' , 'ChefController@recipes');
+// ── Chef ──────────────────────────────────────────────
+$router->get('/chef', 'ChefController@home');
+$router->get('/chef/menus', 'ChefController@menus');
+$router->get('/chef/recipes', 'ChefController@recipes');
 
+//profile
+$router->get('/profile', 'ProfileController@profile');
+$router->post('/profile/upload','ProfileController@uploadProfilePicture');
+$router->post('/profile/edit','ProfileController@editProfile');
+$router->post('/profile/password', 'ProfileController@changePassword');
 // ── Dispatch ─────────────────────────────────────────
 $router->dispatch();

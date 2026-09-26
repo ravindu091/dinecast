@@ -54,6 +54,7 @@ class AuthController extends Controller {
                 $_SESSION['fullName'] = $existingUser['full_name'];
                 $_SESSION['username'] = $existingUser['username'];
                 $_SESSION['role'] = $existingUser['role'];
+                $_SESSION['profile_picture'] = $existingUser['profile_picture'];
 
                 header("Location: " . BASE_URL . "/" . $_SESSION['role']);
                 exit;
@@ -78,5 +79,12 @@ class AuthController extends Controller {
             exit;
 
         }
+
+    }
+    public function logOut(){
+        session_unset();
+        session_destroy();
+        header("Location: " . BASE_URL . "/");
+        exit;
     }
 }
