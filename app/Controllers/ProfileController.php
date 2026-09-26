@@ -215,7 +215,7 @@ class ProfileController extends Controller {
         $user = new User();
         $existingUser = $user->getUserById($userId);
 
-        if (!password_verify($currentPassword, $existingUser['password'])) {
+        if (!password_verify($currentPassword, $existingUser['password_hash'])) {
             header("Location: " . BASE_URL . '/profile?error=password_incorrect');
             exit;
         }

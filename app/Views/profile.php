@@ -280,5 +280,4 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
   </div>
 </div>
 
-<script src="<?= BASE_URL ?>/assets/js/popup.js"></script>
 <script src="<?= BASE_URL ?>/assets/js/profile.js"></script>

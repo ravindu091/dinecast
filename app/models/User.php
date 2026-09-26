@@ -60,7 +60,7 @@ class User{
     public function updatePassword(int $userId, string $hashedPassword): bool {
         $stmt = $this->conn->prepare(
             "UPDATE users
-             SET password = :password
+             SET password_hash = :password
              WHERE id = :id"
         );
     
