@@ -6,6 +6,15 @@ class ProcurementController extends Controller {
     //the only categories a supplier can belong to (same list as the form)
     private const SUPPLIER_CATEGORIES = ['Meat & Seafood', 'Dairy & Staples', 'Vegetables', 'Dry Goods', 'Specialty'];
 
+    //runs before every procurement page and action:
+    //only a signed-in procurement manager gets past this
+    public function __construct(){
+        if(!isset($_SESSION['userId']) || $_SESSION['role'] != 'procurement'){
+            header("Location:" . BASE_URL . "/");
+            exit();
+        }
+    }
+
     /**
      * GET /procurement — Procurement Manager dashboard
      */
