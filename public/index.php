@@ -2,6 +2,7 @@
 
 // Application base URL
 define('BASE_URL', '/dinecast');
+session_start();
 
 // Load core framework
 require_once '../app/Core/Router.php';
@@ -11,7 +12,7 @@ require_once __DIR__ . '/../app/lib/utility.php';
 $router = new Router(BASE_URL);
 
 // ── Auth ──────────────────────────────────────────────
-$router->get('/',            'AuthController@login');
+$router->get('/',            'AuthController@loginView');
 $router->post('/login',      'AuthController@login');
 
 // ── 6 Actor Dashboards ───────────────────────────────
@@ -33,15 +34,25 @@ $router->get('/admin/logs', 'AdminController@logs');
 // store
 
 $router->get('/store', 'StoreController@home');
-$router->get('/store/ingredient', 'StoreController@ingredient');
+$router->get('/store/ingredients', 'StoreController@ingredients');
 $router->get('/store/issue', 'StoreController@issue');
 $router->get('/store/stock', 'StoreController@stock');
 $router->get('/store/inventory', 'StoreController@inventory');
+
+//store post request
+$router->post('/ingredient/create','StoreController@createIngredient');
+$router->post('/ingredient/edit','StoreController@editIngredient');
+$router->post('/ingredient/delete','StoreController@deleteIngredient');
 
 //chef
 $router->get('/chef' , 'ChefController@home');
 $router->get('/chef/menus' , 'ChefController@menus');
 $router->get('/chef/recipes' , 'ChefController@recipes');
 
+//profile
+$router->get('/profile', 'ProfileController@profile');
+$router->post('/profile/upload','ProfileController@uploadProfilePicture');
+$router->post('/profile/edit','ProfileController@editProfile');
+$router->post('/profile/password', 'ProfileController@changePassword');
 // ── Dispatch ─────────────────────────────────────────
 $router->dispatch();
