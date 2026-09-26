@@ -1,5 +1,24 @@
 <?php
 class KitchenController extends Controller {
+
+    private function requireKitchenManager(): void
+    {
+        $baseUrl = defined('BASE_URL') ? BASE_URL : '/dinecast';
+
+        if (!isset($_SESSION['userId'])){
+            header("Location: {$baseUrl}/");
+            exit;
+        }
+
+        if (($_SESSION['role']??'')!=='Kitchen Manager'){
+            http_response_code(403);
+            exit('Forbidden');
+        }
+    }
+
+    public function __construct() {
+        $this->requireKitchenManager();
+    }
     public function dashboard(array $params = []): void {
         $this->render('kitchen');
     }
@@ -43,7 +62,7 @@ class KitchenController extends Controller {
         $events = array_values(array_filter($events, static fn($event) => (int)$event['registered_guests'] > 20));
         $stats = Event::stats($events);
         $message = $_GET['msg'] ?? null;
-        $dbError = Database::getLastError();
+        $dbError = null;
 
         $this->renderWithLayout('kitchen/events','kitchen/layout',[
             'title' => 'Kitchen Manager - Events',
