@@ -10,7 +10,7 @@ class KitchenController extends Controller {
             exit;
         }
 
-        if (($_SESSION['role']??'')!=='Kitchen Manager'){
+        if (($_SESSION['role']??'')!=='kitchen'){
             http_response_code(403);
             exit('Forbidden');
         }
