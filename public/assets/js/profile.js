@@ -1,4 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Auto-dismiss alerts and clean up URL parameters
+    const alerts = document.querySelectorAll('.alert');
+    if (alerts.length > 0) {
+        setTimeout(() => {
+            alerts.forEach(alert => {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 5000);
+
+        const url = new URL(window.location);
+        url.searchParams.delete('success');
+        url.searchParams.delete('error');
+        window.history.replaceState({}, document.title, url);
+    }
+
     // Tab switching logic for profile
     const tabs = document.querySelectorAll('.pt-tab');
     
@@ -7,22 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             
-            // In a real app, this would also toggle visibility of .profile-content sections
+            const userInfoTab = document.getElementById('tab-user-info');
+            const securityTab = document.getElementById('tab-security');
+            
             if(tab.textContent.includes('Security')) {
-                // mock behavior for UI demo
-                console.log('Switched to Security Tab');
+                if (userInfoTab) userInfoTab.style.display = 'none';
+                if (securityTab) securityTab.style.display = 'block';
             } else {
-                console.log('Switched to User Info Tab');
+                if (securityTab) securityTab.style.display = 'none';
+                if (userInfoTab) userInfoTab.style.display = 'block';
             }
         });
     });
 
-    const editBtn = document.querySelector('.btn-edit');
-    if (editBtn) {
-        editBtn.addEventListener('click', () => {
-            alert('Edit Profile functionality would open here.');
-        });
-    }
+    
 
 
     //profile photo upload

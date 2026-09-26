@@ -42,4 +42,31 @@ class User{
             ':id' => $userId
         ]);
     }
+
+    public function updateUser(int $userId, string $fullName, string $email): bool {
+        $stmt = $this->conn->prepare(
+            "UPDATE users
+             SET full_name = :full_name, email = :email
+             WHERE id = :id"
+        );
+    
+        return $stmt->execute([
+            ':full_name' => $fullName,
+            ':email' => $email,
+            ':id' => $userId
+        ]);
+    }
+
+    public function updatePassword(int $userId, string $hashedPassword): bool {
+        $stmt = $this->conn->prepare(
+            "UPDATE users
+             SET password = :password
+             WHERE id = :id"
+        );
+    
+        return $stmt->execute([
+            ':password' => $hashedPassword,
+            ':id' => $userId
+        ]);
+    }
 }
