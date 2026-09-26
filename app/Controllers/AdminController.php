@@ -3,10 +3,65 @@
 require_once __DIR__ . '/../Models/User.php';
 
 class AdminController extends Controller {
-    public function dashboard(array $params = []): void {
+    public function __construct(){
+        if(!isset($_SESSION['userId']) || !isset($_SESSION['role'])){
+            header('Location:'.BASE_URL .'/');
+            exit;
+        }
+        if($_SESSION['role'] !== 'admin'){
+            header('Location:'.BASE_URL .'/');
+            exit;
+        }
+    }
+    public function home(array $params = []): void {
+        $this->renderWithLayout('admin/home', 'admin/layout', [
+            'title' => 'Admin Dashboard',
+            'pageTitle' => 'System Administration Panel',
+            'activePage' => 'home'
+        ]);
+    }
+
+    public function users(array $params = []): void {
         $users = (new User())->all();
 
-        $this->render('admin', [ 'users' => $users ]);
+        $this->renderWithLayout('admin/users', 'admin/layout', [
+            'title' => 'User Management',
+            'pageTitle' => 'User Management Panel',
+            'activePage' => 'users',
+            'users' => $users
+        ]);
+    }
+
+    public function params(array $params = []): void {
+        $this->renderWithLayout('admin/params', 'admin/layout', [
+            'title' => 'System Parameters',
+            'pageTitle' => 'System Parameters Config',
+            'activePage' => 'params'
+        ]);
+    }
+
+    public function uom(array $params = []): void {
+        $this->renderWithLayout('admin/uom', 'admin/layout', [
+            'title' => 'Units of Measure',
+            'pageTitle' => 'Units of Measure Config',
+            'activePage' => 'uom'
+        ]);
+    }
+
+    public function holidays(array $params = []): void {
+        $this->renderWithLayout('admin/holidays', 'admin/layout', [
+            'title' => 'Holiday Calendar',
+            'pageTitle' => 'Holiday Calendar Config',
+            'activePage' => 'holidays'
+        ]);
+    }
+
+    public function logs(array $params = []): void {
+        $this->renderWithLayout('admin/logs', 'admin/layout', [
+            'title' => 'Activity Logs',
+            'pageTitle' => 'System Activity Logs',
+            'activePage' => 'logs'
+        ]);
     }
 
     public function createUser(array $params = []): void
@@ -35,7 +90,7 @@ class AdminController extends Controller {
             $passwordHash
         );
 
-        header('Location: ' . BASE_URL . '/admin');
+        header('Location: ' . BASE_URL . '/admin/users');
         exit;
     }
 
@@ -49,7 +104,7 @@ class AdminController extends Controller {
     
         (new User())->delete($id);
     
-        header('Location: ' . BASE_URL . '/admin');
+        header('Location: ' . BASE_URL . '/admin/users');
         exit;
     }
 
@@ -73,7 +128,7 @@ class AdminController extends Controller {
             $role
         );
 
-        header('Location: ' . BASE_URL . '/admin');
+        header('Location: ' . BASE_URL . '/admin/users');
         exit;
     }
 }
