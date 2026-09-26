@@ -1,5 +1,15 @@
 <?php
 class AdminController extends Controller {
+    public function __construct(){
+        if(!isset($_SESSION['userId']) || !isset($_SESSION['role'])){
+            header('Location:'.BASE_URL .'/');
+            exit;
+        }
+        if($_SESSION['role'] !== 'admin'){
+            header('Location:'.BASE_URL .'/');
+            exit;
+        }
+    }
     public function home(array $params = []): void {
         $this->renderWithLayout('admin/home', 'admin/layout', [
             'title' => 'Admin Dashboard',
