@@ -181,7 +181,7 @@
                   <td style="font-weight:700;">Rs. 46,250</td>
                   <td style="font-size:12px;color:var(--t3);">10/08/2026</td>
                   <td><span class="badge bg-green">Approved</span></td>
-                  <td><div class="acts"><span class="act" onclick="showToast('3 POs created for PR-0048, one per supplier')">Create POs</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="toggleModal('modal-create-po')">Create POs</span></div></td>
                 </tr>
                 <tr class="expand-row" id="pr-detail-0048">
                   <td colspan="9">
@@ -271,7 +271,7 @@
                   <td style="font-weight:700;">Rs. 28,600</td>
                   <td style="font-size:12px;color:var(--t3);">07/08/2026</td>
                   <td><span class="badge bg-red">Rejected</span></td>
-                  <td><div class="acts"><span class="act">View Remarks</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="toggleModal('modal-remarks')">View Remarks</span></div></td>
                 </tr>
                 <tr>
                   <td><button class="expand-btn" onclick="toggleExpandRow(this,'pr-detail-0044')">▶</button></td>
@@ -381,7 +381,7 @@
 
       <!-- PURCHASE ORDERS -->
       <section id="sec-orders" class="section">
-        <div class="sec-hdr"><h2>Purchase Orders</h2><button class="btn btn-primary" onclick="showToast('PO generated from approved PRs!')">Generate PO from PR</button></div>
+        <div class="sec-hdr"><h2>Purchase Orders</h2></div>
 
         <div class="stats">
           <div class="stat c-blue"><div class="stat-ico">📤</div><div class="stat-val">3</div><div class="stat-lbl">Issued (Awaiting Delivery)</div></div>
@@ -405,7 +405,7 @@
                   <td style="font-weight:700;">Rs. 48,000</td>
                   <td>13/08/26</td>
                   <td><span class="badge bg-blue">Issued</span></td>
-                  <td><div class="acts"><span class="act">View</span><span class="act" onclick="showToast('PO-0020 marked as Received!')">Mark Received</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="openPoDetail(this)">View</span><span class="act" onclick="showToast('PO-0020 marked as Received!')">Mark Received</span></div></td>
                 </tr>
                 <tr class="expand-row" id="po-detail-0020">
                   <td colspan="9">
@@ -433,7 +433,7 @@
                   <td style="font-weight:700;">Rs. 20,300</td>
                   <td>15/08/26</td>
                   <td><span class="badge bg-blue">Issued</span></td>
-                  <td><div class="acts"><span class="act">View</span><span class="act" onclick="showToast('PO-0019 marked as Received!')">Mark Received</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="openPoDetail(this)">View</span><span class="act" onclick="showToast('PO-0019 marked as Received!')">Mark Received</span></div></td>
                 </tr>
                 <tr class="expand-row" id="po-detail-0019">
                   <td colspan="9">
@@ -461,7 +461,7 @@
                   <td style="font-weight:700;">Rs. 45,600</td>
                   <td>14/08/26</td>
                   <td><span class="badge bg-blue">Issued</span></td>
-                  <td><div class="acts"><span class="act">View</span><span class="act" onclick="showToast('PO-0018 marked as Received!')">Mark Received</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="openPoDetail(this)">View</span><span class="act" onclick="showToast('PO-0018 marked as Received!')">Mark Received</span></div></td>
                 </tr>
                 <tr class="expand-row" id="po-detail-0018">
                   <td colspan="9">
@@ -489,7 +489,7 @@
                   <td style="font-weight:700;">Rs. 11,700</td>
                   <td>10/08/26</td>
                   <td><span class="badge bg-teal">Received</span></td>
-                  <td><div class="acts"><span class="act">View</span><span class="act" onclick="showToast('PO-0017 closed.')">Close PO</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="openPoDetail(this)">View</span><span class="act" onclick="showToast('PO-0017 closed.')">Close PO</span></div></td>
                 </tr>
                 <tr class="expand-row" id="po-detail-0017">
                   <td colspan="9">
@@ -517,7 +517,7 @@
                   <td style="font-weight:700;">Rs. 2,660</td>
                   <td>31/07/26</td>
                   <td><span class="badge bg-gray">Closed</span></td>
-                  <td><div class="acts"><span class="act">View</span></div></td>
+                  <td><div class="acts"><span class="act" onclick="openPoDetail(this)">View</span></div></td>
                 </tr>
                 <tr class="expand-row" id="po-detail-0016">
                   <td colspan="9">
@@ -598,6 +598,100 @@
               <button type="button" class="btn btn-outline" onclick="toggleModal('modal-reject')">Cancel</button>
             </div>
           </form>
+        </div>
+      </div>
+
+      <!-- Rejection Remarks Modal -->
+      <div class="modal-overlay" id="modal-remarks" onclick="if(event.target===this)toggleModal('modal-remarks')">
+        <div class="modal">
+          <div class="modal-hdr"><h3>Rejection Remarks — PR-0045</h3><button class="modal-close" onclick="toggleModal('modal-remarks')">✕</button></div>
+          <div class="po-meta">
+            <div><span>Linked Event</span>Tech Conference</div>
+            <div><span>Raised By</span>Sudath B. (Kitchen Mgr)</div>
+            <div><span>Rejected By</span>Kavindu Silva</div>
+            <div><span>Rejected On</span>07/08/2026</div>
+          </div>
+          <div class="remark-box">The client has not confirmed the final headcount for the Tech Conference. The prawn and cheese quantities assume 150 guests. Please resubmit once the confirmed guest count is received.</div>
+          <div style="display:flex;gap:10px;margin-top:16px;">
+            <button type="button" class="btn btn-outline" onclick="toggleModal('modal-remarks')">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create POs Modal: previews the one-PO-per-supplier split before committing -->
+      <div class="modal-overlay" id="modal-create-po" onclick="if(event.target===this)toggleModal('modal-create-po')">
+        <div class="modal">
+          <div class="modal-hdr"><h3>Create Purchase Orders — PR-0048</h3><button class="modal-close" onclick="toggleModal('modal-create-po')">✕</button></div>
+          <p class="po-split-intro">PR-0048 (Corporate Lunch) was approved as one requisition. Its ingredients come from 3 suppliers, so it will be split into 3 purchase orders, one per supplier. Review them before confirming.</p>
+            <div class="po-split">
+              <div class="po-split-hdr"><b>PO-0021 &nbsp;·&nbsp; Lakmal &amp; Sons Poultry</b><span>Lakmal Perera &nbsp;·&nbsp; 071-9876543</span></div>
+              <div class="tbl-wrap" style="margin:0;">
+                <table>
+                  <thead><tr><th>Ingredient</th><th>Qty</th><th>UOM</th><th>Unit Price</th></tr></thead>
+                  <tbody>
+                    <tr><td>Chicken Breast</td><td>25</td><td>kg</td><td>Rs. 850</td></tr>
+                  </tbody>
+                  <tfoot><tr style="font-weight:700;"><td colspan="3">Subtotal</td><td>Rs. 21,250</td></tr></tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="po-split">
+              <div class="po-split-hdr"><b>PO-0022 &nbsp;·&nbsp; Ceylon Agro Exports</b><span>Chaminda Ranasinghe &nbsp;·&nbsp; 077-5554433</span></div>
+              <div class="tbl-wrap" style="margin:0;">
+                <table>
+                  <thead><tr><th>Ingredient</th><th>Qty</th><th>UOM</th><th>Unit Price</th></tr></thead>
+                  <tbody>
+                    <tr><td>Basmati Rice</td><td>50</td><td>kg</td><td>Rs. 320</td></tr>
+                  </tbody>
+                  <tfoot><tr style="font-weight:700;"><td colspan="3">Subtotal</td><td>Rs. 16,000</td></tr></tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="po-split">
+              <div class="po-split-hdr"><b>PO-0023 &nbsp;·&nbsp; Araliya Foods</b><span>Nirmala Jayawardena &nbsp;·&nbsp; 076-2223344</span></div>
+              <div class="tbl-wrap" style="margin:0;">
+                <table>
+                  <thead><tr><th>Ingredient</th><th>Qty</th><th>UOM</th><th>Unit Price</th></tr></thead>
+                  <tbody>
+                    <tr><td>Coconut Milk</td><td>20</td><td>L</td><td>Rs. 450</td></tr>
+                  </tbody>
+                  <tfoot><tr style="font-weight:700;"><td colspan="3">Subtotal</td><td>Rs. 9,000</td></tr></tfoot>
+                </table>
+              </div>
+            </div>
+          <div class="po-split-total"><span>Total across 3 POs</span><b>Rs. 46,250</b></div>
+          <div style="display:flex;gap:10px;margin-top:16px;">
+            <button type="button" class="btn btn-primary" onclick="showToast('3 POs created for PR-0048: PO-0021, PO-0022, PO-0023');toggleModal('modal-create-po')">Create 3 Purchase Orders</button>
+            <button type="button" class="btn btn-outline" onclick="toggleModal('modal-create-po')">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PO Detail Modal (filled by openPoDetail in procurement.js) -->
+      <div class="modal-overlay" id="modal-po-detail" onclick="if(event.target===this)toggleModal('modal-po-detail')">
+        <div class="modal">
+          <div class="modal-hdr"><h3 id="po-d-title">Purchase Order</h3><button class="modal-close" onclick="toggleModal('modal-po-detail')">✕</button></div>
+          <div class="po-stepper" id="po-d-stepper">
+            <div class="po-step" data-step="Issued"><span class="po-dot">1</span>Issued</div>
+            <div class="po-step" data-step="Received"><span class="po-dot">2</span>Received</div>
+            <div class="po-step" data-step="Closed"><span class="po-dot">3</span>Closed</div>
+          </div>
+          <div class="po-meta">
+            <div><span>Supplier</span><b id="po-d-supplier"></b></div>
+            <div><span>From PR</span><b id="po-d-pr"></b></div>
+            <div><span>Contact Person</span><b id="po-d-contact"></b></div>
+            <div><span>Phone</span><b id="po-d-phone"></b></div>
+            <div><span>Expected Delivery</span><b id="po-d-expected"></b></div>
+            <div><span>Status</span><b id="po-d-status"></b></div>
+          </div>
+          <div class="tbl-wrap" style="margin:0;">
+            <table>
+              <thead><tr><th>Ingredient</th><th>Qty</th><th>UOM</th><th>Unit Price</th></tr></thead>
+              <tbody id="po-d-lines"></tbody>
+              <tfoot><tr style="font-weight:700;"><td colspan="3">Total</td><td id="po-d-total"></td></tr></tfoot>
+            </table>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:16px;" id="po-d-actions"></div>
         </div>
       </div>
 
