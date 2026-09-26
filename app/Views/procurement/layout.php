@@ -40,11 +40,17 @@
       </a>
     </nav>
 
+    <?php
+      //signed-in user's name from the session (set at login); the design persona is the fallback
+      $fullName = $_SESSION['fullName'] ?? 'Kavindu Silva';
+      $nameParts = explode(' ', trim($fullName));
+      $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+    ?>
     <div class="sb-footer">
       <div class="sb-user">
-        <div class="sb-avatar" style="background:var(--success-bg);color:var(--success);">KS</div>
+        <div class="sb-avatar" style="background:var(--success-bg);color:var(--success);"><?= htmlspecialchars($initials) ?></div>
         <div>
-          <div class="sb-user-name">Kavindu Silva</div>
+          <div class="sb-user-name"><?= htmlspecialchars($fullName) ?></div>
           <div class="sb-user-role">Procurement Manager</div>
         </div>
       </div>
@@ -60,7 +66,7 @@
     <header class="topbar">
       <div class="topbar-left">
         <h1><?= htmlspecialchars($title) ?></h1>
-        <p>Welcome back, Kavindu!</p>
+        <p>Welcome back, <?= htmlspecialchars($nameParts[0]) ?>!</p>
       </div>
       <div class="topbar-right">
         <span class="date-chip"></span>
