@@ -115,7 +115,7 @@ class ProfileController extends Controller {
 
         $filename =bin2hex(random_bytes(16)). '.'. $extension;
 
-        $uploadDirectory = __DIR__ . '/../../public/assets/uploads/profiles/';
+        $uploadDirectory = __DIR__ . '/../../public/uploads/profiles/';
 
         $targetPath = (string)$uploadDirectory . $filename;
 
