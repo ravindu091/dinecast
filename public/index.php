@@ -16,7 +16,6 @@ $router->get('/',            'AuthController@loginView');
 $router->post('/login',      'AuthController@login');
 $router->get('/logout' , 'AuthController@logOut');
 
-
 // ── 6 Actor Dashboards ───────────────────────────────
 $router->get('/admin',       'AdminController@dashboard');
 $router->get('/kitchen',     'KitchenController@dashboard');
