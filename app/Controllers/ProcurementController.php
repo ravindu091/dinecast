@@ -19,9 +19,12 @@ class ProcurementController extends Controller {
      * GET /procurement — Procurement Manager dashboard
      */
     public function home(array $params = []) {
+        $supplier = new Supplier();
+
         $this->renderWithLayout('procurement/home', 'procurement/layout', [
             'title' => 'Procurement Manager Dashboard',
             'activePage' => 'home',
+            'activeSupplierCount' => $supplier->countActiveSuppliers(),
         ]);
     }
 

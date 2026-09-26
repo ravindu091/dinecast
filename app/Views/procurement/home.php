@@ -45,7 +45,7 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>
         </span>
       </div>
-      <div class="pm-kpi-value">6</div>
+      <div class="pm-kpi-value"><?= $activeSupplierCount ?></div>
       <div class="pm-kpi-desc">Available for purchase orders</div>
       <a href="<?= $baseUrl ?>/procurement/suppliers" class="pm-kpi-link">Manage &rarr;</a>
     </article>
