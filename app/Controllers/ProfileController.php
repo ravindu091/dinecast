@@ -29,7 +29,7 @@ class ProfileController extends Controller {
         $status = ($existingUser['is_active'] >0) ? "Active" : "Inactive"; 
 
 
-        $this->renderWithLayout('profile', $role . '/layout', [
+        $this->renderWithLayout('profile', (string)$role . '/layout', [
             'title' => 'My Profile',
             'pageTitle' => 'My Profile',
             'activePage' => 'profile',
@@ -37,7 +37,7 @@ class ProfileController extends Controller {
             'fullName'=>$fullName,
             'username'=>$username,
             'email'=>$email,
-            'role'=>getRole($role),
+            'role'=>getRole( (string)$role ),
             'status'=> $status,
             'accountCreated'=> $accountCreated,
             'loginDate'=>$loginDate
@@ -115,7 +115,7 @@ class ProfileController extends Controller {
 
         $filename =bin2hex(random_bytes(16)). '.'. $extension;
 
-        $uploadDirectory = __DIR__ . '/../../public/assets/uploads/profiles/';
+        $uploadDirectory = __DIR__ . '/../../public/uploads/profiles/';
 
         $targetPath = (string)$uploadDirectory . $filename;
 
