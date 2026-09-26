@@ -39,5 +39,8 @@ $router->get('/chef' , 'ChefController@home');
 $router->get('/chef/menus' , 'ChefController@menus');
 $router->get('/chef/recipes' , 'ChefController@recipes');
 
+//profile
+$router->get('/profile', 'ProfileController@profile');
+
 // ── Dispatch ─────────────────────────────────────────
 $router->dispatch();
