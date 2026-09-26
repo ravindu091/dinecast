@@ -1,10 +1,9 @@
 /* ===============================================
-   RECEIVE STOCK FORM SUBMIT (Store)
+   STORE MANAGER — store.js
+   Open/close mechanics delegated to PopupManager
+   (popup.js). This file handles only content-
+   specific logic for each popup.
    =============================================== */
-function closePopupOverlay(overlay) {
-  if (overlay) overlay.classList.remove('active', 'open');
-  document.body.style.overflow = '';
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   initIngredientToolbar();
@@ -14,10 +13,60 @@ document.addEventListener('DOMContentLoaded', () => {
   initWastePopup();
   initAddStockPopup();
   initMsrPopup();
+  initAddIngredientPopup();
   initTabs();
-  initGenericPopups();
 });
 
+/* ------------------------------------------------
+   ADD INGREDIENT POPUP
+   ------------------------------------------------ */
+function initAddIngredientPopup() {
+  const OVERLAY_ID = 'add-ingredient-overlay';
+
+  PopupManager.register(OVERLAY_ID, {
+    onOpen(overlay) {
+      // Reset form on every open
+      const form = overlay.querySelector('#add-ingredient-form');
+      if (form) form.reset();
+      // Reset UOM badges
+      const badge = overlay.querySelector('#ing-uom-badge');
+      const badgeCurr = overlay.querySelector('#ing-uom-badge-curr');
+      if (badge) badge.textContent = 'unit';
+      if (badgeCurr) badgeCurr.textContent = 'unit';
+    },
+    onClose() {}
+  });
+
+  // Keep the UOM badges in sync with the selected unit
+  const uomSelect = document.getElementById('ing-uom');
+  const uomBadge  = document.getElementById('ing-uom-badge');
+  const uomBadgeCurr = document.getElementById('ing-uom-badge-curr');
+  
+  if (uomSelect) {
+    uomSelect.addEventListener('change', () => {
+      const val = uomSelect.value || 'unit';
+      if (uomBadge) uomBadge.textContent = val;
+      if (uomBadgeCurr) uomBadgeCurr.textContent = val;
+    });
+  }
+
+  // Status radio — no manual class needed (:has() drives it via CSS)
+  // Fallback for older browsers: reflect checked state via data attribute
+  const radioGroup = document.querySelector('#add-ingredient-overlay .pm-radio-group');
+  if (radioGroup) {
+    radioGroup.addEventListener('change', () => {
+      radioGroup.querySelectorAll('.pm-radio-opt').forEach(opt => {
+        const radio = opt.querySelector('input[type="radio"]');
+        opt.toggleAttribute('data-checked', !!(radio && radio.checked));
+      });
+    });
+  }
+}
+
+
+/* ------------------------------------------------
+   TABS
+   ------------------------------------------------ */
 function initTabs() {
   document.querySelectorAll('.tab-group').forEach(group => {
     const tabs = group.querySelectorAll('.tabs .tab');
@@ -25,14 +74,11 @@ function initTabs() {
 
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => {
-        // Remove active class from all tabs & panes
         tabs.forEach(t => t.classList.remove('active'));
         panes.forEach(p => {
           p.classList.remove('active');
           p.style.display = 'none';
         });
-
-        // Add active class to selected tab & pane
         tab.classList.add('active');
         if (panes[index]) {
           panes[index].classList.add('active');
@@ -43,6 +89,9 @@ function initTabs() {
   });
 }
 
+/* ------------------------------------------------
+   INGREDIENT TOOLBAR
+   ------------------------------------------------ */
 function initIngredientToolbar() {
   const search = document.getElementById('ingredient-search');
   const category = document.getElementById('category-filter');
@@ -97,6 +146,9 @@ function exportIngredients(rows) {
   URL.revokeObjectURL(url);
 }
 
+/* ------------------------------------------------
+   INVENTORY TOOLBAR
+   ------------------------------------------------ */
 function initInventoryToolbar() {
   const section = document.getElementById('sec-inventory');
   const search = document.getElementById('inventory-search');
@@ -184,71 +236,65 @@ function initInventoryToolbar() {
    BATCH DETAILS POPUP
    ================================================ */
 function initBatchPopup() {
-  const overlay = document.getElementById('batch-popup-overlay');
-  const closeBtn = document.getElementById('batch-popup-close');
+  // Register data-fill hook with PopupManager
+  PopupManager.register('batch-popup-overlay', {
+    onOpen(overlay, triggerEl) {
+      const row = triggerEl?.closest
+        ? triggerEl.closest('.inventory-data-row')
+        : null;
+      if (!row) return;
 
-  if (!overlay || !closeBtn) return;
+      // Remember the active row so Issue popup can use it
+      document._issuePopupRow = row;
 
-  // Open: click anywhere on an inventory data row
+      const name      = row.dataset.name     || '—';
+      const batchId   = row.dataset.batch    || '—';
+      const received  = row.dataset.received || '—';
+      const qty       = row.dataset.quantity || '—';
+      const expiry    = row.dataset.expiry   || '—';
+      const remaining = parseInt(row.dataset.remaining, 10);
+      const supplier  = row.dataset.supplier || '—';
+      const category  = row.dataset.category || '—';
+
+      document.getElementById('popup-batch-id').textContent   = batchId;
+      document.getElementById('popup-ingredient').textContent  = name;
+      document.getElementById('popup-category').textContent    = category;
+      document.getElementById('popup-supplier').textContent    = supplier;
+      document.getElementById('popup-received').textContent    = received;
+      document.getElementById('popup-qty').textContent         = qty;
+
+      const badge = document.getElementById('popup-expiry-badge');
+      badge.className = 'popup-expiry-badge';
+
+      if (isNaN(remaining) || remaining <= 3) {
+        badge.classList.add('expired');
+        badge.textContent = `Expired · ${expiry}`;
+      } else if (remaining <= 7) {
+        badge.classList.add('expiring');
+        badge.textContent = `Expiring Soon · ${remaining} Days Left (${expiry})`;
+      } else {
+        badge.classList.add('optimal');
+        badge.textContent = `Good · ${remaining} Days Left (${expiry})`;
+      }
+    }
+  });
+
+  // Row click → open Batch Details popup
   document.querySelectorAll('.inventory-data-row').forEach(row => {
     row.style.cursor = 'pointer';
     row.addEventListener('click', (e) => {
-      // Don't open if user clicked an action button inside the row
       if (e.target.closest('.inventory-actions')) return;
-      openBatchPopup(row);
-      // Wait, we need to explicitly open it if clicking the row itself, not just the view button.
-      // We can trigger the generic handler or manually add 'open' here.
-      overlay.classList.add('active', 'open');
-      document.body.style.overflow = 'hidden';
+      document._issuePopupRow = row;
+      PopupManager.open('batch-popup-overlay', row);
     });
   });
-}
-
-function openBatchPopup(row) {
-  const overlay = document.getElementById('batch-popup-overlay');
-
-  const name = row.dataset.name || '—';
-  const batchId = row.dataset.batch || '—';
-  const received = row.dataset.received || '—';
-  const qty = row.dataset.quantity || '—';
-  const expiry = row.dataset.expiry || '—';
-  const remaining = parseInt(row.dataset.remaining, 10);
-  const supplier = row.dataset.supplier || '—';
-  const category = row.dataset.category || '—';
-
-  // Fill fields
-  document.getElementById('popup-batch-id').textContent = batchId;
-  document.getElementById('popup-ingredient').textContent = name;
-  document.getElementById('popup-category').textContent = category;
-  document.getElementById('popup-supplier').textContent = supplier;
-  document.getElementById('popup-received').textContent = received;
-  document.getElementById('popup-qty').textContent = qty;
-
-  // Expiry badge
-  const badge = document.getElementById('popup-expiry-badge');
-  badge.className = 'popup-expiry-badge';
-
-  if (isNaN(remaining) || remaining < 0) {
-    badge.classList.add('expired');
-    badge.textContent = `Expired · ${expiry}`;
-  } else if (remaining <= 3) {
-    badge.classList.add('expired');
-    badge.textContent = `Expired · ${expiry}`;
-  } else if (remaining <= 7) {
-    badge.classList.add('expiring');
-    badge.textContent = `Expiring Soon · ${remaining} Days Left (${expiry})`;
-  } else {
-    badge.classList.add('optimal');
-    badge.textContent = `Good · ${remaining} Days Left (${expiry})`;
-  }
-  // Expiry badge logic...
 }
 
 /* ================================================
    ISSUE TO KITCHEN POPUP
    ================================================ */
 
-/** Parse a qty string like "28 kg", "18 L", "500 g", "15 trays"
+/** Parse a qty string like "28 kg", "500 g", "15 trays"
  *  Returns { value: number, unit: string }
  */
 function parseQty(qtyStr) {
@@ -258,15 +304,13 @@ function parseQty(qtyStr) {
 }
 
 function initIssuePopup() {
-  const overlay = document.getElementById('issue-popup-overlay');
-  const closeBtn = document.getElementById('issue-popup-close');
-  const cancelBtn = document.getElementById('issue-cancel');
+  const overlay   = document.getElementById('issue-popup-overlay');
   const confirmBtn = document.getElementById('issue-confirm');
-  const input = document.getElementById('issue-qty-input');
-  const decBtn = document.getElementById('issue-decrement');
-  const incBtn = document.getElementById('issue-increment');
+  const input     = document.getElementById('issue-qty-input');
+  const decBtn    = document.getElementById('issue-decrement');
+  const incBtn    = document.getElementById('issue-increment');
   const presetsDiv = document.getElementById('issue-presets');
-  const unitEl = document.getElementById('issue-unit');
+  const unitEl    = document.getElementById('issue-unit');
   const remaining = document.getElementById('issue-remaining-value');
 
   if (!overlay) return;
@@ -275,75 +319,86 @@ function initIssuePopup() {
   let unitStr = 'kg';
   let step = 0.5;
 
-  // Open from any Issue button [data-issue]
+  // Register onOpen hook — fills header, resets qty
+  PopupManager.register('issue-popup-overlay', {
+    onOpen(overlay, triggerEl) {
+      // triggerEl may be a [data-issue] button, a row, or the "Issue to Kitchen" footer btn
+      const row = triggerEl?.closest?.('.inventory-data-row') ?? document._issuePopupRow;
+      if (!row) return;
+      document._issuePopupRow = row;
+
+      const name = row.dataset.name || '—';
+      const batch = row.dataset.batch || '—';
+      const qty = row.dataset.quantity || '0 kg';
+      const parsed = parseQty(qty);
+
+      maxQty  = parsed.value;
+      unitStr = parsed.unit || 'kg';
+      step    = unitStr === 'g' ? 50 : 0.5;
+
+      document.getElementById('issue-batch-id').textContent        = batch;
+      document.getElementById('popup-batch-id') && null; // batch detail uses same id — skip
+      document.getElementById('issue-ingredient-name').textContent  = name;
+      document.getElementById('issue-available').textContent        = qty;
+      if (unitEl) unitEl.textContent = unitStr;
+
+      input.value = 0;
+      input.max   = maxQty;
+      input.step  = step;
+
+      buildPresets(maxQty, unitStr);
+      updateRemaining();
+    }
+  });
+
+  // Open from [data-issue] row action buttons
   document.querySelectorAll('[data-issue]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const row = btn.closest('.inventory-data-row');
       if (!row) return;
-      openIssuePopup(row);
+      document._issuePopupRow = row;
+      PopupManager.open('issue-popup-overlay', btn);
     });
   });
 
-  // Also wire "Issue to Kitchen" button inside existing batch popup footer
-  const footerIssueBtn = document.querySelector('.popup-btn-issue');
-  if (footerIssueBtn) {
-    footerIssueBtn.addEventListener('click', () => {
-      // Find the currently highlighted row (last opened popup row)
-      const row = document._issuePopupRow;
-      if (row) {
-        closePopupOverlay(document.getElementById('batch-popup-overlay'));
-        openIssuePopup(row);
-        // Ensure it opens if triggered programmatically
-        overlay.classList.add('active', 'open');
-        document.body.style.overflow = 'hidden';
-      }
-    });
-  }
-
-  // Track the active row when batch popup opens
-  document.querySelectorAll('.inventory-data-row').forEach(row => {
-    row.addEventListener('click', () => { document._issuePopupRow = row; });
-  });
-
-  function openIssuePopup(row) {
-    const name = row.dataset.name || '—';
-    const batch = row.dataset.batch || '—';
-    const qty = row.dataset.quantity || '0 kg';
-    const parsed = parseQty(qty);
-
-    maxQty = parsed.value;
-    unitStr = parsed.unit || 'kg';
-    step = unitStr === 'g' ? 50 : unitStr === 'L' ? 0.5 : 0.5;
-
-    // Header
-    document.getElementById('issue-batch-id').textContent = batch;
-    document.getElementById('issue-ingredient-name').textContent = name;
-    document.getElementById('issue-available').textContent = qty;
-    if (unitEl) unitEl.textContent = unitStr;
-
-    // Reset qty
-    input.value = 0;
-    input.max = maxQty;
-    input.step = step;
-
-    // Build presets (25 %, 50 %, 75 %, Max)
-    buildPresets(maxQty, unitStr);
+  /* -- Stepper -- */
+  decBtn?.addEventListener('click', () => {
+    input.value = Math.max(0, +(parseFloat(input.value) - step).toFixed(2));
     updateRemaining();
-    // Handled by generic handler: overlay.classList.add('open');
-  }
+  });
 
+  incBtn?.addEventListener('click', () => {
+    input.value = Math.min(maxQty, +(parseFloat(input.value) + step).toFixed(2));
+    updateRemaining();
+  });
+
+  input?.addEventListener('input', () => {
+    let v = parseFloat(input.value) || 0;
+    if (v < 0) { input.value = 0; v = 0; }
+    if (v > maxQty) { input.value = maxQty; v = maxQty; }
+    updateRemaining();
+  });
+
+  /* -- Confirm -- */
+  confirmBtn?.addEventListener('click', () => {
+    const qty  = parseFloat(input.value) || 0;
+    const name  = document.getElementById('issue-ingredient-name').textContent;
+    const batch = document.getElementById('issue-batch-id').textContent;
+    if (qty <= 0) return;
+    PopupManager.close('issue-popup-overlay');
+    showToast(`✓ ${qty} ${unitStr} of ${name} (${batch}) issued to Kitchen successfully!`);
+  });
+
+  /* -- Helpers -- */
   function buildPresets(max, unit) {
-    // Remove old preset buttons but keep the label
     presetsDiv.querySelectorAll('.issue-preset-btn').forEach(b => b.remove());
-
     const candidates = [
       { label: `${fmt(max * 0.25)} ${unit}`, value: max * 0.25 },
-      { label: `${fmt(max * 0.5)} ${unit}`, value: max * 0.5 },
+      { label: `${fmt(max * 0.5)} ${unit}`,  value: max * 0.5  },
       { label: `${fmt(max * 0.75)} ${unit}`, value: max * 0.75 },
-      { label: `Max (${fmt(max)} ${unit})`, value: max },
+      { label: `Max (${fmt(max)} ${unit})`,  value: max        },
     ].filter((p, i, arr) => {
-      // Deduplicate by rounded value
       const v = +p.value.toFixed(2);
       return arr.findIndex(x => +(x.value.toFixed(2)) === v) === i;
     });
@@ -369,148 +424,109 @@ function initIssuePopup() {
   }
 
   function updateRemaining() {
-    const val = Math.min(Math.max(parseFloat(input.value) || 0, 0), maxQty);
+    const val  = Math.min(Math.max(parseFloat(input.value) || 0, 0), maxQty);
     const left = +(maxQty - val).toFixed(2);
-
     remaining.textContent = `${fmt(left)} ${unitStr} remaining`;
-    remaining.className = 'issue-remaining-value';
+    remaining.className   = 'issue-remaining-value';
 
     const pct = maxQty > 0 ? left / maxQty : 1;
-    if (pct <= 0) remaining.classList.add('danger');
+    if (pct <= 0)   remaining.classList.add('danger');
     else if (pct <= 0.2) remaining.classList.add('warn');
 
-    // Sync active preset
     const cur = +(parseFloat(input.value) || 0).toFixed(2);
     presetsDiv.querySelectorAll('.issue-preset-btn').forEach(b => {
       b.classList.toggle('active', +(parseFloat(b.dataset.val)).toFixed(2) === cur);
     });
 
-    confirmBtn.disabled = val <= 0;
+    if (confirmBtn) confirmBtn.disabled = val <= 0;
   }
 
-  function fmt(n) {
-    const r = +n.toFixed(2);
-    return r % 1 === 0 ? String(r) : String(r);
-  }
-
-  // Stepper
-  decBtn.addEventListener('click', () => {
-    const cur = parseFloat(input.value) || 0;
-    input.value = Math.max(0, +(cur - step).toFixed(2));
-    updateRemaining();
-  });
-
-  incBtn.addEventListener('click', () => {
-    const cur = parseFloat(input.value) || 0;
-    input.value = Math.min(maxQty, +(cur + step).toFixed(2));
-    updateRemaining();
-  });
-
-  input.addEventListener('input', () => {
-    let v = parseFloat(input.value) || 0;
-    if (v < 0) { input.value = 0; v = 0; }
-    if (v > maxQty) { input.value = maxQty; v = maxQty; }
-    updateRemaining();
-  });
-
-  // Confirm
-  confirmBtn.addEventListener('click', () => {
-    const qty = parseFloat(input.value) || 0;
-    const name = document.getElementById('issue-ingredient-name').textContent;
-    const batch = document.getElementById('issue-batch-id').textContent;
-    if (qty <= 0) return;
-    closePopupOverlay(overlay);
-    showToast(`✓ ${qty} ${unitStr} of ${name} (${batch}) issued to Kitchen successfully!`);
-  });
+  function fmt(n) { const r = +n.toFixed(2); return String(r); }
 }
 
 /* ================================================
    LOG WASTE & DISCARD POPUP
    ================================================ */
 function initWastePopup() {
-  const overlay = document.getElementById('waste-popup-overlay');
-  const closeBtn = document.getElementById('waste-popup-close');
-  const cancelBtn = document.getElementById('waste-cancel');
+  const overlay    = document.getElementById('waste-popup-overlay');
   const confirmBtn = document.getElementById('waste-confirm');
-  const qtyInput = document.getElementById('waste-qty-input');
-  const unitEl = document.getElementById('waste-unit');
-  const fullBtn = document.getElementById('waste-full-btn');
-  const reasonSel = document.getElementById('waste-reason');
-  const notesArea = document.getElementById('waste-notes');
+  const qtyInput   = document.getElementById('waste-qty-input');
+  const unitEl     = document.getElementById('waste-unit');
+  const fullBtn    = document.getElementById('waste-full-btn');
+  const reasonSel  = document.getElementById('waste-reason');
+  const notesArea  = document.getElementById('waste-notes');
 
   if (!overlay) return;
 
   let maxQty = 0;
   let unitStr = 'kg';
 
-  // Open from any Waste button
+  // Register onOpen hook
+  PopupManager.register('waste-popup-overlay', {
+    onOpen(overlay, triggerEl) {
+      const row = triggerEl?.closest('.inventory-data-row');
+      if (!row) return;
+
+      const name  = row.dataset.name     || '—';
+      const batch = row.dataset.batch    || '—';
+      const qty   = row.dataset.quantity || '0 kg';
+      const parsed = parseQty(qty);
+
+      maxQty  = parsed.value;
+      unitStr = parsed.unit || 'kg';
+
+      document.getElementById('waste-batch-id').textContent        = batch;
+      document.getElementById('waste-ingredient-name').textContent  = name;
+      document.getElementById('waste-available').textContent        = qty;
+      if (unitEl) unitEl.textContent = unitStr;
+      if (fullBtn) fullBtn.textContent = `Full Batch (${qty})`;
+
+      qtyInput.value = 0;
+      qtyInput.max   = maxQty;
+      reasonSel.value = '';
+      notesArea.value = '';
+      if (confirmBtn) confirmBtn.disabled = true;
+    }
+  });
+
+  // Open from Waste action buttons
   document.querySelectorAll('.inventory-action-waste').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const row = btn.closest('.inventory-data-row');
       if (!row) return;
-      openWastePopup(row);
+      PopupManager.open('waste-popup-overlay', btn);
     });
   });
 
-  function openWastePopup(row) {
-    const name = row.dataset.name || '—';
-    const batch = row.dataset.batch || '—';
-    const qty = row.dataset.quantity || '0 kg';
-    const parsed = parseQty(qty);
-
-    maxQty = parsed.value;
-    unitStr = parsed.unit || 'kg';
-
-    // Populate header
-    document.getElementById('waste-batch-id').textContent = batch;
-    document.getElementById('waste-ingredient-name').textContent = name;
-    document.getElementById('waste-available').textContent = qty;
-    if (unitEl) unitEl.textContent = unitStr;
-
-    // Update Full Batch button label
-    if (fullBtn) fullBtn.textContent = `Full Batch (${qty})`;
-
-    // Reset form
-    qtyInput.value = 0;
-    qtyInput.max = maxQty;
-    reasonSel.value = '';
-    notesArea.value = '';
-    confirmBtn.disabled = true;
-    // Generic handler takes care of opening
-  }
-
   // Full Batch shortcut
-  fullBtn.addEventListener('click', () => {
+  fullBtn?.addEventListener('click', () => {
     qtyInput.value = maxQty;
     validate();
   });
 
-  // Validate on any change
   function validate() {
-    const qty = parseFloat(qtyInput.value) || 0;
+    const qty    = parseFloat(qtyInput.value) || 0;
     const reason = reasonSel.value;
-    const notes = notesArea.value.trim();
-    confirmBtn.disabled = qty <= 0 || !reason || !notes;
+    const notes  = notesArea.value.trim();
+    if (confirmBtn) confirmBtn.disabled = qty <= 0 || !reason || !notes;
   }
 
-  qtyInput.addEventListener('input', () => {
+  qtyInput?.addEventListener('input', () => {
     let v = parseFloat(qtyInput.value) || 0;
-    if (v < 0) { qtyInput.value = 0; v = 0; }
-    if (v > maxQty) { qtyInput.value = maxQty; v = maxQty; }
+    if (v < 0)       { qtyInput.value = 0;      v = 0; }
+    if (v > maxQty)  { qtyInput.value = maxQty; v = maxQty; }
     validate();
   });
+  reasonSel?.addEventListener('change', validate);
+  notesArea?.addEventListener('input',  validate);
 
-  reasonSel.addEventListener('change', validate);
-  notesArea.addEventListener('input', validate);
-
-  // Confirm
-  confirmBtn.addEventListener('click', () => {
-    const qty = parseFloat(qtyInput.value) || 0;
-    const name = document.getElementById('waste-ingredient-name').textContent;
+  confirmBtn?.addEventListener('click', () => {
+    const qty   = parseFloat(qtyInput.value) || 0;
+    const name  = document.getElementById('waste-ingredient-name').textContent;
     const batch = document.getElementById('waste-batch-id').textContent;
     if (qty <= 0) return;
-    closePopupOverlay(overlay);
+    PopupManager.close('waste-popup-overlay');
     showToast(`⚠ ${qty} ${unitStr} of ${name} (${batch}) logged as waste and discarded.`);
   });
 }
@@ -519,127 +535,69 @@ function initWastePopup() {
    ADD STOCK POPUP
    ================================================ */
 function initAddStockPopup() {
-  const overlay = document.getElementById('addstock-overlay');
+  const overlay    = document.getElementById('addstock-overlay');
   const triggerBtn = document.getElementById('add-stock-btn');
-  const closeBtn = document.getElementById('addstock-close');
-  const cancelBtn = document.getElementById('addstock-cancel');
   const confirmBtn = document.getElementById('addstock-confirm');
 
   if (!overlay || !triggerBtn) return;
 
-  const quickBtns = document.querySelectorAll('.addstock-quick-btn');
-  const searchInput = document.getElementById('addstock-search');
-  const categorySel = document.getElementById('addstock-category');
+  const quickBtns    = document.querySelectorAll('.addstock-quick-btn');
+  const searchInput  = document.getElementById('addstock-search');
+  const categorySel  = document.getElementById('addstock-category');
   const supplierInput = document.getElementById('addstock-supplier');
-  const batchInput = document.getElementById('addstock-batch');
+  const batchInput   = document.getElementById('addstock-batch');
   const receivedInput = document.getElementById('addstock-received');
-  const qtyInput = document.getElementById('addstock-qty');
-  const costInput = document.getElementById('addstock-cost');
-  const expiryInput = document.getElementById('addstock-expiry');
-  const uomSel = document.getElementById('addstock-uom');
+  const qtyInput     = document.getElementById('addstock-qty');
+  const costInput    = document.getElementById('addstock-cost');
+  const expiryInput  = document.getElementById('addstock-expiry');
+  const uomSel       = document.getElementById('addstock-uom');
 
-  // Open handler
-  function openPopup() {
-    // Generate a random batch ID for demo
-    const randomBatch = 'B-' + Math.floor(100 + Math.random() * 900);
-    batchInput.value = randomBatch;
+  // Register onOpen hook — resets + prefills form
+  PopupManager.register('addstock-overlay', {
+    onOpen() {
+      batchInput.value    = 'B-' + Math.floor(100 + Math.random() * 900);
+      receivedInput.value = new Date().toISOString().split('T')[0];
+      searchInput.value   = '';
+      supplierInput.value = '';
+      qtyInput.value      = '';
+      costInput.value     = '';
+      expiryInput.value   = '';
+      categorySel.value   = '';
+      quickBtns.forEach(btn => btn.classList.remove('active'));
+    }
+  });
 
-    // Set today's date as default received date
-    const today = new Date().toISOString().split('T')[0];
-    receivedInput.value = today;
+  // Trigger button opens via PopupManager
+  triggerBtn.addEventListener('click', () => PopupManager.open('addstock-overlay'));
 
-    // Clear fields
-    searchInput.value = '';
-    supplierInput.value = '';
-    qtyInput.value = '';
-    costInput.value = '';
-    expiryInput.value = '';
-    categorySel.value = '';
-
-    // Reset quick buttons
-    quickBtns.forEach(btn => btn.classList.remove('active'));
-    // Opening is handled by generic handler
-  }
-
-  triggerBtn.addEventListener('click', openPopup);
-
-  // Quick select logic
+  // Quick select chips
   quickBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       quickBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      searchInput.value = btn.dataset.ingredient;
-      categorySel.value = btn.dataset.category;
+      searchInput.value  = btn.dataset.ingredient;
+      categorySel.value  = btn.dataset.category;
     });
   });
 
-  // Confirm logic
-  confirmBtn.addEventListener('click', () => {
+  // Confirm
+  confirmBtn?.addEventListener('click', () => {
     const ingName = searchInput.value || 'Unknown Ingredient';
-    const qty = parseFloat(qtyInput.value) || 0;
-    const uom = uomSel.value;
+    const qty     = parseFloat(qtyInput.value) || 0;
+    const uom     = uomSel.value;
 
-    if (qty <= 0) {
-      showToast('Please enter a valid quantity.');
-      return;
-    }
-
-    closePopupOverlay(overlay);
+    if (qty <= 0) { showToast('Please enter a valid quantity.'); return; }
+    PopupManager.close('addstock-overlay');
     showToast(`✓ Added ${qty}${uom} of ${ingName} to stock.`);
   });
 }
 
-function initGenericPopups() {
-  const openButtons = document.querySelectorAll('[data-popup-target]');
-  
-  openButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-popup-target');
-      const overlay = document.getElementById(targetId);
-      if (overlay) {
-        overlay.classList.add('active', 'open');
-        document.body.style.overflow = 'hidden';
-      }
-    });
-  });
-
-  const closeButtons = document.querySelectorAll('.close-popup-btn');
-  closeButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const overlay = e.target.closest('.addstock-overlay, .waste-overlay, .issue-overlay, .popup-overlay'); 
-      if (overlay) {
-        overlay.classList.remove('active', 'open');
-        document.body.style.overflow = '';
-      }
-    });
-  });
-  
-  document.querySelectorAll('.addstock-overlay, .waste-overlay, .issue-overlay, .popup-overlay').forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) {
-        overlay.classList.remove('active', 'open');
-        document.body.style.overflow = '';
-      }
-    });
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.addstock-overlay.active, .waste-overlay.open, .issue-overlay.open, .popup-overlay.open, .addstock-overlay.open, #batch-popup-overlay.open').forEach(overlay => {
-        overlay.classList.remove('active', 'open');
-        document.body.style.overflow = '';
-      });
-    }
-  });
-
-}
-
 /* ================================================
-   MANUAL STOCK RECEIVING (MSR)
+   MANUAL STOCK RECEIVING (MSR) POPUP
    ================================================ */
 function initMsrPopup() {
-  const tbody = document.getElementById('msr-tbody');
-  const addBtn = document.getElementById('msr-btn-add');
+  const tbody     = document.getElementById('msr-tbody');
+  const addBtn    = document.getElementById('msr-btn-add');
   const countLabel = document.getElementById('msr-count');
 
   if (!tbody || !addBtn || !countLabel) return;
@@ -681,18 +639,14 @@ function initMsrPopup() {
     updateCount();
   });
 
-  // Remove Row using event delegation
+  // Remove Row (event delegation)
   tbody.addEventListener('click', (e) => {
     const removeBtn = e.target.closest('.msr-remove-btn');
     if (removeBtn) {
-      const tr = removeBtn.closest('tr');
-      if (tr) {
-        tr.remove();
-        updateCount();
-      }
+      removeBtn.closest('tr')?.remove();
+      updateCount();
     }
   });
 
-  // Initial count
   updateCount();
 }

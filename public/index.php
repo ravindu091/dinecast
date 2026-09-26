@@ -53,12 +53,10 @@ $router->post('/ingredient/create','StoreController@createIngredient');
 $router->post('/ingredient/edit','StoreController@editIngredient');
 $router->post('/ingredient/delete','StoreController@deleteIngredient');
 
-
 // ── Chef ──────────────────────────────────────────────
 $router->get('/chef', 'ChefController@home');
 $router->get('/chef/menus', 'ChefController@menus');
 $router->get('/chef/recipes', 'ChefController@recipes');
-
 
 // ── Dispatch ─────────────────────────────────────────
 $router->dispatch();

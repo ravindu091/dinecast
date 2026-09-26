@@ -1,4 +1,4 @@
-
+﻿
       <!-- ================================================
            INVENTORY SECTION
            ================================================ -->
@@ -53,7 +53,7 @@
             <div class="card" style="margin-bottom:0;">
               <div class="card-hdr">
                 <h3>Active Inventory Batches</h3>
-                <span style="font-size:12px;color:var(--t3);">Click ▶ to view batch details</span>
+                <span style="font-size:12px;color:var(--t3);">Click â–¶ to view batch details</span>
               </div>
               <div class="inventory-toolbar">
                 <label class="inventory-search">
@@ -70,10 +70,10 @@
                       <svg class="inventory-chevron" id="status-dropdown-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
                     <div class="inventory-status-menu" id="status-dropdown-menu" hidden>
-                      <button type="button" class="status-option active" data-value="all">All Batches <span>✓</span></button>
-                      <button type="button" class="status-option" data-value="optimal">Optimal <span hidden>✓</span></button>
-                      <button type="button" class="status-option" data-value="expiring">Expiring Soon <span hidden>✓</span></button>
-                      <button type="button" class="status-option" data-value="low">Low Stock <span hidden>✓</span></button>
+                      <button type="button" class="status-option active" data-value="all">All Batches <span>âœ“</span></button>
+                      <button type="button" class="status-option" data-value="optimal">Optimal <span hidden>âœ“</span></button>
+                      <button type="button" class="status-option" data-value="expiring">Expiring Soon <span hidden>âœ“</span></button>
+                      <button type="button" class="status-option" data-value="low">Low Stock <span hidden>âœ“</span></button>
                     </div>
                   </div>
                   <label class="inventory-sort">
@@ -144,29 +144,29 @@
 
 
                 <!-- Batch Details Popup -->
-                <div class="popup-overlay" id="batch-popup-overlay" aria-modal="true" role="dialog" aria-labelledby="popup-title">
-                  <div class="popup" id="batch-popup">
+                <div class="pm-overlay" id="batch-popup-overlay" aria-modal="true" role="dialog" aria-labelledby="popup-title">
+                  <div class="pm-modal pm-modal--sm" id="batch-popup">
 
                     <!-- Header -->
-                    <div class="popup-header">
-                      <div class="popup-header-left">
-                        <div class="popup-icon">
+                    <div class="pm-header">
+                      <div class="pm-header-left">
+                        <div class="pm-icon">
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/>
                           </svg>
                         </div>
                         <div>
-                          <h2 id="popup-title" class="popup-title">Batch Details</h2>
-                          <div class="popup-meta">
-                            <span class="popup-batch-id" id="popup-batch-id"></span>
+                          <h2 id="popup-title" class="pm-title">Batch Details</h2>
+                          <div class="pm-meta">
+                            <span class="pm-id-badge" id="popup-batch-id"></span>
                           </div>
                         </div>
                       </div>
-                      <button class="popup-close close-popup-btn" id="batch-popup-close" type="button" aria-label="Close batch details">×</button>
+                      <button class="pm-close" data-popup-close id="batch-popup-close" type="button" aria-label="Close batch details">×</button>
                     </div>
 
                     <!-- Body -->
-                    <div class="popup-body">
+                    <div class="pm-body">
                       <div class="popup-detail-card">
                         <div class="popup-detail-row">
                           <span class="popup-detail-label">Ingredient:</span>
@@ -200,16 +200,16 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="popup-footer">
-                      <button class="popup-btn popup-btn-delete" type="button">
+                    <div class="pm-footer pm-footer--between">
+                      <button class="pm-btn pm-btn--delete" type="button">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
                         Delete
                       </button>
-                      <button class="popup-btn popup-btn-edit" type="button">
+                      <button class="pm-btn pm-btn--edit" type="button">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
                         Edit
                       </button>
-                      <button class="popup-btn popup-btn-issue" type="button" data-popup-target="issue-popup-overlay">
+                      <button class="pm-btn pm-btn--confirm pm-btn--push-right" type="button" data-popup-target="issue-popup-overlay">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
                         Issue to Kitchen
                       </button>
@@ -221,34 +221,34 @@
                 <!-- ================================================
                      ISSUE TO KITCHEN MODAL
                      ================================================ -->
-                <div class="issue-overlay" id="issue-popup-overlay" aria-modal="true" role="dialog" aria-labelledby="issue-popup-title">
-                  <div class="issue-modal" id="issue-popup">
+                <div class="pm-overlay" id="issue-popup-overlay" aria-modal="true" role="dialog" aria-labelledby="issue-popup-title">
+                  <div class="pm-modal pm-modal--sm" id="issue-popup">
 
                     <!-- Header -->
-                    <div class="issue-header">
-                      <div class="issue-header-left">
-                        <div class="issue-icon">
+                    <div class="pm-header">
+                      <div class="pm-header-left">
+                        <div class="pm-icon">
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
                           </svg>
                         </div>
                         <div>
-                          <h2 id="issue-popup-title" class="issue-title">Transfer to Kitchen</h2>
-                          <div class="issue-meta">
-                            <span class="issue-batch-id" id="issue-batch-id"></span>
-                            <span class="issue-meta-sep">&middot;</span>
-                            <span class="issue-ingredient-name" id="issue-ingredient-name"></span>
-                            <span class="issue-meta-sep">&middot;</span>
-                            <strong class="issue-available" id="issue-available"></strong>
-                            <span class="issue-available-label"> available</span>
+                          <h2 id="issue-popup-title" class="pm-title">Transfer to Kitchen</h2>
+                          <div class="pm-meta">
+                            <span class="pm-id-badge" id="issue-batch-id"></span>
+                            <span class="pm-meta-sep">&middot;</span>
+                            <span class="pm-meta-ingredient" id="issue-ingredient-name"></span>
+                            <span class="pm-meta-sep">&middot;</span>
+                            <strong class="pm-meta-available" id="issue-available"></strong>
+                            <span class="pm-meta-sep"> available</span>
                           </div>
                         </div>
                       </div>
-                      <button class="issue-close close-popup-btn" id="issue-popup-close" type="button" aria-label="Close transfer dialog">&times;</button>
+                      <button class="pm-close" data-popup-close id="issue-popup-close" type="button" aria-label="Close transfer dialog">&times;</button>
                     </div>
 
                     <!-- Body -->
-                    <div class="issue-body">
+                    <div class="pm-body">
 
                       <!-- Qty Label -->
                       <div class="issue-section-label">Transfer Quantity</div>
@@ -278,9 +278,9 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="issue-footer">
-                      <button class="issue-btn issue-btn-cancel close-popup-btn" id="issue-cancel" type="button">Cancel</button>
-                      <button class="issue-btn issue-btn-confirm" id="issue-confirm" type="button">
+                    <div class="pm-footer pm-footer--between">
+                      <button class="pm-btn pm-btn--cancel" data-popup-close id="issue-cancel" type="button">Cancel</button>
+                      <button class="pm-btn pm-btn--confirm" id="issue-confirm" type="button">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                           <path d="M20 6L9 17l-5-5"/>
                         </svg>
@@ -294,30 +294,30 @@
                 <!-- ================================================
                      LOG WASTE & DISCARD MODAL
                      ================================================ -->
-                <div class="waste-overlay" id="waste-popup-overlay" aria-modal="true" role="dialog" aria-labelledby="waste-popup-title">
-                  <div class="waste-modal" id="waste-popup">
+                <div class="pm-overlay" id="waste-popup-overlay" aria-modal="true" role="dialog" aria-labelledby="waste-popup-title">
+                  <div class="pm-modal pm-modal--sm" id="waste-popup">
 
                     <!-- Header -->
-                    <div class="waste-header">
-                      <div class="waste-header-left">
-                        <div class="waste-icon">
+                    <div class="pm-header">
+                      <div class="pm-header-left">
+                        <div class="pm-icon pm-icon--danger">
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
                           </svg>
                         </div>
                         <div>
-                          <h2 id="waste-popup-title" class="waste-title">Log Waste &amp; Discard Batch</h2>
-                          <div class="waste-meta">
-                            <span class="waste-batch-id" id="waste-batch-id"></span>
-                            <span class="waste-meta-sep">&middot;</span>
-                            <span class="waste-ingredient-name" id="waste-ingredient-name"></span>
-                            <span class="waste-meta-sep">&middot;</span>
-                            <strong class="waste-available" id="waste-available"></strong>
-                            <span class="waste-available-label"> available</span>
+                          <h2 id="waste-popup-title" class="pm-title">Log Waste &amp; Discard Batch</h2>
+                          <div class="pm-meta">
+                            <span class="pm-id-badge pm-id-badge--danger" id="waste-batch-id"></span>
+                            <span class="pm-meta-sep">&middot;</span>
+                            <span class="pm-meta-ingredient" id="waste-ingredient-name"></span>
+                            <span class="pm-meta-sep">&middot;</span>
+                            <strong class="pm-meta-available" id="waste-available"></strong>
+                            <span class="pm-meta-sep"> available</span>
                           </div>
                         </div>
                       </div>
-                      <button class="waste-close close-popup-btn" id="waste-popup-close" type="button" aria-label="Close waste dialog">&times;</button>
+                      <button class="pm-close" data-popup-close id="waste-popup-close" type="button" aria-label="Close waste dialog">&times;</button>
                     </div>
 
                     <!-- Warning banner -->
@@ -329,7 +329,7 @@
                     </div>
 
                     <!-- Body -->
-                    <div class="waste-body">
+                    <div class="pm-body">
 
                       <!-- Quantity -->
                       <div class="waste-field">
@@ -381,9 +381,9 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="waste-footer">
-                      <button class="waste-btn waste-btn-cancel close-popup-btn" id="waste-cancel" type="button">Cancel</button>
-                      <button class="waste-btn waste-btn-confirm" id="waste-confirm" type="button">
+                    <div class="pm-footer pm-footer--between">
+                      <button class="pm-btn pm-btn--cancel" data-popup-close id="waste-cancel" type="button">Cancel</button>
+                      <button class="pm-btn pm-btn--confirm-danger" id="waste-confirm" type="button">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                           <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
                         </svg>
@@ -397,13 +397,13 @@
                 <!-- ================================================
                      ADD STOCK & INBOUND BATCH MODAL
                      ================================================ -->
-                <div class="addstock-overlay" id="addstock-overlay" aria-modal="true" role="dialog" aria-labelledby="addstock-title">
-                  <div class="addstock-modal" id="addstock-modal">
+                <div class="pm-overlay" id="addstock-overlay" aria-modal="true" role="dialog" aria-labelledby="addstock-title">
+                  <div class="pm-modal pm-modal--md" id="addstock-modal">
 
                     <!-- Header -->
-                    <div class="addstock-header">
-                      <div class="addstock-header-left">
-                        <div class="addstock-icon">
+                    <div class="pm-header">
+                      <div class="pm-header-left">
+                        <div class="pm-icon">
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                             <line x1="12" y1="8" x2="12" y2="16"/>
@@ -411,15 +411,15 @@
                           </svg>
                         </div>
                         <div>
-                          <h2 id="addstock-title" class="addstock-title">Add Stock &amp; Inbound Batch</h2>
-                          <p class="addstock-subtitle">Record incoming ingredient stock, supplier details, storage zone, and shelf life.</p>
+                          <h2 id="addstock-title" class="pm-title">Add Stock &amp; Inbound Batch</h2>
+                          <p class="pm-subtitle">Record incoming ingredient stock, supplier details, storage zone, and shelf life.</p>
                         </div>
                       </div>
-                      <button class="addstock-close close-popup-btn" id="addstock-close" type="button" aria-label="Close">&times;</button>
+                      <button class="pm-close" data-popup-close id="addstock-close" type="button" aria-label="Close">&times;</button>
                     </div>
 
                     <!-- Body -->
-                    <div class="addstock-body">
+                    <div class="pm-body addstock-body">
 
                       <!-- Search & Quick Select -->
                       <div class="addstock-field">
@@ -511,9 +511,9 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="addstock-footer">
-                      <button class="addstock-btn addstock-btn-cancel close-popup-btn" id="addstock-cancel" type="button">Cancel</button>
-                      <button class="addstock-btn addstock-btn-confirm" id="addstock-confirm" type="button">
+                    <div class="pm-footer pm-footer--end">
+                      <button class="pm-btn pm-btn--cancel" data-popup-close id="addstock-cancel" type="button">Cancel</button>
+                      <button class="pm-btn pm-btn--confirm" id="addstock-confirm" type="button">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                         Save &amp; Add Stock
                       </button>

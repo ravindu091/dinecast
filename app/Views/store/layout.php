@@ -8,8 +8,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/store.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/popup.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/sidebar.css">
-  
+  <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
+  <script src="<?= $baseUrl ?>/assets/js/app.js"></script>
+  <script src="<?= $baseUrl ?>/assets/js/popup.js"></script>
+  <script src="<?= $baseUrl ?>/assets/js/store/store.js"></script>
+  <script src="<?= $baseUrl ?>/assets/js/store/validate.js?v=<?= time() ?>"></script>
 
 </head>
 <body>
@@ -41,7 +46,7 @@
         <span class="nav-label">Home</span>
       </a>
 
-      <a href="<?= $baseUrl ?>/store/ingredient" class="nav-link <?= $activePage === 'ingredient' ? 'active' : '' ?>" >
+      <a href="<?= $baseUrl ?>/store/ingredients" class="nav-link <?= $activePage === 'ingredient' ? 'active' : '' ?>" >
         <span class="nav-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/>
@@ -131,8 +136,6 @@
   </div><!-- /main-area -->
 </div><!-- /dash -->
 
-<script>window.BASE_URL = '<?= $baseUrl ?>';</script>
-<script src="<?= $baseUrl ?>/assets/js/app.js"></script>
-<script src="<?= $baseUrl ?>/assets/js/store.js"></script>
+
 </body>
 </html>
