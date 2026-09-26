@@ -77,3 +77,27 @@ function openPoDetail(trigger) {
 
   toggleModal('modal-po-detail');
 }
+
+/* -----------------------------------------------
+   SUPPLIER EDIT / DELETE DIALOGS
+   Each row's Edit and Delete links carry the
+   supplier's saved values as data attributes.
+   These copy them into the dialog before opening it.
+   ----------------------------------------------- */
+function openEditSupplier(trigger) {
+  const d = trigger.dataset;
+  document.getElementById('edit-sup-id').value       = d.id;
+  document.getElementById('edit-sup-name').value     = d.name;
+  document.getElementById('edit-sup-category').value = d.category;
+  document.getElementById('edit-sup-contact').value  = d.contact;
+  document.getElementById('edit-sup-phone').value    = d.phone;
+  document.getElementById('edit-sup-email').value    = d.email;
+  document.getElementById('edit-sup-address').value  = d.address;
+  toggleModal('modal-edit-supplier');
+}
+
+function openDeleteSupplier(trigger) {
+  document.getElementById('delete-sup-id').value         = trigger.dataset.id;
+  document.getElementById('delete-sup-name').textContent = trigger.dataset.name;
+  toggleModal('modal-delete-supplier');
+}

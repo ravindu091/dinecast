@@ -26,6 +26,11 @@ $router->get('/procurement/suppliers',    'ProcurementController@suppliers');
 $router->get('/procurement/requisitions', 'ProcurementController@requisitions');
 $router->get('/procurement/orders',       'ProcurementController@orders');
 
+//procurement post request
+$router->post('/supplier/create', 'ProcurementController@createSupplier');
+$router->post('/supplier/edit',   'ProcurementController@editSupplier');
+$router->post('/supplier/delete', 'ProcurementController@deleteSupplier');
+
 // store
 
 $router->get('/store', 'StoreController@home');
