@@ -14,7 +14,7 @@ $router = new Router(BASE_URL);
 // ── Auth ──────────────────────────────────────────────
 $router->get('/',            'AuthController@loginView');
 $router->post('/login',      'AuthController@login');
-$router->post('/logout' , 'AuthController@logOut');
+$router->get('/logout' , 'AuthController@logOut');
 
 
 // ── 6 Actor Dashboards ───────────────────────────────

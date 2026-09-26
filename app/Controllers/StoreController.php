@@ -4,10 +4,12 @@ require_once __DIR__ . "/../lib/store/utility.php";
 class StoreController extends Controller
 {
 
-    /**
-     * GET /store — Store Manager dashboard
-     */
-
+    public function __construct(){
+        if(!isset($_SESSION['userId']) || $_SESSION['role'] != 'store'){
+            header("Location:" . BASE_URL . "/");
+            exit();
+        }
+    }
 
     public function home(array $params = [])
     {
