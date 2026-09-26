@@ -46,9 +46,9 @@
 
     <div class="sb-footer">
       <div class="sb-user">
-        <div class="sb-avatar" style="background:var(--success-bg);color:var(--success);">RM</div>
+        <div class="sb-avatar" style="background:var(--success-bg);color:var(--success);">KS</div>
         <div>
-          <div class="sb-user-name">Ravi Mendis</div>
+          <div class="sb-user-name">Kavindu Silva</div>
           <div class="sb-user-role">Procurement Manager</div>
         </div>
       </div>
@@ -64,11 +64,10 @@
     <header class="topbar">
       <div class="topbar-left">
         <h1>Procurement Manager Dashboard</h1>
-        <p>Welcome back, Ravi!</p>
+        <p>Welcome back, Kavindu!</p>
       </div>
       <div class="topbar-right">
         <span class="date-chip"></span>
-        <button class="icon-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
       </div>
     </header>
 
@@ -78,7 +77,7 @@
       <section id="sec-home" class="section active">
         <div class="welcome">
           <div class="welcome-txt">
-            <h2>Welcome back, Ravi!</h2>
+            <h2>Welcome back, Kavindu!</h2>
             <p>Review and approve purchase requisitions, manage suppliers, and track orders.</p>
             <div class="user-id">ID: DC-PM-03 &nbsp;·&nbsp; Procurement Manager</div>
           </div>
@@ -142,19 +141,19 @@
             <div style="display:flex;flex-direction:column;gap:8px;">
               <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;">
                 <div><div style="font-size:13px;font-weight:700;color:var(--t1);">PO-0018 &nbsp;·&nbsp; Negombo Sea Foods</div><div style="font-size:11.5px;color:var(--t3);">Expected: 14 Aug &nbsp;·&nbsp; Rs. 48,500</div></div>
-                <span class="badge bg-orange">Issued</span>
+                <span class="badge bg-blue">Issued</span>
               </div>
               <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;">
                 <div><div style="font-size:13px;font-weight:700;color:var(--t1);">PO-0019 &nbsp;·&nbsp; Lakmal &amp; Sons Poultry</div><div style="font-size:11.5px;color:var(--t3);">Expected: 13 Aug &nbsp;·&nbsp; Rs. 72,200</div></div>
-                <span class="badge bg-orange">Issued</span>
+                <span class="badge bg-blue">Issued</span>
               </div>
               <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;">
                 <div><div style="font-size:13px;font-weight:700;color:var(--t1);">PO-0020 &nbsp;·&nbsp; Ceylon Agro Exports</div><div style="font-size:11.5px;color:var(--t3);">Expected: 15 Aug &nbsp;·&nbsp; Rs. 34,800</div></div>
-                <span class="badge bg-orange">Issued</span>
+                <span class="badge bg-blue">Issued</span>
               </div>
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--success-bg);border:1px solid var(--border);border-radius:8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--teal-bg);border:1px solid var(--border);border-radius:8px;">
                 <div><div style="font-size:13px;font-weight:700;color:var(--t1);">PO-0017 &nbsp;·&nbsp; Araliya Foods</div><div style="font-size:11.5px;color:var(--t3);">Received: 10 Aug &nbsp;·&nbsp; Rs. 12,400</div></div>
-                <span class="badge bg-green">Received</span>
+                <span class="badge bg-teal">Received</span>
               </div>
             </div>
           </div>
@@ -294,8 +293,8 @@
         <div class="sec-hdr"><h2>Purchase Orders</h2><button class="btn btn-primary" onclick="showToast('PO generated from approved PRs!')">Generate PO from PR</button></div>
 
         <div class="stats">
-          <div class="stat c-orange"><div class="stat-ico">📤</div><div class="stat-val">3</div><div class="stat-lbl">Issued (Awaiting Delivery)</div></div>
-          <div class="stat c-green"><div class="stat-ico">✅</div><div class="stat-val">3</div><div class="stat-lbl">Received</div></div>
+          <div class="stat c-blue"><div class="stat-ico">📤</div><div class="stat-val">3</div><div class="stat-lbl">Issued (Awaiting Delivery)</div></div>
+          <div class="stat c-teal"><div class="stat-ico">✅</div><div class="stat-val">3</div><div class="stat-lbl">Received</div></div>
           <div class="stat c-gray"><div class="stat-ico">🔒</div><div class="stat-val">5</div><div class="stat-lbl">Closed</div></div>
           <div class="stat c-blue"><div class="stat-ico">💰</div><div class="stat-val" style="font-size:18px;">Rs. 284K</div><div class="stat-lbl">Total (This Month)</div></div>
         </div>
@@ -314,7 +313,7 @@
                   <td style="font-size:13px;color:var(--t2);">Salmon, Prawns</td>
                   <td style="font-weight:700;">Rs. 48,500</td>
                   <td>14/08/26</td>
-                  <td><span class="badge bg-orange">Issued</span></td>
+                  <td><span class="badge bg-blue">Issued</span></td>
                   <td><div class="acts"><span class="act">View</span><span class="act" onclick="showToast('PO-0018 marked as Received!')">Mark Received</span></div></td>
                 </tr>
                 <tr class="expand-row" id="po-detail-1">
@@ -342,7 +341,7 @@
                   <td style="font-size:13px;color:var(--t2);">Chicken, Lamb</td>
                   <td style="font-weight:700;">Rs. 72,200</td>
                   <td>13/08/26</td>
-                  <td><span class="badge bg-orange">Issued</span></td>
+                  <td><span class="badge bg-blue">Issued</span></td>
                   <td><div class="acts"><span class="act">View</span><span class="act" onclick="showToast('PO-0019 marked as Received!')">Mark Received</span></div></td>
                 </tr>
                 <tr class="expand-row" id="po-detail-2"><td colspan="9"><div class="expand-inner"><div class="expand-lbl">PO-0019 — Lakmal &amp; Sons Poultry</div><div style="color:var(--t2);font-size:13px;">Chicken (40 kg @ Rs.850/kg), Lamb Shoulder (10 kg @ Rs.1,400/kg).</div></div></td></tr>
@@ -354,7 +353,7 @@
                   <td style="font-size:13px;color:var(--t2);">Coconut Milk, Herbs</td>
                   <td style="font-weight:700;">Rs. 12,400</td>
                   <td>10/08/26</td>
-                  <td><span class="badge bg-green">Received</span></td>
+                  <td><span class="badge bg-teal">Received</span></td>
                   <td><div class="acts"><span class="act">View</span><span class="act" onclick="showToast('PO-0017 closed.')">Close PO</span></div></td>
                 </tr>
               </tbody>
