@@ -88,12 +88,25 @@
       </a>
     </nav>
 
+    <?php
+      $fullName = $_SESSION['fullName'] ?? 'User';
+      $nameParts = explode(' ', trim($fullName));
+      $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+      $role = ucfirst($_SESSION['role'] ?? 'Store Manager');
+      $profilePicture = !empty($_SESSION['profile_picture']) ? BASE_URL . '/' . $_SESSION['profile_picture'] : null;
+    ?>
     <div class="sb-footer">
       <div class="sb-user">
-        <div class="sb-avatar"><span>AK</span></div>
+        <div class="sb-avatar">
+          <?php if ($profilePicture): ?>
+            <img src="<?= htmlspecialchars($profilePicture) ?>" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+          <?php else: ?>
+            <span><?= htmlspecialchars($initials) ?></span>
+          <?php endif; ?>
+        </div>
         <div>
-          <div class="sb-user-name">Anura Kumara</div>
-          <div class="sb-user-role">Store Manager</div>
+          <div class="sb-user-name"><?= htmlspecialchars($fullName) ?></div>
+          <div class="sb-user-role"><?= htmlspecialchars($role) ?></div>
         </div>
       </div>
       <div class="sb-logout" onclick="logout()">
@@ -101,7 +114,7 @@
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
           <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
-        Logout
+        <a href="<?= BASE_URL ?>/logout">Logout</a>
       </div>
     </div>
 
