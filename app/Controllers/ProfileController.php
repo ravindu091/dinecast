@@ -26,7 +26,6 @@ class ProfileController extends Controller {
         $email = $existingUser['email'];
         $accountCreated =$existingUser['created_at'];
         $loginDate = getDateTime();
-        $role = getRole($role);
         $status = ($existingUser['is_active'] >0) ? "Active" : "Inactive"; 
 
 
@@ -38,7 +37,7 @@ class ProfileController extends Controller {
             'fullName'=>$fullName,
             'username'=>$username,
             'email'=>$email,
-            'role'=>$role,
+            'role'=>getRole($role),
             'status'=> $status,
             'accountCreated'=> $accountCreated,
             'loginDate'=>$loginDate
