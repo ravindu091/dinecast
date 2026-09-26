@@ -12,7 +12,7 @@ require_once __DIR__ . '/../app/lib/utility.php';
 $router = new Router(BASE_URL);
 
 // ── Auth ──────────────────────────────────────────────
-$router->get('/',            'AuthController@login');
+$router->get('/',            'AuthController@loginView');
 $router->post('/login',      'AuthController@login');
 
 // ── 6 Actor Dashboards ───────────────────────────────
@@ -39,5 +39,10 @@ $router->get('/chef' , 'ChefController@home');
 $router->get('/chef/menus' , 'ChefController@menus');
 $router->get('/chef/recipes' , 'ChefController@recipes');
 
+//profile
+$router->get('/profile', 'ProfileController@profile');
+$router->post('/profile/upload','ProfileController@uploadProfilePicture');
+$router->post('/profile/edit','ProfileController@editProfile');
+$router->post('/profile/password', 'ProfileController@changePassword');
 // ── Dispatch ─────────────────────────────────────────
 $router->dispatch();
