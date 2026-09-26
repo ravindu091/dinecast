@@ -22,25 +22,21 @@
 
     <div class="sb-section">Procurement</div>
     <nav class="sb-links">
-      <div class="nav-link active" data-section="sec-home" data-title="Procurement Dashboard">
+      <div class="nav-link active" data-section="sec-home" data-title="Procurement Manager Dashboard">
         <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
         <span class="nav-label">Home</span>
-      </div>
-      <div class="nav-link" data-section="sec-pr-approval" data-title="PR Approvals">
-        <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
-        <span class="nav-label">PR Approvals</span>
-      </div>
-      <div class="nav-link" data-section="sec-po" data-title="Purchase Orders">
-        <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
-        <span class="nav-label">Purchase Orders</span>
       </div>
       <div class="nav-link" data-section="sec-suppliers" data-title="Suppliers">
         <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
         <span class="nav-label">Suppliers</span>
       </div>
-      <div class="nav-link" data-section="sec-delivery" data-title="Delivery Tracking">
-        <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
-        <span class="nav-label">Delivery Tracking</span>
+      <div class="nav-link" data-section="sec-requisitions" data-title="Requisitions">
+        <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        <span class="nav-label">Requisitions</span>
+      </div>
+      <div class="nav-link" data-section="sec-orders" data-title="Orders">
+        <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+        <span class="nav-label">Orders</span>
       </div>
     </nav>
 
@@ -88,7 +84,7 @@
           <div class="stat c-orange"><div class="stat-ico">⏳</div><div class="stat-val">4</div><div class="stat-lbl">PRs Awaiting Your Approval</div></div>
           <div class="stat c-green"><div class="stat-ico">📦</div><div class="stat-val">6</div><div class="stat-lbl">Active Purchase Orders</div></div>
           <div class="stat c-blue"><div class="stat-ico">🏪</div><div class="stat-val">8</div><div class="stat-lbl">Registered Suppliers</div></div>
-          <div class="stat c-purple"><div class="stat-ico">🚚</div><div class="stat-val">3</div><div class="stat-lbl">Pending Deliveries</div></div>
+          <div class="stat c-purple"><div class="stat-ico">📝</div><div class="stat-val">1</div><div class="stat-lbl">Approved PRs Awaiting PO</div></div>
         </div>
 
         <div class="grid-2">
@@ -96,7 +92,7 @@
           <div class="card">
             <div class="card-hdr">
               <div><h3>⏳ PRs Awaiting Approval</h3></div>
-              <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-section=sec-pr-approval]').click()">View All</button>
+              <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-section=sec-requisitions]').click()">View All</button>
             </div>
             <div style="display:flex;flex-direction:column;gap:8px;">
               <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--warning-bg);border-radius:10px;">
@@ -136,7 +132,7 @@
           <div class="card">
             <div class="card-hdr">
               <div><h3>📦 Active Purchase Orders</h3></div>
-              <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-section=sec-po]').click()">View All</button>
+              <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-section=sec-orders]').click()">View All</button>
             </div>
             <div style="display:flex;flex-direction:column;gap:8px;">
               <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;">
@@ -161,8 +157,8 @@
       </section>
 
       <!-- PR APPROVALS -->
-      <section id="sec-pr-approval" class="section">
-        <div class="sec-hdr"><h2>PR Approvals</h2></div>
+      <section id="sec-requisitions" class="section">
+        <div class="sec-hdr"><h2>Requisitions</h2></div>
 
         <div class="stats">
           <div class="stat c-orange"><div class="stat-ico">⏳</div><div class="stat-val">4</div><div class="stat-lbl">Pending Approval</div></div>
@@ -265,31 +261,37 @@
                   <td><div class="acts"><span class="act" onclick="showToast('✓ PR-0047 Approved!')">Approve</span><span class="act del" onclick="toggleModal('modal-reject')">Reject</span></div></td>
                 </tr>
                 <tr class="expand-row" id="pr-detail-4"><td colspan="9"><div class="expand-inner"><div class="expand-lbl">PR-0047 Item Detail — minimal view</div><div style="color:var(--t2);font-size:13px;">Beef (3 kg), Mushrooms (2 kg), Heavy Cream (1 L) — all within safe quantities per forecast.</div><div style="display:flex;gap:10px;margin-top:10px;"><button class="btn btn-primary btn-sm" onclick="showToast('✓ PR-0047 Approved!')">✓ Approve</button><button class="btn btn-outline btn-sm" onclick="toggleModal('modal-reject')">✗ Reject</button></div></div></td></tr>
+                <tr>
+                  <td></td>
+                  <td><span class="pr-ref">PR-0048</span></td>
+                  <td>Sudath B. (Kitchen Mgr)</td>
+                  <td style="font-size:13px;color:var(--t2);">Chicken, Rice, Coconut Milk</td>
+                  <td style="font-size:13px;font-weight:600;">Corporate Lunch</td>
+                  <td style="font-weight:700;">Rs. 41,300</td>
+                  <td style="font-size:12px;color:var(--t3);">10/08/2026</td>
+                  <td><span class="badge bg-green">Approved</span></td>
+                  <td><div class="acts"><span class="act" onclick="showToast('POs created for PR-0048, one per supplier')">Create POs</span></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><span class="pr-ref">PR-0046</span></td>
+                  <td>Sudath B. (Kitchen Mgr)</td>
+                  <td style="font-size:13px;color:var(--t2);">Chicken, Lamb</td>
+                  <td style="font-size:13px;font-weight:600;">Anniversary – Fernando</td>
+                  <td style="font-weight:700;">Rs. 72,200</td>
+                  <td style="font-size:12px;color:var(--t3);">08/08/2026</td>
+                  <td><span class="badge bg-green">Approved</span></td>
+                  <td style="font-size:12px;color:var(--t3);">PO-0019 issued</td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- Reject Modal -->
-        <div class="modal-overlay" id="modal-reject" onclick="if(event.target===this)toggleModal('modal-reject')">
-          <div class="modal">
-            <div class="modal-hdr"><h3>Reject PR with Remarks</h3><button class="modal-close" onclick="toggleModal('modal-reject')">✕</button></div>
-            <form onsubmit="submitForm(event,'PR Rejected. Kitchen Manager notified.')">
-              <div class="form-grp">
-                <label>Rejection Remarks *</label>
-                <textarea placeholder="Explain why this PR is rejected (will be visible to the Kitchen Manager)…" style="height:100px;" required></textarea>
-              </div>
-              <div style="display:flex;gap:10px;margin-top:12px;">
-                <button type="submit" class="btn btn-primary" style="background:var(--danger);">Confirm Rejection</button>
-                <button type="button" class="btn btn-outline" onclick="toggleModal('modal-reject')">Cancel</button>
-              </div>
-            </form>
-          </div>
-        </div>
       </section>
 
       <!-- PURCHASE ORDERS -->
-      <section id="sec-po" class="section">
+      <section id="sec-orders" class="section">
         <div class="sec-hdr"><h2>Purchase Orders</h2><button class="btn btn-primary" onclick="showToast('PO generated from approved PRs!')">Generate PO from PR</button></div>
 
         <div class="stats">
@@ -404,31 +406,22 @@
         </div>
       </section>
 
-      <!-- DELIVERY TRACKING -->
-      <section id="sec-delivery" class="section">
-        <div class="sec-hdr"><h2>Delivery Tracking</h2></div>
-
-        <div class="stats">
-          <div class="stat c-orange"><div class="stat-ico">🚚</div><div class="stat-val">3</div><div class="stat-lbl">Expected Deliveries</div></div>
-          <div class="stat c-red"><div class="stat-ico">⚠️</div><div class="stat-val">1</div><div class="stat-lbl">Overdue</div></div>
-          <div class="stat c-green"><div class="stat-ico">✅</div><div class="stat-val">3</div><div class="stat-lbl">Received This Week</div></div>
+      <!-- Reject Modal (shared by Home and Requisitions) -->
+      <div class="modal-overlay" id="modal-reject" onclick="if(event.target===this)toggleModal('modal-reject')">
+        <div class="modal">
+          <div class="modal-hdr"><h3>Reject PR with Remarks</h3><button class="modal-close" onclick="toggleModal('modal-reject')">✕</button></div>
+          <form onsubmit="submitForm(event,'PR Rejected. Kitchen Manager notified.')">
+            <div class="form-grp">
+              <label>Rejection Remarks *</label>
+              <textarea placeholder="Explain why this PR is rejected (will be visible to the Kitchen Manager)…" style="height:100px;" required></textarea>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:12px;">
+              <button type="submit" class="btn btn-primary" style="background:var(--danger);">Confirm Rejection</button>
+              <button type="button" class="btn btn-outline" onclick="toggleModal('modal-reject')">Cancel</button>
+            </div>
+          </form>
         </div>
-
-        <div class="card">
-          <div class="card-hdr"><h3>Delivery Status</h3></div>
-          <div class="tbl-wrap">
-            <table>
-              <thead><tr><th>PO Ref</th><th>Supplier</th><th>Items</th><th>Expected Date</th><th>Status</th><th>Actions</th></tr></thead>
-              <tbody>
-                <tr><td><span class="pr-ref">PO-0019</span></td><td>Lakmal &amp; Sons Poultry</td><td style="font-size:13px;color:var(--t2);">Chicken (40 kg), Lamb (10 kg)</td><td style="font-weight:700;color:var(--danger);">13/08/26 ⚠️</td><td><span class="badge bg-red">Overdue</span></td><td><div class="acts"><span class="act">Follow Up</span><span class="act" onclick="showToast('Marked received!')">Mark Received</span></div></td></tr>
-                <tr><td><span class="pr-ref">PO-0018</span></td><td>Negombo Sea Foods</td><td style="font-size:13px;color:var(--t2);">Salmon (50 kg), Prawns (10 kg)</td><td>14/08/26</td><td><span class="badge bg-orange">Pending</span></td><td><div class="acts"><span class="act">View</span><span class="act" onclick="showToast('Marked received!')">Mark Received</span></div></td></tr>
-                <tr><td><span class="pr-ref">PO-0020</span></td><td>Ceylon Agro Exports</td><td style="font-size:13px;color:var(--t2);">Rice, Spices, Dry Goods</td><td>15/08/26</td><td><span class="badge bg-orange">Pending</span></td><td><div class="acts"><span class="act">View</span><span class="act" onclick="showToast('Marked received!')">Mark Received</span></div></td></tr>
-                <tr><td><span class="pr-ref">PO-0017</span></td><td>Araliya Foods</td><td style="font-size:13px;color:var(--t2);">Coconut Milk, Herbs</td><td>10/08/26</td><td><span class="badge bg-green">Received</span></td><td><div class="acts"><span class="act">View</span></div></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      </div>
 
     </main>
   </div>

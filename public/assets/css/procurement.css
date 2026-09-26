@@ -1,1 +1,4 @@
 /* Procurement Specific CSS */
+
+/* Only the selected section is visible (style.css shows every .section) */
+.content > .section:not(.active) { display: none; }
