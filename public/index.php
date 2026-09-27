@@ -29,8 +29,14 @@ $router->post('/supplier/create', 'ProcurementController@createSupplier');
 $router->post('/supplier/edit',   'ProcurementController@editSupplier');
 $router->post('/supplier/delete', 'ProcurementController@deleteSupplier');
 
-// CEO
-$router->get('/ceo',         'CeoController@dashboard');
+// ceo
+$router->get('/ceo',              'CeoController@home');
+$router->get('/ceo/events',       'CeoController@events');
+$router->get('/ceo/procurement',  'CeoController@procurement');
+$router->get('/ceo/inventory',    'CeoController@inventory');
+$router->get('/ceo/approvals',    'CeoController@approvals');
+$router->get('/ceo/users',        'CeoController@users');
+$router->get('/ceo/reports',      'CeoController@reports');
 
 // admin
 $router->get('/admin', 'AdminController@home');
@@ -70,7 +76,6 @@ $router->get('/store/inventory', 'StoreController@inventory');
 $router->post('/ingredient/create','StoreController@createIngredient');
 $router->post('/ingredient/edit','StoreController@editIngredient');
 $router->post('/ingredient/delete','StoreController@deleteIngredient');
-
 // ── Chef ──────────────────────────────────────────────
 $router->get('/chef', 'ChefController@home');
 $router->get('/chef/menus', 'ChefController@menus');

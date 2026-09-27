@@ -17,8 +17,7 @@ endif;
 
   <div class="stats metric-stats">
     <article class="metric-card metric-card-blue">
-      <div class="metric-value"><?= htmlspecialchars($ingredientCount) ?></div>
-      <div class="metric-label">Total Ingredient SKUs</div>
+      <div class="metric-value"><?= htmlspecialchars($ingredientCount) ?></div>      <div class="metric-label">Total Ingredient SKUs</div>
       <div class="metric-footer">
         <span>Across 6 food<br>categories</span>
         <strong>+14 this<br>month</strong>
@@ -28,8 +27,7 @@ endif;
       <div class="metric-value"><?= htmlspecialchars($lowStockCount['bellowMin']) ?></div>
       <div class="metric-label">Below Minimum Safety Par</div>
       <div class="metric-footer">
-        <span><?= htmlspecialchars($lowStockCount['redZone']) ?> in Critical Red zone</span>
-        <strong>Resolve Now</strong>
+        <span><?= htmlspecialchars($lowStockCount['redZone']) ?> in Critical Red zone</span>        <strong>Resolve Now</strong>
       </div>
     </article>
     <article class="metric-card metric-card-orange">
@@ -82,8 +80,7 @@ endif;
         <span>Export CSV</span>
       </button>
       <button class="btn btn-primary toolbar-btn" type="button" id="btn-add-ingredient"
-        data-popup-target="add-ingredient-overlay">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        data-popup-target="add-ingredient-overlay">        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           aria-hidden="true">
           <path d="M12 4v16m8-8H4" />
         </svg>
@@ -105,8 +102,7 @@ endif;
             <th>UOM</th>
             <th>Min Stock</th>
             <th>Current Stock</th>
-            <th>Stock Level</th>
-            <th>Status</th>
+            <th>Stock Level</th>            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -509,8 +505,7 @@ endif;
             </svg>
             Delete Ingredient
           </button>
-        </div>
-      </form>
+        </div>      </form>
     </div>
   </div>
 </section>
