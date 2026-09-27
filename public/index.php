@@ -82,6 +82,7 @@ $router->get('/chef/recipes', 'ChefController@recipes');
 $router->post('/chef/recipes/create', 'ChefController@createRecipe');
 $router->post('/chef/recipes/update/:id', 'ChefController@updateRecipe');
 $router->post('/chef/recipes/delete/:id', 'ChefController@deleteRecipe');
+$router->get('/chef/stock', 'ChefController@stock');
 
 //profile
 $router->get('/profile', 'ProfileController@profile');

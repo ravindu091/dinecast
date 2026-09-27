@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/style.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/chef.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/sidebar.css">
+  <?php if (isset($activePage) && $activePage === 'stock'): ?>
+  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/store.css">
+  <?php endif; ?>
 
 </head>
 <body>
@@ -17,7 +20,9 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sb-logo">
-      <div class="sb-logo-icon">🍽️</div>
+      <div class="sb-logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+      </div>
       <span class="sb-logo-name">Dine<span>Cast</span></span>
     </div>
 
@@ -41,19 +46,44 @@
           <span class="nav-label">Recipes</span>
         </div>
       </a>
+      <a href="<?= $baseUrl ?>/chef/stock">
+        <div class="nav-link <?= $activePage === 'stock' ? 'active' : '' ?>" data-section="sec-stock" data-title="Request Ingredients">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          <span class="nav-label">Stock Requests</span>
+        </div>
+      </a>
     </nav>
 
+    <?php
+      $fullName = $_SESSION['fullName'] ?? 'User';
+      $nameParts = explode(' ', trim($fullName));
+      $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+      $role = ucfirst($_SESSION['role'] ?? 'Store Manager');
+      $userId = $_SESSION['userId'] ?? 'User';
+      $profilePicture = !empty($_SESSION['profile_picture']) ? BASE_URL . '/' . $_SESSION['profile_picture'] : null;
+    ?>
     <div class="sb-footer">
-      <div class="sb-user">
-        <div class="sb-avatar" style="background:var(--warning-bg);color:var(--warning);">CS</div>
-        <div>
-          <div class="sb-user-name">Chef Sudath</div>
-          <div class="sb-user-role">Chef</div>
+      <a href="<?= BASE_URL ?>/profile">
+        <div class="sb-user">
+          <div class="sb-avatar">
+            <?php if ($profilePicture): ?>
+              <img src="<?= htmlspecialchars($profilePicture) ?>" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <?php else: ?>
+              <span><?= htmlspecialchars($initials) ?></span>
+            <?php endif; ?>
+          </div>
+          <div>
+            <div class="sb-user-name"><?= htmlspecialchars($fullName) ?></div>
+            <div class="sb-user-role"><?= htmlspecialchars($role) ?></div>
+          </div>
         </div>
-      </div>
+      </a>
       <a href="<?= BASE_URL ?>/logout" class="sb-logout">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-        Logout
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        <span>Logout</span>
       </a>
     </div>
   </aside>
