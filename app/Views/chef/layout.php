@@ -80,8 +80,8 @@
   </div>
 </div>
 <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
-<script src="<?= $baseUrl ?>/assets/js/app.js"></script>
-<script src="<?= $baseUrl ?>/assets/js/chef.js"></script>
+<script src="<?= $baseUrl ?>/public/assets/js/app.js"></script>
+<script src="<?= $baseUrl ?>/public/assets/js/chef.js"></script>
 
 </body>
 </html>

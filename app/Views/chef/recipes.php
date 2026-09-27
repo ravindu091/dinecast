@@ -21,6 +21,7 @@
             <button class="tab">Missing Recipes</button>
           </div>
 
+          <!-- RECIPE LIST TABLE-->
           <div class="tab-pane active">
             <div class="card" style="margin-bottom:0;">
               <div class="card-hdr"><h3>Recipe List</h3><span style="font-size:12px;color:var(--t3);">Click ▶ to view ingredients</span></div>
@@ -28,95 +29,54 @@
                 <table>
                   <thead><tr><th></th><th>Menu Item</th><th>Menu</th><th>Ingredients</th><th>Per Guest (est.)</th><th>Actions</th></tr></thead>
                   <tbody>
+                    <?php foreach ($recipes as $recipe): ?>
                     <tr>
-                      <td><button class="expand-btn" onclick="toggleExpandRow(this,'rec-row-1')">▶</button></td>
-                      <td class="tbl-main">Grilled Chicken</td>
-                      <td style="font-size:13px;color:var(--t2);">Wedding Banquet Menu A</td>
-                      <td>5</td>
-                      <td>Rs. 180</td>
-                      <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
+                      <td><button class="expand-btn" onclick="toggleExpandRow(this,'recipe-row-<?= (int) $recipe['id'] ?>')">▶</button></td>
+                      <td class="tbl-main"><?= htmlspecialchars($recipe['menu_item_name']) ?></td>
+                      <td style="font-size:13px;color:var(--t2);"><?= htmlspecialchars($recipe['menu_name']) ?></td>
+                      <td><?= (int) $recipe['ingredient_count'] ?></td>
+                      <td>-</td>
+                      <td>
+                        <div class="acts">
+                          <button type="button" class="act" onclick="openEditRecipe(<?= (int) $recipe['id'] ?>)">Edit</button>
+                          <form method="post" action="<?= $baseUrl ?>/chef/recipes/delete/<?= (int) $recipe['id'] ?>" style="display:inline;">
+                            <button type="submit" class="act del" style="border:0;background:none;padding:0;">Delete</button>
+                          </form>
+                        </div>
+                      </td>
                     </tr>
-                    <tr class="expand-row" id="rec-row-1">
+                    <tr class="expand-row" id="recipe-row-<?= (int) $recipe['id'] ?>">
                       <td colspan="6">
                         <div class="expand-inner">
-                          <div class="expand-lbl">Ingredients per guest — Grilled Chicken</div>
+                          <div class="expand-lbl">Ingredients per guest — <?= htmlspecialchars($recipe['menu_item_name']) ?></div>
                           <div class="tbl-wrap" style="margin:0;">
                             <table>
                               <thead><tr><th>Ingredient</th><th>Qty per Guest</th><th>UOM</th><th>Wastage Factor</th><th>Adjusted Qty</th></tr></thead>
                               <tbody>
-                                <tr><td>Chicken (Whole)</td><td>250</td><td>g</td><td>12%</td><td>280 g</td></tr>
-                                <tr><td>Garlic (Peeled)</td><td>5</td><td>g</td><td>5%</td><td>5.25 g</td></tr>
-                                <tr><td>Lemon</td><td>0.25</td><td>pcs</td><td>3%</td><td>0.26 pcs</td></tr>
-                                <tr><td>Olive Oil</td><td>15</td><td>ml</td><td>3%</td><td>15.5 ml</td></tr>
-                                <tr><td>Mixed Herbs</td><td>3</td><td>g</td><td>5%</td><td>3.15 g</td></tr>
+                                <?php foreach ($recipe['lines'] as $line): ?>
+                                <tr>
+                                  <td><?= htmlspecialchars($line['ingredient_name']) ?></td>
+                                  <td><?= htmlspecialchars($line['quantity_per_guest']) ?></td>
+                                  <td><?= htmlspecialchars($line['uom']) ?></td>
+                                  <td><?= htmlspecialchars($line['wastage_percent']) ?>%</td>
+                                  <td><?= htmlspecialchars(number_format((float) $line['quantity_per_guest'] * (1 + ((float) $line['wastage_percent'] / 100)), 3, '.', '')) ?> <?= htmlspecialchars($line['uom']) ?></td>
+                                </tr>
+                                <?php endforeach; ?>
                               </tbody>
                             </table>
                           </div>
-                          <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="toggleModal('modal-add-recipe')">+ Add Ingredient Line</button>
                         </div>
                       </td>
                     </tr>
+                    <?php endforeach; ?>
 
-                    <tr>
-                      <td><button class="expand-btn" onclick="toggleExpandRow(this,'rec-row-2')">▶</button></td>
-                      <td class="tbl-main">Basmati Rice</td>
-                      <td style="font-size:13px;color:var(--t2);">Wedding Banquet Menu A</td>
-                      <td>3</td>
-                      <td>Rs. 40</td>
-                      <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                    </tr>
-                    <tr class="expand-row" id="rec-row-2">
-                      <td colspan="6">
-                        <div class="expand-inner">
-                          <div class="expand-lbl">Ingredients per guest — Basmati Rice</div>
-                          <div class="tbl-wrap" style="margin:0;">
-                            <table>
-                              <thead><tr><th>Ingredient</th><th>Qty per Guest</th><th>UOM</th><th>Wastage Factor</th><th>Adjusted Qty</th></tr></thead>
-                              <tbody>
-                                <tr><td>Basmati Rice</td><td>200</td><td>g</td><td>3%</td><td>206 g</td></tr>
-                                <tr><td>Coconut Milk</td><td>50</td><td>ml</td><td>3%</td><td>51.5 ml</td></tr>
-                                <tr><td>Fresh Curry Leaves</td><td>2</td><td>g</td><td>5%</td><td>2.1 g</td></tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="toggleModal('modal-add-recipe')">+ Add Ingredient Line</button>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td><button class="expand-btn" onclick="toggleExpandRow(this,'rec-row-3')">▶</button></td>
-                      <td class="tbl-main">Prawn Cocktail</td>
-                      <td style="font-size:13px;color:var(--t2);">Cocktail Party Bites</td>
-                      <td>4</td>
-                      <td>Rs. 320</td>
-                      <td><div class="acts"><span class="act">Edit</span><span class="act del">Delete</span></div></td>
-                    </tr>
-                    <tr class="expand-row" id="rec-row-3">
-                      <td colspan="6">
-                        <div class="expand-inner">
-                          <div class="expand-lbl">Ingredients per guest — Prawn Cocktail</div>
-                          <div class="tbl-wrap" style="margin:0;">
-                            <table>
-                              <thead><tr><th>Ingredient</th><th>Qty per Guest</th><th>UOM</th><th>Wastage Factor</th><th>Adjusted Qty</th></tr></thead>
-                              <tbody>
-                                <tr><td>Fresh Prawns</td><td>80</td><td>g</td><td>12%</td><td>89.6 g</td></tr>
-                                <tr><td>Heavy Cream</td><td>20</td><td>ml</td><td>5%</td><td>21 ml</td></tr>
-                                <tr><td>Lemon</td><td>0.1</td><td>pcs</td><td>3%</td><td>0.10 pcs</td></tr>
-                                <tr><td>Parmesan Cheese</td><td>15</td><td>g</td><td>8%</td><td>16.2 g</td></tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="toggleModal('modal-add-recipe')">+ Add Ingredient Line</button>
-                        </div>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
 
+          <!-- Menu Items Missing Recipes TABLE -->
           <div class="tab-pane">
             <div class="card" style="margin-bottom:0;">
               <div class="card-hdr"><h3>Menu Items Missing Recipes</h3></div>
@@ -124,10 +84,15 @@
                 <table>
                   <thead><tr><th>Menu Item</th><th>Menu</th><th>Action</th></tr></thead>
                   <tbody>
-                    <tr><td class="tbl-main">Chocolate Mousse</td><td style="font-size:13px;color:var(--t2);">Festive Dinner Buffet</td><td><button class="btn btn-primary btn-sm" onclick="toggleModal('modal-add-recipe')">Create Recipe</button></td></tr>
-                    <tr><td class="tbl-main">Vegetable Spring Roll</td><td style="font-size:13px;color:var(--t2);">Festive Dinner Buffet</td><td><button class="btn btn-primary btn-sm" onclick="toggleModal('modal-add-recipe')">Create Recipe</button></td></tr>
-                    <tr><td class="tbl-main">Bruschetta Bites</td><td style="font-size:13px;color:var(--t2);">Cocktail Party Bites</td><td><button class="btn btn-primary btn-sm" onclick="toggleModal('modal-add-recipe')">Create Recipe</button></td></tr>
-                    <tr><td class="tbl-main">Cheese &amp; Crackers Platter</td><td style="font-size:13px;color:var(--t2);">Cocktail Party Bites</td><td><button class="btn btn-primary btn-sm" onclick="toggleModal('modal-add-recipe')">Create Recipe</button></td></tr>
+                    <?php foreach ($missingRecipes as $missingRecipe): ?>
+                    <tr>
+                      <td class="tbl-main"><?= htmlspecialchars($missingRecipe['menu_item_name']) ?></td>
+                      <td style="font-size:13px;color:var(--t2);"><?= htmlspecialchars($missingRecipe['menu_name']) ?></td>
+                      <td>
+                        <button class="btn btn-primary btn-sm" onclick="toggleModal('modal-add-recipe')">Create Recipe</button>
+                      </td>
+                    </tr>
+                    <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>
@@ -138,22 +103,50 @@
         <!-- Add Recipe Modal -->
         <div class="modal-overlay" id="modal-add-recipe" onclick="if(event.target===this)toggleModal('modal-add-recipe')">
           <div class="modal">
-            <div class="modal-hdr"><h3>Add / Edit Recipe</h3><button class="modal-close" onclick="toggleModal('modal-add-recipe')">✕</button></div>
-            <form onsubmit="submitForm(event,'Recipe saved!')">
+            <div class="modal-hdr">
+              <h3>Add Recipe</h3>
+              <button type="button" class="modal-close" onclick="toggleModal('modal-add-recipe')">✕</button>
+            </div>
+
+            <form method="post" action="<?= $baseUrl ?>/chef/recipes/create">
               <div class="form-grid">
-                <div class="form-grp"><label>Menu *</label><select required><option>Wedding Banquet Menu A</option><option>Cocktail Party Bites</option><option>Festive Dinner Buffet</option></select></div>
-                <div class="form-grp"><label>Menu Item *</label><input type="text" placeholder="e.g. Grilled Chicken" required></div>
-              </div>
-              <div style="margin:12px 0;font-size:13px;font-weight:700;color:var(--t1);">Ingredient Lines</div>
-              <div style="display:flex;flex-direction:column;gap:8px;" id="recipe-lines">
-                <div style="display:grid;grid-template-columns:1fr 80px 80px 80px 28px;gap:8px;align-items:center;">
-                  <select><option>Fresh Salmon Fillet</option><option>Chicken (Whole)</option><option>Basmati Rice</option><option>Garlic (Peeled)</option></select>
-                  <input type="number" placeholder="Qty" step="0.01">
-                  <select><option>g</option><option>kg</option><option>ml</option><option>L</option><option>pcs</option></select>
-                  <input type="number" placeholder="Waste%" step="1" max="50">
-                  <button type="button" style="background:var(--danger-bg);color:var(--danger);border:none;border-radius:6px;cursor:pointer;padding:4px 8px;" onclick="this.closest('div').remove()">✕</button>
+                <div class="form-grp form-full">
+                  <label for="recipe-menu-item">Menu Item *</label>
+                  <select id="recipe-menu-item" name="menu_item_id" required>
+                    <option value="">Select a menu item</option>
+                    <?php foreach (($menuItems ?? []) as $menuItem): ?>
+                      <option value="<?= (int) $menuItem['id'] ?>">
+                        <?= htmlspecialchars($menuItem['menu_name'] . ' - ' . $menuItem['name']) ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
                 </div>
               </div>
+
+              <div style="margin:12px 0;font-size:13px;font-weight:700;color:var(--t1);">Ingredients per guest</div>
+              <div id="recipe-lines" style="display:flex;flex-direction:column;gap:8px;">
+                <div class="recipe-line" style="display:grid;grid-template-columns:1fr 80px 80px 80px 28px;gap:8px;align-items:center;">
+                  <select name="ingredient_id[]" required>
+                    <option value="">Ingredient</option>
+                    <?php foreach (($ingredients ?? []) as $ingredient): ?>
+                      <option value="<?= (int) $ingredient['id'] ?>">
+                        <?= htmlspecialchars($ingredient['name']) ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                  <input name="quantity_per_guest[]" type="number" min="0.001" step="0.001" placeholder="Qty" required>
+                  <select name="uom[]" required>
+                    <option value="g">g</option>
+                    <option value="kg">kg</option>
+                    <option value="ml">ml</option>
+                    <option value="L">L</option>
+                    <option value="pcs">pcs</option>
+                  </select>
+                  <input name="wastage_percent[]" type="number" min="0" max="100" step="0.01" placeholder="Waste %">
+                  <button type="button" class="remove-recipe-line" aria-label="Remove ingredient">✕</button>
+                </div>
+              </div>
+
               <button type="button" class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="addRecipeLine()">+ Add Ingredient</button>
               <div style="display:flex;gap:10px;margin-top:16px;">
                 <button type="submit" class="btn btn-primary">Save Recipe</button>
@@ -162,4 +155,44 @@
             </form>
           </div>
         </div>
+
+        <!-- Edit Recipe Modal -->
+        <div class="modal-overlay" id="modal-edit-recipe" onclick="if(event.target===this)toggleModal('modal-edit-recipe')">
+          <div class="modal">
+            <div class="modal-hdr">
+              <h3>Edit Recipe</h3>
+              <button type="button" class="modal-close" onclick="toggleModal('modal-edit-recipe')">✕</button>
+            </div>
+
+            <form id="edit-recipe-form" method="post">
+              <div class="form-grid">
+                <div class="form-grp form-full">
+                  <label for="edit-recipe-menu-item">Menu Item *</label>
+                  <select id="edit-recipe-menu-item" name="menu_item_id" required>
+                    <option value="">Select a menu item</option>
+                    <?php foreach (($menuItems ?? []) as $menuItem): ?>
+                      <option value="<?= (int) $menuItem['id'] ?>">
+                        <?= htmlspecialchars($menuItem['menu_name'] . ' - ' . $menuItem['name']) ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+
+              <div style="margin:12px 0;font-size:13px;font-weight:700;color:var(--t1);">Ingredients per guest</div>
+              <div id="edit-recipe-lines" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+              <button type="button" class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="addRecipeLine('edit-recipe-lines')">+ Add Ingredient</button>
+              <div style="display:flex;gap:10px;margin-top:16px;">
+                <button type="submit" class="btn btn-primary">Update Recipe</button>
+                <button type="button" class="btn btn-outline" onclick="toggleModal('modal-edit-recipe')">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <script>
+          window.recipeData = <?= json_encode($recipes, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+          window.recipeUpdateUrl = <?= json_encode($baseUrl . '/chef/recipes/update/') ?>;
+        </script>
       </section>
