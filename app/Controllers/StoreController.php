@@ -61,6 +61,14 @@ class StoreController extends Controller
 
     }
 
+    public function pr(array $param = [])
+    {
+        $this->renderWithLayout('store/pr', 'store/layout', [
+            'title' => 'Purchase Requisitions',
+            'activePage' => 'pr',
+        ]);
+    }
+
     public function createIngredient(array $param = [])
     {
         //get data
@@ -95,13 +103,9 @@ class StoreController extends Controller
             exit();
         }
 
-        //validate
-
-
-        //store
-
-
-        //redirect
+        // If accessed without valid POST data, redirect back
+        header("Location:" . BASE_URL . "/store/ingredients");
+        exit();
     }
 
 
