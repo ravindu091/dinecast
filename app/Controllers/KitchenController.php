@@ -17,6 +17,7 @@ class KitchenController extends Controller {
     }
 
     public function __construct() {
+        parent::__construct();
         $this->requireKitchenManager();
     }
     public function dashboard(array $params = []): void {

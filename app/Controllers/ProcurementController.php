@@ -9,6 +9,7 @@ class ProcurementController extends Controller {
     //runs before every procurement page and action:
     //only a signed-in procurement manager gets past this
     public function __construct(){
+        parent::__construct();
         if(!isset($_SESSION['userId']) || $_SESSION['role'] != 'procurement'){
             header("Location:" . BASE_URL . "/");
             exit();

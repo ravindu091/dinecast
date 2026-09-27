@@ -5,6 +5,7 @@ class StoreController extends Controller
 {
 
     public function __construct(){
+        parent::__construct();
         if(!isset($_SESSION['userId']) || $_SESSION['role'] != 'store'){
             header("Location:" . BASE_URL . "/");
             exit();
