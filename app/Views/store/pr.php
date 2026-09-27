@@ -82,18 +82,7 @@
           <span>Rejected by: N. Fernando &gt;</span>
         </div>
       </div>
-
-      <!-- Quick Tips -->
-      <div class="card pr-tips">
-        <div class="pr-tips-content">
-          <div class="pr-tips-icon">💡</div>
-          <div>
-            <h4 class="pr-tips-title">Quick Tips</h4>
-            <p class="pr-tips-text">Keep your stock levels accurate and submit requisitions before items reach the minimum level to avoid shortages.</p>
-          </div>
-        </div>
-      </div>
-
+      
     </div>
 
     <!-- RIGHT COLUMN: Detail View -->

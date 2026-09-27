@@ -2534,3 +2534,15 @@ body {
 .pr-history-status.active { color: var(--warning); font-weight: 500; }
 .pr-history-status.pending { color: var(--t3); }
 .pr-history-desc { font-size: 13px; color: var(--t2); }
+
+
+.error-msg{
+	color: red;
+	display: none;
+	font-size: 13px;
+	margin-top: -15px;
+	margin-bottom: 15px;
+}
+.error-msg.visible{
+	display: block;
+}
