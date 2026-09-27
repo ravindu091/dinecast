@@ -185,7 +185,7 @@
                   <label for="edit-recipe-menu-item">Menu Item *</label>
                   <select id="edit-recipe-menu-item" name="menu_item_id" required>
                     <option value="">Select a menu item</option>
-                    <?php foreach (($menuItems ?? []) as $menuItem): ?>
+                    <?php foreach (($editMenuItems ?? []) as $menuItem): ?>
                       <option value="<?= (int) $menuItem['id'] ?>">
                         <?= htmlspecialchars($menuItem['menu_name'] . ' - ' . $menuItem['name']) ?>
                       </option>

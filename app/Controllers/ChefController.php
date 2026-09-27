@@ -54,6 +54,8 @@ class ChefController extends Controller {
         }
         unset($recipeRow);
 
+        $editMenuItemIds = array_column($recipes, 'menu_item_id');
+
         $this->renderWithLayout('chef/recipes', 'chef/layout', [
             'title' => 'Chef - Recipes',
             'activePage' => 'recipes',
@@ -61,6 +63,7 @@ class ChefController extends Controller {
             'missingRecipes' => $recipe->getMissingRecipes(),
             'ingredients' => $ingredient->getAllIngredients(),
             'menuItems' => $recipe->getMenuItems(),
+            'editMenuItems' => $recipe->getMenuItemsForEdit($editMenuItemIds),
         ]);
     }
 

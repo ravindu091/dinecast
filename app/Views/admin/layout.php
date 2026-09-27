@@ -54,7 +54,7 @@
       </a>
     </nav>
 
-    <!-- LOGOUT BUTTON WORK -->
+    <!-- LOGOUT BUTTON WORK AND PROFILE VIEW -->
     <?php
       $fullName = $_SESSION['fullName'] ?? 'User';
       $nameParts = explode(' ', trim($fullName));

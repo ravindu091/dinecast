@@ -91,6 +91,34 @@ class Recipe {
         return $stmt->fetchAll();
     }
 
+    /**
+     * Return active menu items plus any items already assigned to recipes.
+     * This keeps creation restricted to active menus while allowing existing
+     * recipes to be edited after their menu becomes inactive.
+     */
+    public function getMenuItemsForEdit(array $recipeMenuItemIds): array {
+        $recipeMenuItemIds = array_values(array_unique(array_filter(
+            array_map('intval', $recipeMenuItemIds),
+            static fn (int $id): bool => $id > 0
+        )));
+
+        if ($recipeMenuItemIds === []) {
+            return $this->getMenuItems();
+        }
+
+        $placeholders = implode(',', array_fill(0, count($recipeMenuItemIds), '?'));
+        $stmt = $this->conn->prepare(
+            "SELECT mi.id, mi.name, m.name AS menu_name
+             FROM menu_items mi
+             INNER JOIN menus m ON m.id = mi.menu_id
+             WHERE m.status = 'Active' OR mi.id IN ($placeholders)
+             ORDER BY m.name, mi.name"
+        );
+        $stmt->execute($recipeMenuItemIds);
+
+        return $stmt->fetchAll();
+    }
+
     public function create(int $menuItemId, array $lines): bool {
         try {
             $this->conn->beginTransaction();
