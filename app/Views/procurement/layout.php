@@ -41,22 +41,34 @@
     </nav>
 
     <?php
-      //signed-in user's details from the session (set at login from the users table)
-      $fullName = $_SESSION['fullName'];
+      $fullName = $_SESSION['fullName'] ?? 'User';
       $nameParts = explode(' ', trim($fullName));
       $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+      $role = ucfirst($_SESSION['role'] ?? 'Store Manager');
+      $profilePicture = !empty($_SESSION['profile_picture']) ? BASE_URL . '/' . $_SESSION['profile_picture'] : null;
     ?>
     <div class="sb-footer">
-      <div class="sb-user">
-        <div class="sb-avatar" style="background:var(--success-bg);color:var(--success);"><?= htmlspecialchars($initials) ?></div>
-        <div>
-          <div class="sb-user-name"><?= htmlspecialchars($fullName) ?></div>
-          <div class="sb-user-role"><?= htmlspecialchars(getRole($_SESSION['role'])) ?></div>
+      <a href="<?= BASE_URL ?>/profile">
+        <div class="sb-user">
+          <div class="sb-avatar">
+            <?php if ($profilePicture): ?>
+              <img src="<?= htmlspecialchars($profilePicture) ?>" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <?php else: ?>
+              <span><?= htmlspecialchars($initials) ?></span>
+            <?php endif; ?>
+          </div>
+          <div>
+            <div class="sb-user-name"><?= htmlspecialchars($fullName) ?></div>
+            <div class="sb-user-role"><?= htmlspecialchars($role) ?></div>
+          </div>
         </div>
-      </div>
-      <a href="<?= $baseUrl ?>/logout" class="sb-logout">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-        Logout
+      </a>
+      <a href="<?= BASE_URL ?>/logout" class="sb-logout">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        <span>Logout</span>
       </a>
     </div>
   </aside>
@@ -82,6 +94,7 @@
 </div>
 <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
 <script src="<?= $baseUrl ?>/assets/js/app.js"></script>
+<script src="<?= $baseUrl ?>/assets/js/popup.js"></script>
 <script src="<?= $baseUrl ?>/assets/js/procurement.js"></script>
 </body>
 </html>

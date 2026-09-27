@@ -4,7 +4,7 @@
     <div class="welcome-txt">
       <h2>Welcome back, <?= htmlspecialchars(explode(" ", trim($_SESSION["fullName"]))[0]) ?>!</h2>
       <p>Review and approve purchase requisitions, manage suppliers, and track orders.</p>
-      <div class="user-id">@<?= htmlspecialchars($_SESSION["username"]) ?> &nbsp;·&nbsp; <?= htmlspecialchars(getRole($_SESSION["role"])) ?></div>
+      <div class="user-id">ID: <?= (int) $_SESSION["userId"] ?> &nbsp;·&nbsp; <?= htmlspecialchars(getRole($_SESSION["role"])) ?></div>
     </div>
   </div>
 
