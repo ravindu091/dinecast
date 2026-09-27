@@ -110,5 +110,12 @@
 <script src="<?= $baseUrl ?>/public/assets/js/app.js"></script>
 <script src="<?= $baseUrl ?>/public/assets/js/admin.js"></script>
 
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
 </body>
 </html>

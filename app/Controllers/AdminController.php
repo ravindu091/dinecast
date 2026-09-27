@@ -4,6 +4,7 @@ require_once __DIR__ . '/../models/User.php';
 
 class AdminController extends Controller {
     public function __construct(){
+        parent::__construct();
         if(!isset($_SESSION['userId']) || !isset($_SESSION['role'])){
             header('Location:'.BASE_URL .'/');
             exit;

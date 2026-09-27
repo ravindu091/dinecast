@@ -705,5 +705,12 @@
 <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
 <script src="<?= $baseUrl ?>/assets/js/app.js"></script>
 <script src="<?= $baseUrl ?>/assets/js/ceo.js"></script>
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
 </body>
 </html>

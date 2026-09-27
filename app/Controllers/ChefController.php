@@ -8,6 +8,7 @@ class ChefController extends Controller {
     private const RECIPE_UOMS = ['g', 'kg', 'ml', 'L', 'pcs'];
 
     public function __construct() {
+        parent::__construct();
         $this->requireChef();
     }
 
