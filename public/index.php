@@ -18,7 +18,16 @@ $router->get('/logout' , 'AuthController@logOut');
 
 // ── 6 Actor Dashboards ───────────────────────────────
 
-$router->get('/procurement', 'ProcurementController@dashboard');
+// procurement
+$router->get('/procurement',              'ProcurementController@home');
+$router->get('/procurement/suppliers',    'ProcurementController@suppliers');
+$router->get('/procurement/requisitions', 'ProcurementController@requisitions');
+$router->get('/procurement/orders',       'ProcurementController@orders');
+
+//procurement post request
+$router->post('/supplier/create', 'ProcurementController@createSupplier');
+$router->post('/supplier/edit',   'ProcurementController@editSupplier');
+$router->post('/supplier/delete', 'ProcurementController@deleteSupplier');
 
 // CEO
 $router->get('/ceo',         'CeoController@dashboard');
