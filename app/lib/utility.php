@@ -1,32 +1,38 @@
 <?php
 
 
-function getRemainingDays(string $expiryDate){
-    $expiry = DateTimeImmutable::createFromFormat('d/m/Y',$expiryDate);
-    $today = new DateTimeImmutable('today');
-    if($expiry === false){
-        return 0;
-    }
-    return $today->diff($expiry)->format('%r%a');
 
+function getDateTime(){
+    $timezone = new DateTimeZone('Asia/Colombo'); 
+    $now = new DateTimeImmutable('now', $timezone);
+
+    // Output the date and time
+    return $now->format('Y-m-d h:i:s A'); 
+    // Output: 2026-09-26 02:12:15 PM
 }
 
-function getStatusClass(int $remainingDays){
-    if($remainingDays < 1){
-        return [
-            'text'=>'Expired',
-            'class'=>'bg-red'
-        ];
-    }else if($remainingDays < 10){
-        return [
-            'text'=>'Expire Soon',
-            'class'=>'bg-orange'
-        ];
-    }else{
-        return [
-            'text'=>'good',
-            'class'=>'bg-green'
-        ];
+function getRole(string $shortRole){
+    return match ($shortRole) {
+        'admin' => 'Admin',
+        'kitchen' => 'Kitchen Manager',
+        'chef' => 'Chef',
+        'store' => 'Store Manager',
+        'procurement' => 'Procurement Manager',
+        'ceo' => 'CEO',
+        default => null,
+    };
+}
+
+function csrfToken(): string {
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
 
+    return $_SESSION['csrf_token'];
+}
+
+function verifyCsrfToken(?string $token): bool {
+    return is_string($token)
+        && !empty($_SESSION['csrf_token'])
+        && hash_equals($_SESSION['csrf_token'], $token);
 }

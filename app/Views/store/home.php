@@ -5,9 +5,10 @@
 
         <div class="welcome">
           <div class="welcome-txt">
-            <h2>Welcome back, Anura!</h2>
+            <?php $fullName = $_SESSION['fullName'] ?? 'User';?>
+            <h2>Welcome back, <?= htmlspecialchars($fullName) ?></h2>
             <p>Here's a snapshot of your store today.</p>
-            <div class="user-id">ID: DC-STR-11 &nbsp;·&nbsp; Store Manager</div>
+            <div class="user-id">Store Manager</div>
           </div>
           <div class="welcome-illo">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

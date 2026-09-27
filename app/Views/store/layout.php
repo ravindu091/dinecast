@@ -10,7 +10,11 @@
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/store.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/popup.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/sidebar.css">
-  
+  <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
+  <script src="<?= $baseUrl ?>/assets/js/app.js"></script>
+  <script src="<?= $baseUrl ?>/assets/js/popup.js"></script>
+  <script src="<?= $baseUrl ?>/assets/js/store/store.js"></script>
+  <script src="<?= $baseUrl ?>/assets/js/store/validate.js?v=<?= time() ?>"></script>
 
 </head>
 <body>
@@ -42,7 +46,7 @@
         <span class="nav-label">Home</span>
       </a>
 
-      <a href="<?= $baseUrl ?>/store/ingredient" class="nav-link <?= $activePage === 'ingredient' ? 'active' : '' ?>" >
+      <a href="<?= $baseUrl ?>/store/ingredients" class="nav-link <?= $activePage === 'ingredient' ? 'active' : '' ?>" >
         <span class="nav-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/>
@@ -84,21 +88,37 @@
       </a>
     </nav>
 
+    <?php
+      $fullName = $_SESSION['fullName'] ?? 'User';
+      $nameParts = explode(' ', trim($fullName));
+      $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+      $role = ucfirst($_SESSION['role'] ?? 'Store Manager');
+      $userId = $_SESSION['userId'] ?? 'User';
+      $profilePicture = !empty($_SESSION['profile_picture']) ? BASE_URL . '/' . $_SESSION['profile_picture'] : null;
+    ?>
     <div class="sb-footer">
-      <div class="sb-user">
-        <div class="sb-avatar"><span>AK</span></div>
-        <div>
-          <div class="sb-user-name">Anura Kumara</div>
-          <div class="sb-user-role">Store Manager</div>
+      <a href="<?= BASE_URL ?>/profile">
+        <div class="sb-user">
+          <div class="sb-avatar">
+            <?php if ($profilePicture): ?>
+              <img src="<?= htmlspecialchars($profilePicture) ?>" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <?php else: ?>
+              <span><?= htmlspecialchars($initials) ?></span>
+            <?php endif; ?>
+          </div>
+          <div>
+            <div class="sb-user-name"><?= htmlspecialchars($fullName) ?></div>
+            <div class="sb-user-role"><?= htmlspecialchars($role) ?></div>
+          </div>
         </div>
-      </div>
-      <div class="sb-logout" onclick="logout()">
+      </a>
+      <a href="<?= BASE_URL ?>/logout" class="sb-logout">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
           <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
-        Logout
-      </div>
+        <span>Logout</span>
+      </a>
     </div>
 
   </aside>
@@ -132,9 +152,6 @@
   </div><!-- /main-area -->
 </div><!-- /dash -->
 
-<script>window.BASE_URL = '<?= $baseUrl ?>';</script>
-<script src="<?= $baseUrl ?>/assets/js/app.js"></script>
-<script src="<?= $baseUrl ?>/assets/js/popup.js"></script>
-<script src="<?= $baseUrl ?>/assets/js/store.js"></script>
+
 </body>
 </html>

@@ -33,6 +33,7 @@ Desktop.ini
 .env
 .env.local
 config/config.local.php
+/dev-server.php
 
 # Local Server Log Files & Dumps
 # --------------------------------------------------------------------
