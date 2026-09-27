@@ -79,13 +79,22 @@ class StoreController extends Controller
             $category = $_POST['category'] ?? '';
             $uom = $_POST['uom'] ?? '';
             $minimumStock = (float) ($_POST['min_stock'] ?? 0);
-            $status = $_POST['status'] ?? 'active';
+            $status = $_POST['status'] ?? 'Active';
             $description = trim($_POST['description'] ?? '');
             $currentStock = (float) ($_POST['current_stock'] ?? 0);
 
             require_once __DIR__ . '/../models/ingredient.php';
 
             $ingredient = new Ingredient();
+
+            $existingIngredient = $ingredient->getIngredientByName($name);
+            if($existingIngredient){
+                $_SESSION['message'] = "Ingredient already exists";
+                $_SESSION['message-type'] = "error";
+                header("Location:" . BASE_URL . "/store/ingredients");
+                exit();
+
+            }
 
             $result = $ingredient->create($name, $category, $uom, $minimumStock, $status, $description, $currentStock);
 
@@ -118,13 +127,19 @@ class StoreController extends Controller
             $category = $_POST['category'] ?? '';
             $uom = $_POST['uom'] ?? '';
             $minimumStock = (float) ($_POST['min_stock'] ?? 0);
-            $status = $_POST['status'] ?? 'active';
+            $status = $_POST['status'] ?? 'Active';
             $description = trim($_POST['description'] ?? '');
             $currentStock = (float) ($_POST['current_stock'] ?? 0);
 
             require_once __DIR__ . '/../models/ingredient.php';
             $ingredient = new Ingredient();
-
+            $existingIngredient = $ingredient->getIngredientByNameExceptId($name,$id);
+            if($existingIngredient){
+                $_SESSION['message'] = "Ingredient already exists";
+                $_SESSION['message-type'] = "error";
+                header("Location:" . BASE_URL . "/store/ingredients");
+                exit();
+            }
             $result = $ingredient->updateIngredient($id, $name, $category, $uom, $minimumStock, $status, $description, $currentStock);
 
             if ($result) {
