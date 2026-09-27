@@ -1,6 +1,6 @@
 :root {
-  --prof-green-dark: var(--store-green-dark, #064e3b);
-  --prof-green: var(--store-green, #166534);
+  --prof-green-dark: #064e3b;
+  --prof-green: #166534;
   --prof-gray-bg: #f8fafc;
 }
 
@@ -19,7 +19,7 @@
 
 .breadcrumbs {
   font-size: 12px;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   margin-bottom: 8px;
 }
 
@@ -32,12 +32,12 @@
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 4px 0;
-  color: var(--store-text, #0f172a);
+  color: #0f172a;
 }
 
 .profile-header p {
   font-size: 13px;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   margin: 0;
 }
 
@@ -45,7 +45,7 @@
 .profile-tabs {
   display: flex;
   gap: 24px;
-  border-bottom: 1px solid var(--store-border, #e2e8f0);
+  border-bottom: 1px solid #e2e8f0;
   margin-bottom: 24px;
 }
 
@@ -56,7 +56,7 @@
   padding: 10px 4px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   cursor: pointer;
   border-bottom: 2px solid transparent;
 }
@@ -83,8 +83,8 @@
 .avatar-card {
   text-align: center;
   padding-bottom: 20px;
-  border: 1px solid var(--store-border, #e2e8f0);
-  border-radius: var(--store-radius, 12px);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
@@ -112,7 +112,7 @@
     justify-content: center;
     font-size: 28px;
     font-weight: 700;
-    border: 4px solid var(--store-surface, #ffffff);
+    border: 4px solid #ffffff;
 
     /* Important for profile images */
     overflow: hidden;
@@ -130,14 +130,14 @@
     bottom: 0;
     right: 0;
     background: #fff;
-    border: 1px solid var(--store-border, #e2e8f0);
+    border: 1px solid #e2e8f0;
     border-radius: 50%;
     width: 28px;
     height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--store-muted, #64748b);
+    color: #64748b;
     cursor: pointer;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 
@@ -153,7 +153,7 @@
 
 .ac-handle {
   font-size: 12px;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   margin: 0 0 16px 0;
 }
 
@@ -179,14 +179,14 @@
   padding: 0 20px;
   font-size: 11px;
 }
-.ac-footer span { color: var(--store-muted, #64748b); }
-.ac-footer strong { color: var(--store-text, #0f172a); font-weight: 600; }
+.ac-footer span { color: #64748b; }
+.ac-footer strong { color: #0f172a; font-weight: 600; }
 
 /* Right Card & Bottom Card */
 .pi-card, .ai-card {
   padding: 24px;
-  border: 1px solid var(--store-border, #e2e8f0);
-  border-radius: var(--store-radius, 12px);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
@@ -219,7 +219,7 @@
 .pi-field label, .field-hdr label {
   font-size: 10px;
   font-weight: 700;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin: 0;
@@ -233,12 +233,12 @@
 .pi-val {
   font-size: 14px;
   font-weight: 600;
-  color: var(--store-text, #0f172a);
+  color: #0f172a;
 }
 
 .f-badge {
   font-size: 10px;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -251,9 +251,9 @@
   display: flex;
   justify-content: space-between;
   font-size: 11px;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   padding-top: 16px;
-  border-top: 1px solid var(--store-border, #e2e8f0);
+  border-top: 1px solid #e2e8f0;
 }
 
 /* Account Info Grid */
@@ -267,7 +267,7 @@
 .ai-col label {
   font-size: 10px;
   font-weight: 700;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 8px;
@@ -278,12 +278,12 @@
   display: block;
   font-size: 13px;
   margin-bottom: 4px;
-  color: var(--store-text, #0f172a);
+  color: #0f172a;
 }
 
 .ai-col p {
   font-size: 11px;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   margin: 0;
   line-height: 1.4;
 }
@@ -295,14 +295,14 @@
 
 .info-alert {
   background: var(--prof-gray-bg);
-  border: 1px solid var(--store-border, #e2e8f0);
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 12px 16px;
   display: flex;
   align-items: flex-start;
   gap: 12px;
   font-size: 12px;
-  color: var(--store-muted, #64748b);
+  color: #64748b;
   line-height: 1.5;
 }
 
