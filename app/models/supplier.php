@@ -41,6 +41,15 @@ class Supplier{
         return $stmt->fetchAll();
     }
 
+    //suppliers that purchase orders can be sent to
+    public function countActiveSuppliers():int{
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM suppliers WHERE status = 'Active'");
+
+        $stmt->execute();
+
+        return (int) $stmt->fetchColumn();
+    }
+
     //true when another supplier already uses this name
     //$excludeId skips the supplier being edited, so it can keep its own name
     public function nameExists(string $name, int $excludeId = 0):bool{

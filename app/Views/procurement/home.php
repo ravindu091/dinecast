@@ -2,9 +2,9 @@
 <section id="sec-home" class="section active">
   <div class="welcome">
     <div class="welcome-txt">
-      <h2>Welcome back, Kavindu!</h2>
+      <h2>Welcome back, <?= htmlspecialchars(explode(" ", trim($_SESSION["fullName"]))[0]) ?>!</h2>
       <p>Review and approve purchase requisitions, manage suppliers, and track orders.</p>
-      <div class="user-id">ID: DC-PM-14 &nbsp;·&nbsp; Procurement Manager</div>
+      <div class="user-id">ID: <?= (int) $_SESSION["userId"] ?> &nbsp;·&nbsp; <?= htmlspecialchars(getRole($_SESSION["role"])) ?></div>
     </div>
   </div>
 
@@ -37,15 +37,15 @@
       <a href="<?= $baseUrl ?>/procurement/orders" class="pm-kpi-link">Track &rarr;</a>
     </article>
 
-    <!-- Registered Suppliers -->
+    <!-- Active Suppliers -->
     <article class="pm-kpi pm-kpi-gray">
       <div class="pm-kpi-top">
-        <span class="pm-kpi-label">Registered Suppliers</span>
+        <span class="pm-kpi-label">Active Suppliers</span>
         <span class="pm-kpi-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>
         </span>
       </div>
-      <div class="pm-kpi-value">6</div>
+      <div class="pm-kpi-value"><?= $activeSupplierCount ?></div>
       <div class="pm-kpi-desc">Available for purchase orders</div>
       <a href="<?= $baseUrl ?>/procurement/suppliers" class="pm-kpi-link">Manage &rarr;</a>
     </article>
