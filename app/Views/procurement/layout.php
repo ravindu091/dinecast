@@ -96,5 +96,12 @@
 <script src="<?= $baseUrl ?>/assets/js/app.js"></script>
 <script src="<?= $baseUrl ?>/assets/js/popup.js"></script>
 <script src="<?= $baseUrl ?>/assets/js/procurement.js"></script>
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
 </body>
 </html>
