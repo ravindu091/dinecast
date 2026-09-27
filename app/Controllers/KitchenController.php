@@ -78,12 +78,13 @@ class KitchenController extends Controller {
     public function createEvent(array $params = []): void {
         require_once __DIR__ . '/../Models/Event.php';
 
+        $result = 'failed';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            Event::create($_POST);
+            $result = Event::create($_POST);
         }
 
         $baseUrl = defined('BASE_URL') ? BASE_URL : '/dinecast';
-        header("Location: {$baseUrl}/kitchen/events?msg=created");
+        header("Location: {$baseUrl}/kitchen/events?msg={$result}");
         exit;
     }
 
@@ -91,12 +92,13 @@ class KitchenController extends Controller {
         require_once __DIR__ . '/../Models/Event.php';
 
         $id = (int)($params['id'] ?? $_POST['id'] ?? 0);
+        $result = 'failed';
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $id > 0) {
-            Event::update($id, $_POST);
+            $result = Event::update($id, $_POST);
         }
 
         $baseUrl = defined('BASE_URL') ? BASE_URL : '/dinecast';
-        header("Location: {$baseUrl}/kitchen/events?msg=updated");
+        header("Location: {$baseUrl}/kitchen/events?msg={$result}");
         exit;
     }
 
