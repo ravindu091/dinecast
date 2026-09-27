@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/login.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/login.css">
 </head>
 
 <body class="login-page">
@@ -59,12 +59,12 @@
             ?>
           <?php endif; ?>
 
-          <form action="<?= BASE_URL ?>/login" method="post">
+          <form action="<?= BASE_URL ?>/login" method="post" id="loginForm">
 
             <div class="fg">
-              <label for="login-user">User Name</label>
+              <label for="username">User Name</label>
               <div class="input-field">
-                <input type="text" id="login-user" name="username" placeholder="Enter your username" autocomplete="username" required>
+                <input type="text" name="username" id="username" placeholder="Enter your username" autocomplete="username" required>
                 <span class="input-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -72,17 +72,19 @@
                   </svg>
                 </span>
               </div>
+              <span class="error-message" id="usernameError"></span>
             </div>
 
             <div class="fg">
               <label for="login-pass">Password</label>
               <div class="input-field">
-                <input type="password" name="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password" required>
+                <input type="password" name="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
                 <span class="input-icon input-icon--toggle" id="pwd-toggle" aria-label="Toggle password visibility">
                   <img src="<?= BASE_URL ?>/assets/img/show.png" alt="" class="icon-eye">
                   <img src="<?= BASE_URL ?>/assets/img/hide.png" alt="" class="icon-eye-off">
                 </span>
               </div>
+              <span class="error-message" id="passwordError"></span>
             </div>
 
             <div class="form-opts">
@@ -114,7 +116,7 @@
   <script>
     (function () {
       var toggle = document.getElementById('pwd-toggle');
-      var pass   = document.getElementById('login-pass');
+      var pass   = document.getElementById('password');
       if (!toggle || !pass) return;
       toggle.addEventListener('click', function () {
         pass.type = pass.type === 'password' ? 'text' : 'password';
@@ -122,5 +124,6 @@
       });
     })();
   </script>
+  <script src="<?= BASE_URL ?>/public/assets/js/login.js"></script>
 </body>
 </html>
