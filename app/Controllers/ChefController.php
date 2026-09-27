@@ -87,6 +87,13 @@ class ChefController extends Controller {
         ]);
     }
 
+    public function stock(): void {
+        $this->renderWithLayout('chef/stock', 'chef/layout', [
+            'title' => 'Chef - Request Ingredients',
+            'activePage' => 'stock'
+        ]);
+    }
+
     public function createRecipe(array $params = []): void {
         $this->requireValidCsrfToken();
         $menuItemId = (int) ($_POST['menu_item_id'] ?? 0);
