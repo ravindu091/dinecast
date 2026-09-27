@@ -1,3 +1,32 @@
+<?php
+//values to put back into a dialog after the server rejected it ($retry is set by the controller)
+$old = function (string $mode, string $field) use ($retry): string {
+    if ($retry === null || $retry['mode'] !== $mode) {
+        return '';
+    }
+    return htmlspecialchars((string) ($retry['values'][$field] ?? ''));
+};
+$csrf = htmlspecialchars(csrfToken());
+//reset the browser's button look so these buttons match the text links
+$actStyle = 'border:0;background:none;padding:0;';
+?>
+<?php if (!empty($_SESSION['message'])): ?>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    showToast(<?= json_encode($_SESSION['message']) ?>, <?= json_encode($_SESSION['message-type'] ?? 'error') ?>);
+  });
+</script>
+<?php unset($_SESSION['message'], $_SESSION['message-type']); ?>
+<?php endif; ?>
+<?php if ($retry !== null): ?>
+<script>
+  //reopen the dialog the user was working in, with what they typed
+  document.addEventListener('DOMContentLoaded', function () {
+    toggleModal(<?= json_encode($retry['mode'] === 'edit' ? 'modal-edit-menu' : 'modal-add-menu') ?>);
+  });
+</script>
+<?php endif; ?>
+
 <section id="sec-menus" class="section active">
     
     <div class="menu-mgmt-header">
@@ -28,327 +57,152 @@
     </div>
 
     <div class="menu-grid">
-        <!-- Card 1 -->
+        <?php if (empty($menus)): ?>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--t3);">
+                No menus yet. Use "Create Menu" to create one.
+            </div>
+        <?php endif; ?>
+
+        <?php foreach ($menus as $m):
+            $items = (int) $m['item_count'];
+            $withRecipe = (int) $m['recipe_count']; 
+            
+            // Generate a simple class based on type string (e.g. Wedding -> type-wedding)
+            $typeClass = 'type-' . strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $m['type']));
+            $statusClass = 'status-' . strtolower($m['status']);
+        ?>
         <div class="menu-card">
             <div class="mc-header">
                 <div class="mc-tags">
-                    <span class="mc-type type-wedding">Wedding</span>
-                    <span class="mc-status status-active">● Active</span>
+                    <span class="mc-type <?= $typeClass ?>"><?= htmlspecialchars($m['type']) ?></span>
+                    <span class="mc-status <?= $statusClass ?>">● <?= htmlspecialchars($m['status']) ?></span>
                 </div>
                 <div class="mc-options">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                 </div>
             </div>
-            <div class="mc-title">Wedding Buffet</div>
-            <div class="mc-desc">Full banquet service featuring slow-cooked biryanis, aromatic curries, fresh artisanal...</div>
+            <div class="mc-title"><?= htmlspecialchars($m['name']) ?></div>
+            <div class="mc-desc"><?= htmlspecialchars($m['description'] ?: 'No description provided.') ?></div>
             <div class="mc-metrics">
                 <div class="metric-box">
                     <div class="metric-lbl">DISHES</div>
-                    <div class="metric-val">8 Items</div>
+                    <div class="metric-val"><?= $items ?> Items</div>
                 </div>
                 <div class="metric-box">
-                    <div class="metric-lbl">HEADCOUNT</div>
-                    <div class="metric-val">250 Guests</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">BASE COST</div>
-                    <div class="metric-val">$18.40/srv</div>
-                </div>
-            </div>
-            <div class="mc-preview">
-                <div class="preview-lbl">DISHES PREVIEW</div>
-                <div class="preview-tags">
-                    <span class="preview-tag">Chicken Biryani</span>
-                    <span class="preview-tag">Chicken Curry</span>
-                    <span class="preview-tag">Vegetable Salad</span>
-                    <span class="preview-tag">Papad</span>
-                    <span class="preview-tag more">+4 more</span>
-                </div>
-            </div>
-            <div class="mc-actions">
-                <button class="btn-view-menu">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    View Menu
-                </button>
-                <div class="action-links">
-                    <span class="action-link">Edit</span>
-                    <span class="action-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="menu-card">
-            <div class="mc-header">
-                <div class="mc-tags">
-                    <span class="mc-type type-corporate">Corporate</span>
-                    <span class="mc-status status-active">● Active</span>
-                </div>
-                <div class="mc-options">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </div>
-            </div>
-            <div class="mc-title">Corporate Executive Lunch</div>
-            <div class="mc-desc">Healthy and refined plated midday buffet package targeted for business conferences...</div>
-            <div class="mc-metrics">
-                <div class="metric-box">
-                    <div class="metric-lbl">DISHES</div>
-                    <div class="metric-val">6 Items</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">HEADCOUNT</div>
-                    <div class="metric-val">120 Guests</div>
+                    <div class="metric-lbl">RECIPES</div>
+                    <div class="metric-val"><?= $withRecipe ?> / <?= $items ?></div>
                 </div>
                 <div class="metric-box">
                     <div class="metric-lbl">BASE COST</div>
-                    <div class="metric-val">$14.20/srv</div>
+                    <div class="metric-val">N/A</div>
                 </div>
             </div>
-            <div class="mc-preview">
-                <div class="preview-lbl">DISHES PREVIEW</div>
-                <div class="preview-tags">
-                    <span class="preview-tag">Grilled Salmon</span>
-                    <span class="preview-tag">Steamed Basmati</span>
-                    <span class="preview-tag">Garden Greens</span>
-                    <span class="preview-tag">Herb Butter</span>
-                    <span class="preview-tag more">+2 more</span>
-                </div>
-            </div>
+            
             <div class="mc-actions">
-                <button class="btn-view-menu">
+                <a href="<?= $baseUrl ?>/chef/recipes" class="btn-view-menu" style="text-decoration:none;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    View Menu
-                </button>
+                    View Recipes
+                </a>
                 <div class="action-links">
-                    <span class="action-link">Edit</span>
-                    <span class="action-link">
+                    <button type="button" class="action-link" style="<?= $actStyle ?>cursor:pointer;font-family:inherit;font-size:inherit;" onclick="openEditMenu(this)"
+                      data-id="<?= (int) $m['id'] ?>"
+                      data-name="<?= htmlspecialchars($m['name']) ?>"
+                      data-type="<?= htmlspecialchars($m['type']) ?>"
+                      data-status="<?= htmlspecialchars($m['status']) ?>"
+                      data-description="<?= htmlspecialchars($m['description'] ?? '') ?>">Edit</button>
+                    
+                    <button type="button" class="action-link" style="<?= $actStyle ?>cursor:pointer;color:var(--danger);" onclick="openDeleteMenu(this)"
+                      data-id="<?= (int) $m['id'] ?>"
+                      data-name="<?= htmlspecialchars($m['name']) ?>"
+                      data-items="<?= $items ?>">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    </span>
+                    </button>
                 </div>
             </div>
         </div>
-
-        <!-- Card 3 -->
-        <div class="menu-card">
-            <div class="mc-header">
-                <div class="mc-tags">
-                    <span class="mc-type type-social">Social Banquet</span>
-                    <span class="mc-status status-active">● Active</span>
-                </div>
-                <div class="mc-options">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </div>
-            </div>
-            <div class="mc-title">Birthday Function Package</div>
-            <div class="mc-desc">Casual banquet and private party spread with crowd-pleasing finger foods, sliders, and...</div>
-            <div class="mc-metrics">
-                <div class="metric-box">
-                    <div class="metric-lbl">DISHES</div>
-                    <div class="metric-val">5 Items</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">HEADCOUNT</div>
-                    <div class="metric-val">80 Guests</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">BASE COST</div>
-                    <div class="metric-val">$11.50/srv</div>
-                </div>
-            </div>
-            <div class="mc-preview">
-                <div class="preview-lbl">DISHES PREVIEW</div>
-                <div class="preview-tags">
-                    <span class="preview-tag">BBQ Chicken Sliders</span>
-                    <span class="preview-tag">Garlic Rolls</span>
-                    <span class="preview-tag">Potato Salad</span>
-                    <span class="preview-tag">Chilled Punch</span>
-                    <span class="preview-tag more">+1 more</span>
-                </div>
-            </div>
-            <div class="mc-actions">
-                <button class="btn-view-menu">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    View Menu
-                </button>
-                <div class="action-links">
-                    <span class="action-link">Edit</span>
-                    <span class="action-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="menu-card">
-            <div class="mc-header">
-                <div class="mc-tags">
-                    <span class="mc-type type-fine">Fine Dining</span>
-                    <span class="mc-status status-draft">● Draft</span>
-                </div>
-                <div class="mc-options">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </div>
-            </div>
-            <div class="mc-title">Executive VIP Dinner</div>
-            <div class="mc-desc">High-end multi-course plated dinner experience designed for heads of state,...</div>
-            <div class="mc-metrics">
-                <div class="metric-box">
-                    <div class="metric-lbl">DISHES</div>
-                    <div class="metric-val">7 Items</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">HEADCOUNT</div>
-                    <div class="metric-val">60 Guests</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">BASE COST</div>
-                    <div class="metric-val">$28.00/srv</div>
-                </div>
-            </div>
-            <div class="mc-preview">
-                <div class="preview-lbl">DISHES PREVIEW</div>
-                <div class="preview-tags">
-                    <span class="preview-tag">Lamb Rack Herb Crust</span>
-                    <span class="preview-tag">Truffle Mash</span>
-                    <span class="preview-tag">Glazed Asparagus</span>
-                    <span class="preview-tag more">+4 more</span>
-                </div>
-            </div>
-            <div class="mc-actions">
-                <button class="btn-view-menu">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    View Menu
-                </button>
-                <div class="action-links">
-                    <span class="action-link">Edit</span>
-                    <span class="action-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="menu-card">
-            <div class="mc-header">
-                <div class="mc-tags">
-                    <span class="mc-type type-hightea">High Tea</span>
-                    <span class="mc-status status-active">● Active</span>
-                </div>
-                <div class="mc-options">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </div>
-            </div>
-            <div class="mc-title">High Tea & Finger Food</div>
-            <div class="mc-desc">Delicate passed hors d'oeuvres, savory tartlets, artisanal scones, and single-bite...</div>
-            <div class="mc-metrics">
-                <div class="metric-box">
-                    <div class="metric-lbl">DISHES</div>
-                    <div class="metric-val">9 Items</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">HEADCOUNT</div>
-                    <div class="metric-val">150 Guests</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">BASE COST</div>
-                    <div class="metric-val">$9.80/srv</div>
-                </div>
-            </div>
-            <div class="mc-preview">
-                <div class="preview-lbl">DISHES PREVIEW</div>
-                <div class="preview-tags">
-                    <span class="preview-tag">Mini Chicken Quiche</span>
-                    <span class="preview-tag">Cucumber Sandwiches</span>
-                    <span class="preview-tag">Scones & Cream</span>
-                    <span class="preview-tag more">+6 more</span>
-                </div>
-            </div>
-            <div class="mc-actions">
-                <button class="btn-view-menu">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    View Menu
-                </button>
-                <div class="action-links">
-                    <span class="action-link">Edit</span>
-                    <span class="action-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="menu-card">
-            <div class="mc-header">
-                <div class="mc-tags">
-                    <span class="mc-type type-special">Special Dietary</span>
-                    <span class="mc-status status-active">● Active</span>
-                </div>
-                <div class="mc-options">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </div>
-            </div>
-            <div class="mc-title">Vegan & Plant-Based Banquet</div>
-            <div class="mc-desc">Wholesome plant-rich menu certified dairy-free and gluten-adaptable with high-protein...</div>
-            <div class="mc-metrics">
-                <div class="metric-box">
-                    <div class="metric-lbl">DISHES</div>
-                    <div class="metric-val">6 Items</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">HEADCOUNT</div>
-                    <div class="metric-val">100 Guests</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-lbl">BASE COST</div>
-                    <div class="metric-val">$13.50/srv</div>
-                </div>
-            </div>
-            <div class="mc-preview">
-                <div class="preview-lbl">DISHES PREVIEW</div>
-                <div class="preview-tags">
-                    <span class="preview-tag">Lentil Dahl Makhani</span>
-                    <span class="preview-tag">Spiced Cauliflower</span>
-                    <span class="preview-tag">Fragrant Jeera Rice</span>
-                    <span class="preview-tag more">+3 more</span>
-                </div>
-            </div>
-            <div class="mc-actions">
-                <button class="btn-view-menu">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    View Menu
-                </button>
-                <div class="action-links">
-                    <span class="action-link">Edit</span>
-                    <span class="action-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    </span>
-                </div>
-            </div>
-        </div>
-
+        <?php endforeach; ?>
     </div>
 
-    <!-- Add Menu Modal (kept from previous code but hidden by default) -->
-    <div class="modal-overlay" id="modal-add-menu" onclick="if(event.target===this)toggleModal('modal-add-menu')" style="display:none;">
-        <div class="modal">
-        <div class="modal-hdr"><h3>Create New Menu</h3><button class="modal-close" onclick="toggleModal('modal-add-menu')">✕</button></div>
-        <form onsubmit="event.preventDefault(); alert('Menu created!'); toggleModal('modal-add-menu');">
-            <div class="form-grid">
-            <div class="form-grp form-full"><label>Menu Name *</label><input type="text" placeholder="e.g. Wedding Banquet Deluxe" required></div>
-            <div class="form-grp"><label>Menu Type</label><select><option>Wedding</option><option>Corporate</option><option>Festive</option><option>Seminar</option><option>Birthday</option><option>Cocktail</option><option>Other</option></select></div>
-            <div class="form-grp"><label>Status</label><select><option>Active</option><option>Draft</option><option>Inactive</option></select></div>
-            <div class="form-grp form-full"><label>Description</label><textarea placeholder="Describe this menu…"></textarea></div>
-            </div>
-            <div style="display:flex;gap:10px;margin-top:16px;">
-            <button type="submit" class="btn btn-primary" style="background:#064E3B;border:none;">Create Menu</button>
-            <button type="button" class="btn btn-outline" onclick="toggleModal('modal-add-menu')">Cancel</button>
-            </div>
-        </form>
+  <!-- Add Menu Modal -->
+  <div class="modal-overlay" id="modal-add-menu" onclick="if(event.target===this)toggleModal('modal-add-menu')">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="add-menu-title">
+      <div class="modal-hdr"><h3 id="add-menu-title">Create New Menu</h3><button type="button" class="modal-close" aria-label="Close" onclick="toggleModal('modal-add-menu')">✕</button></div>
+      <form action="<?= $baseUrl ?>/chef/menus/create" method="post">
+        <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
+        <div class="form-grid">
+          <div class="form-grp form-full"><label for="add-menu-name">Menu Name *</label>
+            <input type="text" name="name" id="add-menu-name" maxlength="150" placeholder="e.g. Wedding Banquet – Chicken" value="<?= $old('add', 'name') ?>" required></div>
+          <div class="form-grp"><label for="add-menu-type">Menu Type *</label>
+            <select name="type" id="add-menu-type" required>
+              <option value="">Choose a type</option>
+              <?php foreach ($menuTypes as $t): ?>
+              <option value="<?= htmlspecialchars($t) ?>"<?= $old('add', 'type') === htmlspecialchars($t) ? ' selected' : '' ?>><?= htmlspecialchars($t) ?></option>
+              <?php endforeach; ?>
+            </select></div>
+          <div class="form-grp"><label for="add-menu-status">Status *</label>
+            <select name="status" id="add-menu-status" required>
+              <?php foreach ($menuStatuses as $s): ?>
+              <option value="<?= htmlspecialchars($s) ?>"<?= $old('add', 'status') === htmlspecialchars($s) ? ' selected' : '' ?>><?= htmlspecialchars($s) ?></option>
+              <?php endforeach; ?>
+            </select></div>
+          <div class="form-grp form-full"><label for="add-menu-description">Description</label>
+            <textarea name="description" id="add-menu-description" maxlength="1000" placeholder="Describe this menu…"><?= $old('add', 'description') ?></textarea></div>
         </div>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button type="submit" class="btn btn-primary" style="background:#064E3B;border:none;">Create Menu</button>
+          <button type="button" class="btn btn-outline" onclick="toggleModal('modal-add-menu')">Cancel</button>
+        </div>
+      </form>
     </div>
+  </div>
+
+  <!-- Edit Menu Modal -->
+  <div class="modal-overlay" id="modal-edit-menu" onclick="if(event.target===this)toggleModal('modal-edit-menu')">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-menu-title">
+      <div class="modal-hdr"><h3 id="edit-menu-title">Edit Menu</h3><button type="button" class="modal-close" aria-label="Close" onclick="toggleModal('modal-edit-menu')">✕</button></div>
+      <form id="edit-menu-form" action="<?= $baseUrl ?>/chef/menus/update/<?= $old('edit', 'id') ?>" method="post">
+        <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
+        <div class="form-grid">
+          <div class="form-grp form-full"><label for="edit-menu-name">Menu Name *</label>
+            <input type="text" name="name" id="edit-menu-name" maxlength="150" value="<?= $old('edit', 'name') ?>" required></div>
+          <div class="form-grp"><label for="edit-menu-type">Menu Type *</label>
+            <select name="type" id="edit-menu-type" required>
+              <option value="">Choose a type</option>
+              <?php foreach ($menuTypes as $t): ?>
+              <option value="<?= htmlspecialchars($t) ?>"<?= $old('edit', 'type') === htmlspecialchars($t) ? ' selected' : '' ?>><?= htmlspecialchars($t) ?></option>
+              <?php endforeach; ?>
+            </select></div>
+          <div class="form-grp"><label for="edit-menu-status">Status *</label>
+            <select name="status" id="edit-menu-status" required>
+              <?php foreach ($menuStatuses as $s): ?>
+              <option value="<?= htmlspecialchars($s) ?>"<?= $old('edit', 'status') === htmlspecialchars($s) ? ' selected' : '' ?>><?= htmlspecialchars($s) ?></option>
+              <?php endforeach; ?>
+            </select></div>
+          <div class="form-grp form-full"><label for="edit-menu-description">Description</label>
+            <textarea name="description" id="edit-menu-description" maxlength="1000"><?= $old('edit', 'description') ?></textarea></div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button type="submit" class="btn btn-primary" style="background:#064E3B;border:none;">Save Changes</button>
+          <button type="button" class="btn btn-outline" onclick="toggleModal('modal-edit-menu')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Menu Modal -->
+  <div class="modal-overlay" id="modal-delete-menu" onclick="if(event.target===this)toggleModal('modal-delete-menu')">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-menu-title">
+      <div class="modal-hdr"><h3 id="delete-menu-title">Delete Menu</h3><button type="button" class="modal-close" aria-label="Close" onclick="toggleModal('modal-delete-menu')">✕</button></div>
+      <form id="delete-menu-form" action="<?= $baseUrl ?>/chef/menus/delete/" method="post">
+        <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
+        <p id="delete-menu-confirm" style="font-size:14px;color:var(--t2);margin-bottom:16px;">Delete <b class="delete-menu-name"></b>? This cannot be undone.</p>
+        <p id="delete-menu-blocked" style="font-size:14px;color:var(--t2);margin-bottom:16px;" hidden><b class="delete-menu-name"></b> has dishes with recipes linked to it, so it can't be deleted. Set it to Inactive instead.</p>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button type="submit" id="delete-menu-submit" class="btn btn-primary" style="background:var(--danger);border:none;">Delete Menu</button>
+          <button type="button" id="delete-menu-cancel" class="btn btn-outline" onclick="toggleModal('modal-delete-menu')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </section>
+<script>window.menuUrl = <?= json_encode($baseUrl . '/chef/menus/') ?>;</script>

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__."/../core/Database.php";
+require_once __DIR__ . '/../Core/Database.php';
 
 class Ingredient{
     private PDO $conn;
@@ -104,6 +104,33 @@ class Ingredient{
         return $stmt->execute([
             'id'=>$id
         ]);
+    }
+
+    public function getIngredientByName(string $name){
+        $stmt = $this->conn->prepare("SELECT * FROM ingredients WHERE name = :name COLLATE utf8mb4_general_ci;");
+
+        $stmt->execute([
+            ":name"=>$name
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+    }
+
+    public function getIngredientByNameExceptId(string $name, int $id)
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT * FROM ingredients 
+             WHERE name COLLATE utf8mb4_general_ci = :name
+             AND id != :id"
+        );
+    
+        $stmt->execute([
+            ":name" => $name,
+            ":id" => $id
+        ]);
+    
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 }

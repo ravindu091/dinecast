@@ -3,6 +3,13 @@
 
 class Controller {
 
+    public function __construct() {
+        // Prevent browser caching to avoid showing logged-in pages on "back" button after logout
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+    }
+
     /**
      * Render a view file.
      *

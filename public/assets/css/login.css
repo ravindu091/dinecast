@@ -335,6 +335,22 @@ body.login-page {
   color: #7a7a7a;
 }
 
+.error-message {
+  color: red;
+  font-size: 0.85em;
+  display: none; 
+  margin-top: 5px;
+}
+
+input.invalid {
+  border: 2px solid red;
+}
+
+
+.error-message.visible {
+  display: block;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
   .login-wrapper {
