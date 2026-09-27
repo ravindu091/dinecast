@@ -27,59 +27,101 @@ $actStyle = 'border:0;background:none;padding:0;';
 </script>
 <?php endif; ?>
 
-<section id="sec-menus" class="section">
-  <div class="sec-hdr">
-    <h2>Menus</h2>
-    <button type="button" class="btn btn-primary" onclick="toggleModal('modal-add-menu')">+ New Menu</button>
-  </div>
-
-  <div class="card">
-    <div class="card-hdr"><h3>All Menus</h3><span style="font-size:12px;color:var(--t3);"><?= count($menus) ?> <?= count($menus) === 1 ? 'menu' : 'menus' ?> total</span></div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>Menu Name</th><th>Type</th><th>Items</th><th>Recipes Complete</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody>
-          <?php if (empty($menus)): ?>
-          <tr><td colspan="6" style="text-align:center;color:var(--t3);padding:24px;">No menus yet. Use + New Menu to create one.</td></tr>
-          <?php endif; ?>
-
-          <?php foreach ($menus as $m):
-            $items = (int) $m['item_count'];
-            $withRecipe = (int) $m['recipe_count']; ?>
-          <tr>
-            <td class="tbl-main"><?= htmlspecialchars($m['name']) ?></td>
-            <td style="color:var(--t2);font-size:13px;"><?= htmlspecialchars($m['type']) ?></td>
-            <?php if ($items > 0): ?>
-            <td><?= $items ?></td>
-            <td><span class="badge <?= $withRecipe === $items ? 'bg-green' : 'bg-orange' ?>"><?= $withRecipe ?> / <?= $items ?></span></td>
-            <?php else: ?>
-            <td style="font-size:13px;color:var(--t3);">Not linked yet</td>
-            <td style="font-size:13px;color:var(--t3);">Not linked yet</td>
-            <?php endif; ?>
-            <td><span class="badge <?= $m['status'] === 'Active' ? 'bg-green' : 'bg-gray' ?>"><?= htmlspecialchars($m['status']) ?></span></td>
-            <td>
-              <div class="acts">
-                <a class="act" href="<?= $baseUrl ?>/chef/recipes">View Recipes</a>
-                <button type="button" class="act" style="<?= $actStyle ?>" onclick="openEditMenu(this)"
-                  aria-label="Edit <?= htmlspecialchars($m['name']) ?>"
-                  data-id="<?= (int) $m['id'] ?>"
-                  data-name="<?= htmlspecialchars($m['name']) ?>"
-                  data-type="<?= htmlspecialchars($m['type']) ?>"
-                  data-status="<?= htmlspecialchars($m['status']) ?>"
-                  data-description="<?= htmlspecialchars($m['description'] ?? '') ?>">Edit</button>
-                <button type="button" class="act del" style="<?= $actStyle ?>" onclick="openDeleteMenu(this)"
-                  aria-label="Delete <?= htmlspecialchars($m['name']) ?>"
-                  data-id="<?= (int) $m['id'] ?>"
-                  data-name="<?= htmlspecialchars($m['name']) ?>"
-                  data-items="<?= $items ?>">Delete</button>
-              </div>
-            </td>
-          </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+<section id="sec-menus" class="section active">
+    
+    <div class="menu-mgmt-header">
+        <div class="menu-mgmt-title">
+            <h2>Menu Management</h2>
+            <p>Manage catering menus, banquet packages, and the dishes included in each menu.</p>
+        </div>
+        <button class="btn-create-menu" onclick="toggleModal('modal-add-menu')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            Create Menu
+        </button>
     </div>
-  </div>
+
+    <div class="filters-row">
+        <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" placeholder="Search menus by name, category,">
+        </div>
+        <select class="filter-select">
+            <option>All Categories (Wedding, Corporate, Social, Banquet)</option>
+        </select>
+        <select class="filter-select">
+            <option>All Statuses (Active, Draft, Archived)</option>
+        </select>
+        <select class="filter-select">
+            <option>Sort: Recently Updated</option>
+        </select>
+    </div>
+
+    <div class="menu-grid">
+        <?php if (empty($menus)): ?>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--t3);">
+                No menus yet. Use "Create Menu" to create one.
+            </div>
+        <?php endif; ?>
+
+        <?php foreach ($menus as $m):
+            $items = (int) $m['item_count'];
+            $withRecipe = (int) $m['recipe_count']; 
+            
+            // Generate a simple class based on type string (e.g. Wedding -> type-wedding)
+            $typeClass = 'type-' . strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $m['type']));
+            $statusClass = 'status-' . strtolower($m['status']);
+        ?>
+        <div class="menu-card">
+            <div class="mc-header">
+                <div class="mc-tags">
+                    <span class="mc-type <?= $typeClass ?>"><?= htmlspecialchars($m['type']) ?></span>
+                    <span class="mc-status <?= $statusClass ?>">● <?= htmlspecialchars($m['status']) ?></span>
+                </div>
+                <div class="mc-options">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                </div>
+            </div>
+            <div class="mc-title"><?= htmlspecialchars($m['name']) ?></div>
+            <div class="mc-desc"><?= htmlspecialchars($m['description'] ?: 'No description provided.') ?></div>
+            <div class="mc-metrics">
+                <div class="metric-box">
+                    <div class="metric-lbl">DISHES</div>
+                    <div class="metric-val"><?= $items ?> Items</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-lbl">RECIPES</div>
+                    <div class="metric-val"><?= $withRecipe ?> / <?= $items ?></div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-lbl">BASE COST</div>
+                    <div class="metric-val">N/A</div>
+                </div>
+            </div>
+            
+            <div class="mc-actions">
+                <a href="<?= $baseUrl ?>/chef/recipes" class="btn-view-menu" style="text-decoration:none;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    View Recipes
+                </a>
+                <div class="action-links">
+                    <button type="button" class="action-link" style="<?= $actStyle ?>cursor:pointer;font-family:inherit;font-size:inherit;" onclick="openEditMenu(this)"
+                      data-id="<?= (int) $m['id'] ?>"
+                      data-name="<?= htmlspecialchars($m['name']) ?>"
+                      data-type="<?= htmlspecialchars($m['type']) ?>"
+                      data-status="<?= htmlspecialchars($m['status']) ?>"
+                      data-description="<?= htmlspecialchars($m['description'] ?? '') ?>">Edit</button>
+                    
+                    <button type="button" class="action-link" style="<?= $actStyle ?>cursor:pointer;color:var(--danger);" onclick="openDeleteMenu(this)"
+                      data-id="<?= (int) $m['id'] ?>"
+                      data-name="<?= htmlspecialchars($m['name']) ?>"
+                      data-items="<?= $items ?>">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
 
   <!-- Add Menu Modal -->
   <div class="modal-overlay" id="modal-add-menu" onclick="if(event.target===this)toggleModal('modal-add-menu')">
@@ -106,15 +148,15 @@ $actStyle = 'border:0;background:none;padding:0;';
           <div class="form-grp form-full"><label for="add-menu-description">Description</label>
             <textarea name="description" id="add-menu-description" maxlength="1000" placeholder="Describe this menu…"><?= $old('add', 'description') ?></textarea></div>
         </div>
-        <div style="display:flex;gap:10px;margin-top:4px;">
-          <button type="submit" class="btn btn-primary">Create Menu</button>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button type="submit" class="btn btn-primary" style="background:#064E3B;border:none;">Create Menu</button>
           <button type="button" class="btn btn-outline" onclick="toggleModal('modal-add-menu')">Cancel</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Edit Menu Modal (filled by openEditMenu in chef.js, or by the server after a rejected save) -->
+  <!-- Edit Menu Modal -->
   <div class="modal-overlay" id="modal-edit-menu" onclick="if(event.target===this)toggleModal('modal-edit-menu')">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-menu-title">
       <div class="modal-hdr"><h3 id="edit-menu-title">Edit Menu</h3><button type="button" class="modal-close" aria-label="Close" onclick="toggleModal('modal-edit-menu')">✕</button></div>
@@ -139,24 +181,24 @@ $actStyle = 'border:0;background:none;padding:0;';
           <div class="form-grp form-full"><label for="edit-menu-description">Description</label>
             <textarea name="description" id="edit-menu-description" maxlength="1000"><?= $old('edit', 'description') ?></textarea></div>
         </div>
-        <div style="display:flex;gap:10px;margin-top:4px;">
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button type="submit" class="btn btn-primary" style="background:#064E3B;border:none;">Save Changes</button>
           <button type="button" class="btn btn-outline" onclick="toggleModal('modal-edit-menu')">Cancel</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Delete Menu Modal (filled by openDeleteMenu in chef.js) -->
+  <!-- Delete Menu Modal -->
   <div class="modal-overlay" id="modal-delete-menu" onclick="if(event.target===this)toggleModal('modal-delete-menu')">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-menu-title">
       <div class="modal-hdr"><h3 id="delete-menu-title">Delete Menu</h3><button type="button" class="modal-close" aria-label="Close" onclick="toggleModal('modal-delete-menu')">✕</button></div>
       <form id="delete-menu-form" action="<?= $baseUrl ?>/chef/menus/delete/" method="post">
         <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
-        <p id="delete-menu-confirm" style="font-size:14px;color:var(--t2);">Delete <b class="delete-menu-name"></b>? This cannot be undone.</p>
-        <p id="delete-menu-blocked" style="font-size:14px;color:var(--t2);" hidden><b class="delete-menu-name"></b> has dishes with recipes linked to it, so it can't be deleted. Set it to Inactive instead.</p>
+        <p id="delete-menu-confirm" style="font-size:14px;color:var(--t2);margin-bottom:16px;">Delete <b class="delete-menu-name"></b>? This cannot be undone.</p>
+        <p id="delete-menu-blocked" style="font-size:14px;color:var(--t2);margin-bottom:16px;" hidden><b class="delete-menu-name"></b> has dishes with recipes linked to it, so it can't be deleted. Set it to Inactive instead.</p>
         <div style="display:flex;gap:10px;margin-top:16px;">
-          <button type="submit" id="delete-menu-submit" class="btn btn-primary" style="background:var(--danger);">Delete Menu</button>
+          <button type="submit" id="delete-menu-submit" class="btn btn-primary" style="background:var(--danger);border:none;">Delete Menu</button>
           <button type="button" id="delete-menu-cancel" class="btn btn-outline" onclick="toggleModal('modal-delete-menu')">Cancel</button>
         </div>
       </form>
