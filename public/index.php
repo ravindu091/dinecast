@@ -75,6 +75,9 @@ $router->post('/ingredient/delete','StoreController@deleteIngredient');
 // ── Chef ──────────────────────────────────────────────
 $router->get('/chef', 'ChefController@home');
 $router->get('/chef/menus', 'ChefController@menus');
+$router->post('/chef/menus/create', 'ChefController@createMenu');
+$router->post('/chef/menus/update/:id', 'ChefController@updateMenu');
+$router->post('/chef/menus/delete/:id', 'ChefController@deleteMenu');
 $router->get('/chef/recipes', 'ChefController@recipes');
 $router->post('/chef/recipes/create', 'ChefController@createRecipe');
 $router->post('/chef/recipes/update/:id', 'ChefController@updateRecipe');
