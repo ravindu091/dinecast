@@ -6,10 +6,12 @@ class ProcurementController extends Controller {
     //the only categories a supplier can belong to (same list as the form)
     private const SUPPLIER_CATEGORIES = ['Meat & Seafood', 'Dairy & Staples', 'Vegetables', 'Dry Goods', 'Specialty'];
 
+    //MySQL error number for a duplicate value in a UNIQUE column
+    private const DUPLICATE_ENTRY = 1062;
+
     //runs before every procurement page and action:
     //only a signed-in procurement manager gets past this
     public function __construct(){
-        parent::__construct();
         if(!isset($_SESSION['userId']) || $_SESSION['role'] != 'procurement'){
             header("Location:" . BASE_URL . "/");
             exit();
@@ -32,11 +34,16 @@ class ProcurementController extends Controller {
     public function suppliers(array $params = []) {
         $supplier = new Supplier();
 
+        //values the user typed before the server rejected the form, so the dialog can reopen with them
+        $retry = $_SESSION['supplier_form_retry'] ?? null;
+        unset($_SESSION['supplier_form_retry']);
+
         $this->renderWithLayout('procurement/suppliers', 'procurement/layout', [
             'title' => 'Suppliers',
             'activePage' => 'suppliers',
             'suppliers' => $supplier->getAllSuppliers(),
             'categories' => self::SUPPLIER_CATEGORIES,
+            'retry' => $retry,
         ]);
     }
 
@@ -58,7 +65,10 @@ class ProcurementController extends Controller {
      * POST /supplier/create
      */
     public function createSupplier(array $params = []) {
+        $this->requireValidCsrfToken();
+
         [$data, $error] = $this->readSupplierForm();
+        $retry = ['mode' => 'add', 'values' => $data];
 
         $supplier = new Supplier();
 
@@ -67,58 +77,66 @@ class ProcurementController extends Controller {
         }
 
         if ($error !== null) {
-            $this->backToSuppliers($error, "error");
+            $this->backToSuppliers($error, "error", $retry);
         }
 
-        $result = $supplier->create($data['name'], $data['category'], $data['contact_person'], $data['phone'], $data['email'], $data['address']);
-
-        if ($result) {
-            $this->backToSuppliers("Supplier added successfully", "success");
+        try {
+            $supplier->create($data['name'], $data['category'], $data['contact_person'], $data['phone'], $data['email'], $data['address']);
+        } catch (PDOException $e) {
+            $this->backToSuppliers($this->saveErrorMessage($e, "added"), "error", $retry);
         }
-        $this->backToSuppliers("Supplier could not be added", "error");
+
+        $this->backToSuppliers("Supplier added successfully", "success");
     }
 
     /**
      * POST /supplier/edit
      */
     public function editSupplier(array $params = []) {
-        $id = (int) ($_POST['id'] ?? 0);
-        if ($id <= 0) {
-            $this->backToSuppliers("Supplier not found", "error");
+        $this->requireValidCsrfToken();
+
+        $supplier = new Supplier();
+
+        //the supplier may have been deleted meanwhile, e.g. in another tab
+        $id = $this->postId();
+        if ($id === 0 || !$supplier->getSupplierById($id)) {
+            $this->backToSuppliers("Supplier not found. It may have been deleted.", "error");
         }
 
         [$data, $error] = $this->readSupplierForm();
-
-        $supplier = new Supplier();
+        $retry = ['mode' => 'edit', 'values' => $data + ['id' => $id]];
 
         if ($error === null && $supplier->nameExists($data['name'], $id)) {
             $error = "A supplier with this name already exists";
         }
 
         if ($error !== null) {
-            $this->backToSuppliers($error, "error");
+            $this->backToSuppliers($error, "error", $retry);
         }
 
-        $result = $supplier->updateSupplier($id, $data['name'], $data['category'], $data['contact_person'], $data['phone'], $data['email'], $data['address']);
-
-        if ($result) {
-            $this->backToSuppliers("Supplier updated successfully", "success");
+        try {
+            $supplier->updateSupplier($id, $data['name'], $data['category'], $data['contact_person'], $data['phone'], $data['email'], $data['address']);
+        } catch (PDOException $e) {
+            $this->backToSuppliers($this->saveErrorMessage($e, "updated"), "error", $retry);
         }
-        $this->backToSuppliers("Supplier could not be updated", "error");
+
+        $this->backToSuppliers("Supplier updated successfully", "success");
     }
 
     /**
      * POST /supplier/delete
      */
     public function deleteSupplier(array $params = []) {
-        $id = (int) ($_POST['id'] ?? 0);
+        $this->requireValidCsrfToken();
+
+        $id = $this->postId();
 
         $supplier = new Supplier();
 
         if ($id > 0 && $supplier->deleteSupplier($id) > 0) {
             $this->backToSuppliers("Supplier deleted successfully", "success");
         }
-        $this->backToSuppliers("Supplier not found", "error");
+        $this->backToSuppliers("Supplier not found. It may have already been deleted.", "error");
     }
 
     /**
@@ -129,12 +147,12 @@ class ProcurementController extends Controller {
      */
     private function readSupplierForm(): array {
         $data = [
-            'name' => trim($_POST['name'] ?? ''),
-            'category' => trim($_POST['category'] ?? ''),
-            'contact_person' => trim($_POST['contact_person'] ?? ''),
-            'phone' => trim($_POST['phone'] ?? ''),
-            'email' => trim($_POST['email'] ?? ''),
-            'address' => trim($_POST['address'] ?? ''),
+            'name' => $this->postText('name'),
+            'category' => $this->postText('category'),
+            'contact_person' => $this->postText('contact_person'),
+            'phone' => $this->postText('phone'),
+            'email' => $this->postText('email'),
+            'address' => $this->postText('address'),
         ];
 
         $error = null;
@@ -163,9 +181,41 @@ class ProcurementController extends Controller {
         return [$data, $error];
     }
 
-    private function backToSuppliers(string $message, string $type): void {
+    //a form field as trimmed text; anything that is not plain text (e.g. name[]=x) counts as empty
+    private function postText(string $field): string {
+        $value = $_POST[$field] ?? '';
+        return is_string($value) ? trim($value) : '';
+    }
+
+    //the posted supplier id, or 0 when it is missing or not a whole number
+    //(casting a list to int gives 1, which would silently target supplier 1)
+    private function postId(): int {
+        $id = $_POST['id'] ?? '';
+        return (is_string($id) && ctype_digit($id)) ? (int) $id : 0;
+    }
+
+    //every change must come from a form this site produced (blocks cross-site request forgery)
+    private function requireValidCsrfToken(): void {
+        $token = $_POST['csrf_token'] ?? null;
+        if (!verifyCsrfToken(is_string($token) ? $token : null)) {
+            $this->backToSuppliers("Your session has expired. Please try again.", "error");
+        }
+    }
+
+    //turns a database error into a message the user can act on
+    private function saveErrorMessage(PDOException $e, string $action): string {
+        if (($e->errorInfo[1] ?? null) === self::DUPLICATE_ENTRY) {
+            return "A supplier with this name already exists";
+        }
+        return "Supplier could not be " . $action . ". Please try again.";
+    }
+
+    private function backToSuppliers(string $message, string $type, ?array $retry = null): void {
         $_SESSION['message'] = $message;
         $_SESSION['message-type'] = $type;
+        if ($retry !== null) {
+            $_SESSION['supplier_form_retry'] = $retry;
+        }
 
         header("Location:" . BASE_URL . "/procurement/suppliers");
         exit();

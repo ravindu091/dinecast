@@ -41,6 +41,17 @@ class Supplier{
         return $stmt->fetchAll();
     }
 
+    //one supplier, or false when no supplier has this id
+    public function getSupplierById(int $id){
+        $stmt = $this->conn->prepare('SELECT * FROM suppliers WHERE id = :id');
+
+        $stmt->execute([
+            ':id' => $id
+        ]);
+
+        return $stmt->fetch();
+    }
+
     //suppliers that purchase orders can be sent to
     public function countActiveSuppliers():int{
         $stmt = $this->conn->prepare("SELECT COUNT(*) FROM suppliers WHERE status = 'Active'");
