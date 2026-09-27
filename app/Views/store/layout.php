@@ -7,14 +7,14 @@
   <title><?= $title ?></title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/store.css">
-  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/popup.css">
-  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/sidebar.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/public/assets/css/store.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/public/assets/css/popup.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/public/assets/css/sidebar.css">
   <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
-  <script src="<?= $baseUrl ?>/assets/js/app.js"></script>
-  <script src="<?= $baseUrl ?>/assets/js/popup.js"></script>
-  <script src="<?= $baseUrl ?>/assets/js/store/store.js"></script>
-  <script src="<?= $baseUrl ?>/assets/js/store/validate.js?v=<?= time() ?>"></script>
+  <script src="<?= $baseUrl ?>/public/assets/js/app.js"></script>
+  <script src="<?= $baseUrl ?>/public/assets/js/popup.js"></script>
+  <script src="<?= $baseUrl ?>/public/assets/js/store/store.js"></script>
+  <script src="<?= $baseUrl ?>/public/assets/js/store/validate.js?v=<?= time() ?>"></script>
 
 </head>
 <body>

@@ -73,12 +73,46 @@ class AdminController extends Controller {
         $role = $_POST['role'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        if ($fullName === '' || $username === '' || $role === '') {
-            exit('Required fields are missing.');
+        $allowedRoles = [
+            'admin',
+            'chef',
+            'kitchen',
+            'store',
+            'procurement',
+            'ceo'
+        ];
+
+        $errors = [];
+
+        //logics of errors
+
+        if ($fullName === '' || mb_strlen($fullName) > 100) {
+            $errors[] = 'Enter a valid full name.';
+        }
+
+        if (!preg_match('/^[A-Za-z0-9_]{3,50}$/', $username)) {
+            $errors[] = 'Username must be 3-50 characters.';
+        }
+
+        if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'Enter a valid email address.';
+        }
+
+        if (!in_array($role, $allowedRoles, true)) {
+            $errors[] = 'Invalid user role.';
         }
 
         if (strlen($password) < 8) {
-            exit('Password must be at least 8 characters.');
+            $errors[] = 'Password must contain at least 8 characters.';
+        }
+
+        //handle the errors
+        if ($errors !== []) {
+            $_SESSION['message'] = implode(' ', $errors);
+            $_SESSION['message-type'] = 'error';
+
+            header('Location: ' . BASE_URL . '/admin/users');
+            exit;
         }
 
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
@@ -117,8 +151,46 @@ class AdminController extends Controller {
         $email = trim($_POST['email'] ?? '');
         $role = $_POST['role'] ?? '';
 
-        if ($id <= 0 || $fullName === '' || $username === '' || $role === '') {
+        $allowedRoles = [
+            'admin',
+            'chef',
+            'kitchen',
+            'store',
+            'procurement',
+            'ceo'
+        ];
+
+        $errors = [];
+
+        //logics of errors
+
+        if ($fullName === '' || mb_strlen($fullName) > 100) {
+            $errors[] = 'Enter a valid full name.';
+        }
+
+        if (!preg_match('/^[A-Za-z0-9_]{3,50}$/', $username)) {
+            $errors[] = 'Username must be 3-50 characters.';
+        }
+
+        if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'Enter a valid email address.';
+        }
+
+        if (!in_array($role, $allowedRoles, true)) {
+            $errors[] = 'Invalid user role.';
+        }
+
+        if ($id <= 0) {
             exit('Invalid user data.');
+        }
+
+        //handle the errors
+        if ($errors !== []) {
+            $_SESSION['message'] = implode(' ', $errors);
+            $_SESSION['message-type'] = 'error';
+
+            header('Location: ' . BASE_URL . '/admin/users');
+            exit;
         }
 
         (new User())->update(

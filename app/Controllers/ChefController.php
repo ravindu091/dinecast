@@ -71,12 +71,18 @@ class ChefController extends Controller {
     public function createRecipe(array $params = []): void {
         $this->requireValidCsrfToken();
         $menuItemId = (int) ($_POST['menu_item_id'] ?? 0);
-        $lines = $this->recipeLinesFromPost();
+        $validation = $this->recipeLinesFromPost();
+        $errors = $validation['errors'];
 
-        if ($menuItemId < 1 || $lines === []) {
-            $this->flashAndRedirect('A menu item and at least one valid ingredient are required.', 'error');
+        if ($menuItemId < 1) {
+            $errors[] = 'Select a valid menu item.';
         }
 
+        if ($errors !== []) {
+            $this->flashAndRedirect(implode(' ', $errors), 'error');
+        }
+
+        $lines = $validation['lines'];
         $recipe = new Recipe();
         $saved = $recipe->create($menuItemId, $lines);
         $this->flashAndRedirect(
@@ -89,12 +95,22 @@ class ChefController extends Controller {
         $this->requireValidCsrfToken();
         $id = (int) ($params['id'] ?? 0);
         $menuItemId = (int) ($_POST['menu_item_id'] ?? 0);
-        $lines = $this->recipeLinesFromPost();
+        $validation = $this->recipeLinesFromPost();
+        $errors = $validation['errors'];
 
-        if ($id < 1 || $menuItemId < 1 || $lines === []) {
-            $this->flashAndRedirect('Invalid recipe data.', 'error');
+        if ($id < 1) {
+            $errors[] = 'Invalid recipe ID.';
         }
 
+        if ($menuItemId < 1) {
+            $errors[] = 'Select a valid menu item.';
+        }
+
+        if ($errors !== []) {
+            $this->flashAndRedirect(implode(' ', $errors), 'error');
+        }
+
+        $lines = $validation['lines'];
         $recipe = new Recipe();
         $saved = $recipe->update($id, $menuItemId, $lines);
         $this->flashAndRedirect(
@@ -119,25 +135,60 @@ class ChefController extends Controller {
         $quantities = $_POST['quantity_per_guest'] ?? [];
         $uoms = $_POST['uom'] ?? [];
         $wastages = $_POST['wastage_percent'] ?? [];
-        $lines = [];
 
-        if (!is_array($ingredientIds) || !is_array($quantities) || !is_array($uoms)) {
-            return [];
+        $allowedUoms = self::RECIPE_UOMS;
+        $errors = [];
+
+        if (
+            !is_array($ingredientIds) ||
+            !is_array($quantities) ||
+            !is_array($uoms) ||
+            !is_array($wastages)
+        ) {
+            return [
+                'lines' => [],
+                'errors' => ['Invalid ingredient data.'],
+            ];
         }
 
-        foreach ($ingredientIds as $index => $ingredientId) {
-            $ingredientId = (int) $ingredientId;
-            $quantity = (float) ($quantities[$index] ?? 0);
-            $uom = trim((string) ($uoms[$index] ?? ''));
-            $wastage = (float) ($wastages[$index] ?? 0);
+        if (count($ingredientIds) === 0) {
+            $errors[] = 'Add at least one ingredient.';
+        }
 
-            if (
-                $ingredientId < 1
-                || $quantity <= 0
-                || !in_array($uom, self::RECIPE_UOMS, true)
-                || $wastage < 0
-                || $wastage > 100
-            ) {
+        $lines = [];
+
+        foreach ($ingredientIds as $index => $ingredientId) {
+            $ingredientId = filter_var($ingredientId, FILTER_VALIDATE_INT);
+            $quantity = filter_var(
+                $quantities[$index] ?? null,
+                FILTER_VALIDATE_FLOAT
+            );
+            $uom = trim($uoms[$index] ?? '');
+            $wastage = filter_var(
+                $wastages[$index] ?? 0,
+                FILTER_VALIDATE_FLOAT
+            );
+
+            $lineErrors = [];
+
+            if (!$ingredientId || $ingredientId < 1) {
+                $lineErrors[] = 'Invalid ingredient.';
+            }
+
+            if ($quantity === false || $quantity <= 0) {
+                $lineErrors[] = 'Quantity must be greater than zero.';
+            }
+
+            if (!in_array($uom, $allowedUoms, true)) {
+                $lineErrors[] = 'Invalid unit of measure.';
+            }
+
+            if ($wastage === false || $wastage < 0 || $wastage > 100) {
+                $lineErrors[] = 'Wastage must be between 0 and 100.';
+            }
+
+            if ($lineErrors !== []) {
+                $errors = array_merge($errors, $lineErrors);
                 continue;
             }
 
@@ -149,7 +200,10 @@ class ChefController extends Controller {
             ];
         }
 
-        return $lines;
+        return [
+            'lines' => $lines,
+            'errors' => array_values(array_unique($errors)),
+        ];
     }
 
     private function flashAndRedirect(string $message, string $type): void {

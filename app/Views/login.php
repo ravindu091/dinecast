@@ -24,7 +24,7 @@
           <!-- Logo should be the icon + "DineCast" ONLY.
                Tagline and subtext below are real text, not part of the image,
                so keep logo.png cropped tight (no tagline baked in). -->
-          <img src="<?= BASE_URL ?>/assets/img/logo.png" alt="DineCast Logo" class="brand-logo-img">
+          <img src="<?= BASE_URL ?>/public/assets/img/logo.png" alt="DineCast Logo" class="brand-logo-img">
         </div>
 
         <div class="brand-tagline">
@@ -80,8 +80,8 @@
               <div class="input-field">
                 <input type="password" name="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
                 <span class="input-icon input-icon--toggle" id="pwd-toggle" aria-label="Toggle password visibility">
-                  <img src="<?= BASE_URL ?>/assets/img/show.png" alt="" class="icon-eye">
-                  <img src="<?= BASE_URL ?>/assets/img/hide.png" alt="" class="icon-eye-off">
+                  <img src="<?= BASE_URL ?>/public/assets/img/show.png" alt="" class="icon-eye">
+                  <img src="<?= BASE_URL ?>/public/assets/img/hide.png" alt="" class="icon-eye-off">
                 </span>
               </div>
               <span class="error-message" id="passwordError"></span>
