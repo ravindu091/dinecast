@@ -65,16 +65,15 @@ class StoreController extends Controller
     public function createIngredient(array $param = [])
     {
         //get data
-        if (isset($_POST['name'])) {
+        if (isset($_POST['name']) && trim($_POST['name']) !== '') {
 
-            $name = $_POST['name'];
-            $category = $_POST['category'];
-            $uom = $_POST['uom'];
-            $minimumStock = $_POST['min_stock'];
-            $status = $_POST['status'];
-            $description = $_POST['description'];
-            $currentStock = $_POST['current_stock'];
-
+            $name = trim($_POST['name']);
+            $category = $_POST['category'] ?? '';
+            $uom = $_POST['uom'] ?? '';
+            $minimumStock = (float) ($_POST['min_stock'] ?? 0);
+            $status = $_POST['status'] ?? 'active';
+            $description = trim($_POST['description'] ?? '');
+            $currentStock = (float) ($_POST['current_stock'] ?? 0);
 
             require_once __DIR__ . '/../models/ingredient.php';
 
@@ -96,13 +95,9 @@ class StoreController extends Controller
             exit();
         }
 
-        //validate
-
-
-        //store
-
-
-        //redirect
+        // If accessed without valid POST data, just redirect
+        header("Location:" . BASE_URL . "/store/ingredients");
+        exit();
     }
 
 
@@ -111,13 +106,13 @@ class StoreController extends Controller
         if (isset($_POST['id']) && isset($_POST['name'])) {
 
             $id = (int) $_POST['id'];
-            $name = $_POST['name'];
-            $category = $_POST['category'];
-            $uom = $_POST['uom'];
-            $minimumStock = (float) $_POST['min_stock'];
-            $status = $_POST['status'];
-            $description = $_POST['description'];
-            $currentStock = (float) $_POST['current_stock'];
+            $name = trim($_POST['name']);
+            $category = $_POST['category'] ?? '';
+            $uom = $_POST['uom'] ?? '';
+            $minimumStock = (float) ($_POST['min_stock'] ?? 0);
+            $status = $_POST['status'] ?? 'active';
+            $description = trim($_POST['description'] ?? '');
+            $currentStock = (float) ($_POST['current_stock'] ?? 0);
 
             require_once __DIR__ . '/../models/ingredient.php';
             $ingredient = new Ingredient();
