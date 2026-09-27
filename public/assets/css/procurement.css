@@ -209,3 +209,15 @@
 .pm-kpi-teal  { --kpi: var(--teal);    --kpi-bg: var(--teal-bg); }
 .pm-kpi-red   { --kpi: var(--danger);  --kpi-bg: var(--danger-bg); }
 .pm-kpi-gray  { --kpi: #94A3B8;        --kpi-bg: #F1F5F9; }
+
+/* Row actions are real buttons (reachable with Tab) but look like the shared text links */
+.acts button.act {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.acts button.act:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
