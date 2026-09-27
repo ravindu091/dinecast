@@ -25,6 +25,31 @@ class Recipe {
         return $stmt->fetchAll();
     }
 
+    public function getLinesForRecipeIds(array $recipeIds): array {
+        $recipeIds = array_values(array_unique(array_filter(array_map('intval', $recipeIds))));
+        if ($recipeIds === []) {
+            return [];
+        }
+
+        $placeholders = implode(',', array_fill(0, count($recipeIds), '?'));
+        $stmt = $this->conn->prepare(
+            "SELECT ri.recipe_id, ri.id, ri.ingredient_id, i.name AS ingredient_name,
+                    ri.quantity_per_guest, ri.uom, ri.wastage_percent
+             FROM recipe_ingredients ri
+             INNER JOIN ingredients i ON i.id = ri.ingredient_id
+             WHERE ri.recipe_id IN ($placeholders)
+             ORDER BY ri.recipe_id, ri.id"
+        );
+        $stmt->execute($recipeIds);
+
+        $linesByRecipe = [];
+        foreach ($stmt->fetchAll() as $line) {
+            $linesByRecipe[(int) $line['recipe_id']][] = $line;
+        }
+
+        return $linesByRecipe;
+    }
+
     public function getById(int $id): ?array {
         $recipeStmt = $this->conn->prepare(
             'SELECT r.id, r.menu_item_id, mi.name AS menu_item_name, m.name AS menu_name
@@ -116,17 +141,19 @@ class Recipe {
 
     public function delete(int $id): bool {
         $stmt = $this->conn->prepare('DELETE FROM recipes WHERE id = :id');
-        return $stmt->execute([':id' => $id]);
+        $stmt->execute([':id' => $id]);
+
+        return $stmt->rowCount() === 1;
     }
 
     public function getMissingRecipes(): array {
         $stmt = $this->conn->query(
-            'SELECT mi.id, mi.name AS menu_item_name, m.name AS menu_name
+            "SELECT mi.id, mi.name AS menu_item_name, m.name AS menu_name
              FROM menu_items mi
              INNER JOIN menus m ON m.id = mi.menu_id
              LEFT JOIN recipes r ON r.menu_item_id = mi.id
-             WHERE r.id IS NULL
-             ORDER BY m.name, mi.name'
+             WHERE r.id IS NULL AND m.status = 'Active'
+             ORDER BY m.name, mi.name"
         );
 
         return $stmt->fetchAll();

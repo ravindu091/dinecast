@@ -1,3 +1,15 @@
+<?php if (!empty($_SESSION['message'])): ?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      showToast(
+        <?= json_encode($_SESSION['message']) ?>,
+        <?= json_encode($_SESSION['message-type'] ?? 'error') ?>
+      );
+    });
+  </script>
+  <?php unset($_SESSION['message'], $_SESSION['message-type']); ?>
+<?php endif; ?>
+
 <section id="sec-recipes" class="section">
         <div class="sec-hdr">
           <h2>Recipes</h2>
@@ -40,6 +52,7 @@
                         <div class="acts">
                           <button type="button" class="act" onclick="openEditRecipe(<?= (int) $recipe['id'] ?>)">Edit</button>
                           <form method="post" action="<?= $baseUrl ?>/chef/recipes/delete/<?= (int) $recipe['id'] ?>" style="display:inline;">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrfToken()) ?>">
                             <button type="submit" class="act del" style="border:0;background:none;padding:0;">Delete</button>
                           </form>
                         </div>
@@ -109,6 +122,7 @@
             </div>
 
             <form method="post" action="<?= $baseUrl ?>/chef/recipes/create">
+              <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrfToken()) ?>">
               <div class="form-grid">
                 <div class="form-grp form-full">
                   <label for="recipe-menu-item">Menu Item *</label>
@@ -165,6 +179,7 @@
             </div>
 
             <form id="edit-recipe-form" method="post">
+              <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrfToken()) ?>">
               <div class="form-grid">
                 <div class="form-grp form-full">
                   <label for="edit-recipe-menu-item">Menu Item *</label>

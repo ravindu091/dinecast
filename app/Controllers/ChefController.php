@@ -5,6 +5,26 @@ require_once __DIR__ . '/../models/ingredient.php';
 
 class ChefController extends Controller {
 
+    private const RECIPE_UOMS = ['g', 'kg', 'ml', 'L', 'pcs'];
+
+    public function __construct() {
+        $this->requireChef();
+    }
+
+    private function requireChef(): void {
+        $baseUrl = defined('BASE_URL') ? BASE_URL : '/dinecast';
+
+        if (!isset($_SESSION['userId'])) {
+            header('Location: ' . $baseUrl . '/');
+            exit;
+        }
+
+        if (($_SESSION['role'] ?? '') !== 'chef') {
+            http_response_code(403);
+            exit('Forbidden');
+        }
+    }
+
     /**
      * GET /chef — Chef / Kitchen Manager dashboard
      */
@@ -27,10 +47,10 @@ class ChefController extends Controller {
         $recipe = new Recipe();
         $ingredient = new Ingredient();
         $recipes = $recipe->getAll();
+        $linesByRecipe = $recipe->getLinesForRecipeIds(array_column($recipes, 'id'));
 
         foreach ($recipes as &$recipeRow) {
-            $details = $recipe->getById((int) $recipeRow['id']);
-            $recipeRow['lines'] = $details['lines'] ?? [];
+            $recipeRow['lines'] = $linesByRecipe[(int) $recipeRow['id']] ?? [];
         }
         unset($recipeRow);
 
@@ -45,6 +65,7 @@ class ChefController extends Controller {
     }
 
     public function createRecipe(array $params = []): void {
+        $this->requireValidCsrfToken();
         $menuItemId = (int) ($_POST['menu_item_id'] ?? 0);
         $lines = $this->recipeLinesFromPost();
 
@@ -61,6 +82,7 @@ class ChefController extends Controller {
     }
 
     public function updateRecipe(array $params = []): void {
+        $this->requireValidCsrfToken();
         $id = (int) ($params['id'] ?? 0);
         $menuItemId = (int) ($_POST['menu_item_id'] ?? 0);
         $lines = $this->recipeLinesFromPost();
@@ -78,6 +100,7 @@ class ChefController extends Controller {
     }
 
     public function deleteRecipe(array $params = []): void {
+        $this->requireValidCsrfToken();
         $id = (int) ($params['id'] ?? 0);
         $deleted = $id > 0 && (new Recipe())->delete($id);
 
@@ -104,7 +127,13 @@ class ChefController extends Controller {
             $uom = trim((string) ($uoms[$index] ?? ''));
             $wastage = (float) ($wastages[$index] ?? 0);
 
-            if ($ingredientId < 1 || $quantity <= 0 || $uom === '' || $wastage < 0 || $wastage > 100) {
+            if (
+                $ingredientId < 1
+                || $quantity <= 0
+                || !in_array($uom, self::RECIPE_UOMS, true)
+                || $wastage < 0
+                || $wastage > 100
+            ) {
                 continue;
             }
 
@@ -124,5 +153,11 @@ class ChefController extends Controller {
         $_SESSION['message-type'] = $type;
         header('Location: ' . BASE_URL . '/chef/recipes');
         exit();
+    }
+
+    private function requireValidCsrfToken(): void {
+        if (!verifyCsrfToken($_POST['csrf_token'] ?? null)) {
+            $this->flashAndRedirect('Your session token is invalid. Please try again.', 'error');
+        }
     }
 }
