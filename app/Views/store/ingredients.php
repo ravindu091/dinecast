@@ -192,6 +192,7 @@ endif;
           <div class="pm-field">
             <label class="pm-label" for="ing-name">Ingredient Name <span class="pm-required">*</span></label>
             <input class="pm-input" type="text" id="ing-name" name="name" placeholder="Chicken Breast" required>
+            <span id="ing-name-error" class="error-msg"></span>
           </div>
 
           <!-- Category + Unit of Measure -->
@@ -245,6 +246,7 @@ endif;
                   placeholder="0.00" min="0" step="0.01" required>
                 <span class="pm-input-addon" id="ing-uom-badge">unit</span>
               </div>
+              <span id="ing-min-stock-error" class="error-mg"></span>
             </div>
             <div class="pm-field">
               <label class="pm-label" for="ing-current-stock">Current Stock <span class="pm-required">*</span></label>
@@ -253,6 +255,7 @@ endif;
                   placeholder="0.00" min="0" step="0.01" required>
                 <span class="pm-input-addon" id="ing-uom-badge-curr">unit</span>
               </div>
+              <span id="ing-current-stock-error" class="error-msg"></span>
             </div>
           </div>
 
@@ -331,6 +334,7 @@ endif;
           <div class="pm-field">
             <label class="pm-label" for="edit-ing-name">Ingredient Name <span class="pm-required">*</span></label>
             <input class="pm-input" type="text" id="edit-ing-name" name="name" placeholder="Chicken Breast" required>
+            <span id="edit-ing-name-error" class="error-msg"></span>
           </div>
 
           <!-- Category + Unit of Measure -->
@@ -384,6 +388,7 @@ endif;
                   placeholder="0.00" min="0" step="0.01" required>
                 <span class="pm-input-addon" id="edit-ing-uom-badge">unit</span>
               </div>
+              <span id="edit-ing-min-stock-error" class="error-msg"></span>
             </div>
             <div class="pm-field">
               <label class="pm-label" for="edit-ing-current-stock">Current Stock <span class="pm-required">*</span></label>
@@ -392,6 +397,7 @@ endif;
                   placeholder="0.00" min="0" step="0.01" required>
                 <span class="pm-input-addon" id="edit-ing-uom-badge-curr">unit</span>
               </div>
+              <span id="edit-ing-current-stock-error" class="error-msg"></span>
             </div>
           </div>
 

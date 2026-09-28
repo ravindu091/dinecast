@@ -1,6 +1,7 @@
       <section id="sec-users" class="section active">
         <div class="sec-hdr"><h2>User Management</h2><button class="btn btn-primary" id="btn-add-user" onclick="toggleModal('modal-add-user')">+ Add User</button></div>
 
+        <!-- DISPLAY USERS -->
         <div class="card">
           <div class="card-hdr"><h3>All System Users</h3><span style="font-size:12px;color:var(--t3);"><?= count($users ?? []) ?> users total</span></div>
           <div class="tbl-wrap">
@@ -51,7 +52,7 @@
             <form method="POST" action="<?= $baseUrl ?>/admin/users/create">
               <div class="form-grid">
                 <div class="form-grp"><label>Full Name *</label><input type="text" name="full_name" placeholder="e.g. Kasun Perera" required></div>
-                <div class="form-grp"><label>Username *</label><input type="text" name="username" placeholder="e.g. kasun_p" required></div>
+                <div class="form-grp"><label>Username *</label><input type="text" name="username" placeholder="e.g. kasun_p" required minlength="3" maxlength="50" pattern="[A-Za-z0-9_]+" title="Use 3-50 letters, numbers, or underscores without spaces."></div>
                 <div class="form-grp form-full"><label>Email Address</label><input type="email" name="email" placeholder="e.g. kasun@dinecast.lk"></div>
                 <div class="form-grp">
                   <label>Role *</label>
@@ -87,7 +88,7 @@
               <input type="hidden" name="id" id="update-user-id">
               <div class="form-grid">
                 <div class="form-grp"><label>Full Name *</label><input type="text" name="full_name" id="update-full-name" required></div>
-                <div class="form-grp"><label>Username *</label><input type="text" name="username" id="update-username" required></div>
+                <div class="form-grp"><label>Username *</label><input type="text" name="username" id="update-username" required minlength="3" maxlength="50" pattern="[A-Za-z0-9_]+" title="Use 3-50 letters, numbers, or underscores without spaces."></div>
                 <div class="form-grp form-full"><label>Email Address</label><input type="email" name="email" id="update-email"></div>
                 <div class="form-grp"><label>Role *</label>
                   <select name="role" id="update-role" required>

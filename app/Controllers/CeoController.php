@@ -16,6 +16,11 @@ class CeoController extends Controller
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+        
+        if (!isset($_SESSION['userId']) || ($_SESSION['role'] ?? '') !== 'ceo') {
+            header("Location: " . (defined('BASE_URL') ? BASE_URL : '/dinecast') . "/");
+            exit();
+        }
     }
 
     /* =========================================================

@@ -71,6 +71,7 @@ $router->get('/store/ingredients', 'StoreController@ingredients');
 $router->get('/store/issue', 'StoreController@issue');
 $router->get('/store/stock', 'StoreController@stock');
 $router->get('/store/inventory', 'StoreController@inventory');
+$router->get('/store/pr', 'StoreController@pr');
 
 //store post request
 $router->post('/ingredient/create','StoreController@createIngredient');
@@ -79,10 +80,14 @@ $router->post('/ingredient/delete','StoreController@deleteIngredient');
 // ── Chef ──────────────────────────────────────────────
 $router->get('/chef', 'ChefController@home');
 $router->get('/chef/menus', 'ChefController@menus');
+$router->post('/chef/menus/create', 'ChefController@createMenu');
+$router->post('/chef/menus/update/:id', 'ChefController@updateMenu');
+$router->post('/chef/menus/delete/:id', 'ChefController@deleteMenu');
 $router->get('/chef/recipes', 'ChefController@recipes');
 $router->post('/chef/recipes/create', 'ChefController@createRecipe');
 $router->post('/chef/recipes/update/:id', 'ChefController@updateRecipe');
 $router->post('/chef/recipes/delete/:id', 'ChefController@deleteRecipe');
+$router->get('/chef/stock', 'ChefController@stock');
 
 //profile
 $router->get('/profile', 'ProfileController@profile');

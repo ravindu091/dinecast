@@ -12,8 +12,8 @@ if (count($nameParts) > 1) {
 // Display format
 $displayRole = ucwords(str_replace('_', ' ', $role));
 ?>
-<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/profile.css">
-<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/popup.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/profile.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/popup.css">
 
 <div class="profile-container" data-base-url="<?= BASE_URL ?>">
   
@@ -108,11 +108,6 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
             <span class="p-dot"></span> <?= htmlspecialchars($status) ?>
           </span>
         </div>
-        
-        <div class="ac-footer">
-          <span>Store Access</span>
-          <strong>Main Facility #11</strong>
-        </div>
       </div>
 
       <!-- Right Column: Personal Information -->
@@ -120,7 +115,7 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
         <div class="card-hdr" style="margin-bottom: 20px;">
           <div>
             <h3>Personal Information</h3>
-            <p style="font-size: 12px; color: var(--store-muted); margin-top: 4px;">Primary contact and personal identifier records</p>
+            <p style="font-size: 12px; color: #64748b; margin-top: 4px;">Primary contact and personal identifier records</p>
           </div>
           <div class="badge bg-gray" style="font-weight: 500;">Verified Employee</div>
         </div>
@@ -151,11 +146,6 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
             <div class="pi-val"><?= htmlspecialchars($email ?? '') ?></div>
           </div>
         </div>
-
-        <div class="pi-footer">
-          <span>Staff ID: DC-EMP-0092</span>
-          <span>Department: Store Operations & Stock Control</span>
-        </div>
       </div>
 
     </div>
@@ -165,7 +155,7 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
       <div class="card-hdr" style="margin-bottom: 20px;">
         <div>
           <h3>Account Information</h3>
-          <p style="font-size: 12px; color: var(--store-muted); margin-top: 4px;">Read-only administrative privileges and audit timestamps</p>
+          <p style="font-size: 12px; color: #64748b; margin-top: 4px;">Read-only administrative privileges and audit timestamps</p>
         </div>
         <div class="badge bg-green">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> System Managed
@@ -176,28 +166,23 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
         <div class="ai-col">
           <label>ASSIGNED ROLE</label>
           <strong><?= htmlspecialchars($displayRole) ?></strong>
-          <p>Full operational tier privileges</p>
+          
         </div>
         <div class="ai-col">
           <label>ACCOUNT STATUS</label>
           <div style="margin-bottom: 6px;"><span class="badge bg-green"><span class="p-dot"></span> <?= htmlspecialchars($status ?? '') ?></span></div>
-          <p>No account restrictions applied</p>
+          
         </div>
         <div class="ai-col">
           <label>ACCOUNT CREATED</label>
           <strong><?= htmlspecialchars(date('d F Y', strtotime($accountCreated ?? 'now'))) ?></strong>
-          <p>Enrolled via HQ Onboarding</p>
+          
         </div>
         <div class="ai-col">
           <label>LAST LOGIN</label>
           <strong><?= htmlspecialchars($loginDate ?? '') ?></strong>
-          <p class="mono">192.168.1.104 (Store POS-01)</p>
+          
         </div>
-      </div>
-
-      <div class="info-alert">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-        <span>Roles, warehouse assignment, and administrative access permissions are centrally managed by System Administration. Contact IT support for access adjustment requests.</span>
       </div>
     </div>
 
@@ -212,7 +197,7 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
         <div class="card-hdr" style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
           <div>
             <h3 style="margin: 0;">Change Password</h3>
-            <p style="font-size: 13px; color: var(--store-muted); margin-top: 6px;">Ensure your account is using a long, random password to stay secure.</p>
+            <p style="font-size: 13px; color: #64748b; margin-top: 6px;">Ensure your account is using a long, random password to stay secure.</p>
           </div>
         </div>
         
@@ -280,4 +265,4 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
   </div>
 </div>
 
-<script src="<?= BASE_URL ?>/assets/js/profile.js"></script>
+<script src="<?= BASE_URL ?>/public/assets/js/profile.js"></script>

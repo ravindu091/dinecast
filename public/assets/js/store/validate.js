@@ -76,3 +76,142 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+//validate ingredients form
+
+const ingredientName = document.getElementById('ing-name');
+const ingredientMinStock = document.getElementById('ing-min-stock');
+const ingredientNCurrentStock = document.getElementById('ing-current-stock');
+
+const ingredientNameError = document.getElementById('ing-name-error');
+const ingredientMinStockError = document.getElementById('ing-min-stock-error');
+const ingredientNCurrentStockError = document.getElementById('ing-current-stock-error');
+
+const addIngredientForm = document.getElementById('add-ingredient-form');
+
+
+addIngredientForm.addEventListener('submit',(event)=>{
+    event.preventDefault();
+    
+    let isValid = true;
+    
+    // Reset errors
+    if (ingredientNameError) {
+        ingredientNameError.textContent = '';
+        ingredientNameError.classList.remove('visible');
+    }
+    if (ingredientMinStockError) {
+        ingredientMinStockError.textContent = '';
+        ingredientMinStockError.classList.remove('visible');
+    }
+    if (ingredientNCurrentStockError) {
+        ingredientNCurrentStockError.textContent = '';
+        ingredientNCurrentStockError.classList.remove('visible');
+    }
+
+    // Validate Name
+    if (ingredientName && ingredientName.value.trim() === '') {
+        if (ingredientNameError) {
+            ingredientNameError.textContent = 'Ingredient name is required';
+            ingredientNameError.classList.add('visible');
+        }
+        isValid = false;
+    }
+
+    // Validate Minimum Stock
+    if (ingredientMinStock) {
+        if (ingredientMinStock.value === '' || parseFloat(ingredientMinStock.value) < 0) {
+            if (ingredientMinStockError) {
+                ingredientMinStockError.textContent = 'Minimum stock cannot be negative';
+                ingredientMinStockError.classList.add('visible');
+            }
+            isValid = false;
+        }
+    }
+
+    // Validate Current Stock
+    if (ingredientNCurrentStock) {
+        if (ingredientNCurrentStock.value === '' || parseFloat(ingredientNCurrentStock.value) < 0) {
+            if (ingredientNCurrentStockError) {
+                ingredientNCurrentStockError.textContent = 'Current stock cannot be negative';
+                ingredientNCurrentStockError.classList.add('visible');
+            }
+            isValid = false;
+        }
+    }
+
+    // If valid, submit the form
+    if (isValid) {
+        addIngredientForm.submit();
+    }
+});
+
+// validate edit ingredients form
+
+const editIngredientForm = document.getElementById('edit-ingredient-form');
+const editIngredientName = document.getElementById('edit-ing-name');
+const editIngredientMinStock = document.getElementById('edit-ing-min-stock');
+const editIngredientCurrentStock = document.getElementById('edit-ing-current-stock');
+
+const editIngredientNameError = document.getElementById('edit-ing-name-error');
+const editIngredientMinStockError = document.getElementById('edit-ing-min-stock-error');
+const editIngredientCurrentStockError = document.getElementById('edit-ing-current-stock-error');
+
+if (editIngredientForm) {
+    editIngredientForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        let isValid = true;
+        
+        // Reset errors
+        if (editIngredientNameError) {
+            editIngredientNameError.textContent = '';
+            editIngredientNameError.classList.remove('visible');
+        }
+        if (editIngredientMinStockError) {
+            editIngredientMinStockError.textContent = '';
+            editIngredientMinStockError.classList.remove('visible');
+        }
+        if (editIngredientCurrentStockError) {
+            editIngredientCurrentStockError.textContent = '';
+            editIngredientCurrentStockError.classList.remove('visible');
+        }
+
+        // Validate Name
+        if (editIngredientName && editIngredientName.value.trim() === '') {
+            if (editIngredientNameError) {
+                editIngredientNameError.textContent = 'Ingredient name is required';
+                editIngredientNameError.classList.add('visible');
+            }
+            isValid = false;
+        }
+
+        // Validate Minimum Stock
+        if (editIngredientMinStock) {
+            if (editIngredientMinStock.value === '' || parseFloat(editIngredientMinStock.value) < 0) {
+                if (editIngredientMinStockError) {
+                    editIngredientMinStockError.textContent = 'Minimum stock cannot be negative';
+                    editIngredientMinStockError.classList.add('visible');
+                }
+                isValid = false;
+            }
+        }
+
+        // Validate Current Stock
+        if (editIngredientCurrentStock) {
+            if (editIngredientCurrentStock.value === '' || parseFloat(editIngredientCurrentStock.value) < 0) {
+                if (editIngredientCurrentStockError) {
+                    editIngredientCurrentStockError.textContent = 'Current stock cannot be negative';
+                    editIngredientCurrentStockError.classList.add('visible');
+                }
+                isValid = false;
+            }
+        }
+
+        // If valid, submit the form
+        if (isValid) {
+            editIngredientForm.submit();
+        }
+    });
+}
