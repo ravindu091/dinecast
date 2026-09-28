@@ -256,6 +256,10 @@
         showToast('Event updated successfully!');
       } else if (msg === 'deleted') {
         showToast('Event removed successfully!');
+      } else if (msg === 'duplicate') {
+        showToast('An event with that name already exists on this date.');
+      } else if (msg === 'failed') {
+        showToast('Could not save the event. Please check the details and try again.');
       }
     });
   <?php endif; ?>

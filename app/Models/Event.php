@@ -35,10 +35,24 @@ class Event {
     /**
      * Create a new event.
      */
-    public static function create(array $data): bool {
+    public static function create(array $data): string {
         $pdo = (new Database())->getConnection();
         if (!$pdo) {
-            return false;
+            return 'failed';
+        }
+
+        $name = trim($data['name'] ?? '');
+        $eventDate = $data['event_date'] ?? date('Y-m-d');
+        if ($name === '') {
+            return 'failed';
+        }
+
+        $duplicate = $pdo->prepare("SELECT 1 FROM `events`
+            WHERE LOWER(TRIM(`name`)) = LOWER(?) AND `event_date` = ?
+            LIMIT 1");
+        $duplicate->execute([$name, $eventDate]);
+        if ($duplicate->fetchColumn()) {
+            return 'duplicate';
         }
 
         $registered = (int)($data['registered_guests'] ?? 0);
@@ -54,24 +68,38 @@ class Event {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
         return $stmt->execute([
-            trim($data['name'] ?? ''),
+            $name,
             trim($data['type'] ?? 'Other'),
-            $data['event_date'] ?? date('Y-m-d'),
+            $eventDate,
             $registered,
             $factor,
             $forecast,
             $menu,
             $status
-        ]);
+        ]) ? 'created' : 'failed';
     }
 
     /**
      * Update an existing event.
      */
-    public static function update(int $id, array $data): bool {
+    public static function update(int $id, array $data): string {
         $pdo = (new Database())->getConnection();
         if (!$pdo) {
-            return false;
+            return 'failed';
+        }
+
+        $name = trim($data['name'] ?? '');
+        $eventDate = $data['event_date'] ?? date('Y-m-d');
+        if ($name === '') {
+            return 'failed';
+        }
+
+        $duplicate = $pdo->prepare("SELECT 1 FROM `events`
+            WHERE LOWER(TRIM(`name`)) = LOWER(?) AND `event_date` = ? AND `id` <> ?
+            LIMIT 1");
+        $duplicate->execute([$name, $eventDate, $id]);
+        if ($duplicate->fetchColumn()) {
+            return 'duplicate';
         }
 
         $registered = (int)($data['registered_guests'] ?? 0);
@@ -94,16 +122,16 @@ class Event {
             WHERE `id` = ?");
 
         return $stmt->execute([
-            trim($data['name'] ?? ''),
+            $name,
             trim($data['type'] ?? 'Other'),
-            $data['event_date'] ?? date('Y-m-d'),
+            $eventDate,
             $registered,
             $factor,
             $forecast,
             $menu,
             $status,
             $id
-        ]);
+        ]) ? 'updated' : 'failed';
     }
 
     /**

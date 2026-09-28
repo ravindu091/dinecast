@@ -18,10 +18,25 @@ $router->get('/logout' , 'AuthController@logOut');
 
 // ── 6 Actor Dashboards ───────────────────────────────
 
-$router->get('/procurement', 'ProcurementController@dashboard');
+// procurement
+$router->get('/procurement',              'ProcurementController@home');
+$router->get('/procurement/suppliers',    'ProcurementController@suppliers');
+$router->get('/procurement/requisitions', 'ProcurementController@requisitions');
+$router->get('/procurement/orders',       'ProcurementController@orders');
 
-// CEO
-$router->get('/ceo',         'CeoController@dashboard');
+//procurement post request
+$router->post('/supplier/create', 'ProcurementController@createSupplier');
+$router->post('/supplier/edit',   'ProcurementController@editSupplier');
+$router->post('/supplier/delete', 'ProcurementController@deleteSupplier');
+
+// ceo
+$router->get('/ceo',              'CeoController@home');
+$router->get('/ceo/events',       'CeoController@events');
+$router->get('/ceo/procurement',  'CeoController@procurement');
+$router->get('/ceo/inventory',    'CeoController@inventory');
+$router->get('/ceo/approvals',    'CeoController@approvals');
+$router->get('/ceo/users',        'CeoController@users');
+$router->get('/ceo/reports',      'CeoController@reports');
 
 // admin
 $router->get('/admin', 'AdminController@home');
@@ -56,19 +71,23 @@ $router->get('/store/ingredients', 'StoreController@ingredients');
 $router->get('/store/issue', 'StoreController@issue');
 $router->get('/store/stock', 'StoreController@stock');
 $router->get('/store/inventory', 'StoreController@inventory');
+$router->get('/store/pr', 'StoreController@pr');
 
 //store post request
 $router->post('/ingredient/create','StoreController@createIngredient');
 $router->post('/ingredient/edit','StoreController@editIngredient');
 $router->post('/ingredient/delete','StoreController@deleteIngredient');
-
 // ── Chef ──────────────────────────────────────────────
 $router->get('/chef', 'ChefController@home');
 $router->get('/chef/menus', 'ChefController@menus');
+$router->post('/chef/menus/create', 'ChefController@createMenu');
+$router->post('/chef/menus/update/:id', 'ChefController@updateMenu');
+$router->post('/chef/menus/delete/:id', 'ChefController@deleteMenu');
 $router->get('/chef/recipes', 'ChefController@recipes');
 $router->post('/chef/recipes/create', 'ChefController@createRecipe');
 $router->post('/chef/recipes/update/:id', 'ChefController@updateRecipe');
 $router->post('/chef/recipes/delete/:id', 'ChefController@deleteRecipe');
+$router->get('/chef/stock', 'ChefController@stock');
 
 //profile
 $router->get('/profile', 'ProfileController@profile');

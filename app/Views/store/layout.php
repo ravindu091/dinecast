@@ -7,14 +7,14 @@
   <title><?= $title ?></title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/store.css">
-  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/popup.css">
-  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/sidebar.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/public/assets/css/store.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/public/assets/css/popup.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/public/assets/css/sidebar.css">
   <script>window.BASE_URL = '<?= $baseUrl ?>';</script>
-  <script src="<?= $baseUrl ?>/assets/js/app.js"></script>
-  <script src="<?= $baseUrl ?>/assets/js/popup.js"></script>
-  <script src="<?= $baseUrl ?>/assets/js/store/store.js"></script>
-  <script src="<?= $baseUrl ?>/assets/js/store/validate.js?v=<?= time() ?>"></script>
+  <script src="<?= $baseUrl ?>/public/assets/js/app.js"></script>
+  <script src="<?= $baseUrl ?>/public/assets/js/popup.js"></script>
+  <script src="<?= $baseUrl ?>/public/assets/js/store/store.js"></script>
+  <script src="<?= $baseUrl ?>/public/assets/js/store/validate.js?v=<?= time() ?>"></script>
 
 </head>
 <body>
@@ -86,6 +86,19 @@
         </span>
         <span class="nav-label">Receive Stock</span>
       </a>
+
+      <a href="<?= $baseUrl ?>/store/pr" class="nav-link <?= $activePage === 'pr' ? 'active' : '' ?>" >
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </span>
+        <span class="nav-label">Purchase Requisition</span>
+      </a>
     </nav>
 
     <?php
@@ -153,5 +166,12 @@
 </div><!-- /dash -->
 
 
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
 </body>
 </html>

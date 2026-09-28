@@ -118,6 +118,6 @@ function setCurrentDate() {
    LOGOUT
    ----------------------------------------------- */
 function logout() {
-  window.location.href = BASE_URL + '/';
+  window.location.href = BASE_URL + '/logout';
 }
 

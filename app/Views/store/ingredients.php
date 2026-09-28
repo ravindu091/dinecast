@@ -17,8 +17,7 @@ endif;
 
   <div class="stats metric-stats">
     <article class="metric-card metric-card-blue">
-      <div class="metric-value"><?= htmlspecialchars($ingredientCount) ?></div>
-      <div class="metric-label">Total Ingredient SKUs</div>
+      <div class="metric-value"><?= htmlspecialchars($ingredientCount) ?></div>      <div class="metric-label">Total Ingredient SKUs</div>
       <div class="metric-footer">
         <span>Across 6 food<br>categories</span>
         <strong>+14 this<br>month</strong>
@@ -28,8 +27,7 @@ endif;
       <div class="metric-value"><?= htmlspecialchars($lowStockCount['bellowMin']) ?></div>
       <div class="metric-label">Below Minimum Safety Par</div>
       <div class="metric-footer">
-        <span><?= htmlspecialchars($lowStockCount['redZone']) ?> in Critical Red zone</span>
-        <strong>Resolve Now</strong>
+        <span><?= htmlspecialchars($lowStockCount['redZone']) ?> in Critical Red zone</span>        <strong>Resolve Now</strong>
       </div>
     </article>
     <article class="metric-card metric-card-orange">
@@ -82,8 +80,7 @@ endif;
         <span>Export CSV</span>
       </button>
       <button class="btn btn-primary toolbar-btn" type="button" id="btn-add-ingredient"
-        data-popup-target="add-ingredient-overlay">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        data-popup-target="add-ingredient-overlay">        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           aria-hidden="true">
           <path d="M12 4v16m8-8H4" />
         </svg>
@@ -105,8 +102,7 @@ endif;
             <th>UOM</th>
             <th>Min Stock</th>
             <th>Current Stock</th>
-            <th>Stock Level</th>
-            <th>Status</th>
+            <th>Stock Level</th>            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -196,6 +192,7 @@ endif;
           <div class="pm-field">
             <label class="pm-label" for="ing-name">Ingredient Name <span class="pm-required">*</span></label>
             <input class="pm-input" type="text" id="ing-name" name="name" placeholder="Chicken Breast" required>
+            <span id="ing-name-error" class="error-msg"></span>
           </div>
 
           <!-- Category + Unit of Measure -->
@@ -249,6 +246,7 @@ endif;
                   placeholder="0.00" min="0" step="0.01" required>
                 <span class="pm-input-addon" id="ing-uom-badge">unit</span>
               </div>
+              <span id="ing-min-stock-error" class="error-mg"></span>
             </div>
             <div class="pm-field">
               <label class="pm-label" for="ing-current-stock">Current Stock <span class="pm-required">*</span></label>
@@ -257,6 +255,7 @@ endif;
                   placeholder="0.00" min="0" step="0.01" required>
                 <span class="pm-input-addon" id="ing-uom-badge-curr">unit</span>
               </div>
+              <span id="ing-current-stock-error" class="error-msg"></span>
             </div>
           </div>
 
@@ -335,6 +334,7 @@ endif;
           <div class="pm-field">
             <label class="pm-label" for="edit-ing-name">Ingredient Name <span class="pm-required">*</span></label>
             <input class="pm-input" type="text" id="edit-ing-name" name="name" placeholder="Chicken Breast" required>
+            <span id="edit-ing-name-error" class="error-msg"></span>
           </div>
 
           <!-- Category + Unit of Measure -->
@@ -388,6 +388,7 @@ endif;
                   placeholder="0.00" min="0" step="0.01" required>
                 <span class="pm-input-addon" id="edit-ing-uom-badge">unit</span>
               </div>
+              <span id="edit-ing-min-stock-error" class="error-msg"></span>
             </div>
             <div class="pm-field">
               <label class="pm-label" for="edit-ing-current-stock">Current Stock <span class="pm-required">*</span></label>
@@ -396,6 +397,7 @@ endif;
                   placeholder="0.00" min="0" step="0.01" required>
                 <span class="pm-input-addon" id="edit-ing-uom-badge-curr">unit</span>
               </div>
+              <span id="edit-ing-current-stock-error" class="error-msg"></span>
             </div>
           </div>
 
@@ -509,8 +511,7 @@ endif;
             </svg>
             Delete Ingredient
           </button>
-        </div>
-      </form>
+        </div>      </form>
     </div>
   </div>
 </section>

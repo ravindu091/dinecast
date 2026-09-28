@@ -650,3 +650,33 @@ function initMsrPopup() {
 
   updateCount();
 }
+// --- PR Dashboard Filtering ---
+document.addEventListener('DOMContentLoaded', () => {
+    const filterTabs = document.querySelectorAll('.pr-filter-tab');
+    const prCards = document.querySelectorAll('.pr-card');
+
+    if (filterTabs.length > 0 && prCards.length > 0) {
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                // Get the filter value
+                const filterValue = tab.getAttribute('data-filter');
+
+                // Filter cards
+                prCards.forEach(card => {
+                    const cardStatus = card.getAttribute('data-status');
+                    if (filterValue === 'all' || cardStatus === filterValue) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+});

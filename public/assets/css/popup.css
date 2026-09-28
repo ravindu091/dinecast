@@ -356,13 +356,11 @@
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--t1);
-  line-height: 1;
-}
+  line-height: 1;}
 
 .pm-required {
   color: var(--danger);
-  margin-left: 1px;
-}
+  margin-left: 1px;}
 
 .pm-optional {
   font-weight: 400;
@@ -393,8 +391,7 @@
 
 .pm-input {
   width: 100%;
-  padding: 0.58rem 0.82rem;
-  border: 1.5px solid var(--border);
+  padding: 0.58rem 0.82rem;  border: 1.5px solid var(--border);
   border-radius: 8px;
   font-size: 0.875rem;
   color: var(--t1);
@@ -403,7 +400,6 @@
   outline: none;
   box-sizing: border-box;
 }
-
 .pm-input::placeholder {
   color: var(--t3);
 }
@@ -425,8 +421,7 @@
 
 .pm-select {
   width: 100%;
-  padding: 0.58rem 2.2rem 0.58rem 0.82rem;
-  border: 1.5px solid var(--border);
+  padding: 0.58rem 2.2rem 0.58rem 0.82rem;  border: 1.5px solid var(--border);
   border-radius: 8px;
   font-size: 0.875rem;
   color: var(--t1);
@@ -434,8 +429,7 @@
   appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;  transition: border-color 0.15s, box-shadow 0.15s;
   box-sizing: border-box;
 }
 
@@ -585,8 +579,7 @@
 
 .pm-textarea {
   width: 100%;
-  padding: 0.58rem 0.82rem;
-  border: 1.5px solid var(--border);
+  padding: 0.58rem 0.82rem;  border: 1.5px solid var(--border);
   border-radius: 8px;
   font-size: 0.875rem;
   color: var(--t1);
@@ -599,12 +592,10 @@
   outline: none;
   box-sizing: border-box;
 }
-
 .pm-textarea::placeholder {
   color: var(--t3);
 }
 
 .pm-textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
-}
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);}

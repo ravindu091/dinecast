@@ -12,8 +12,8 @@ if (count($nameParts) > 1) {
 // Display format
 $displayRole = ucwords(str_replace('_', ' ', $role));
 ?>
-<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/profile.css">
-<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/popup.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/profile.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/popup.css">
 
 <div class="profile-container" data-base-url="<?= BASE_URL ?>">
   
@@ -265,4 +265,4 @@ $displayRole = ucwords(str_replace('_', ' ', $role));
   </div>
 </div>
 
-<script src="<?= BASE_URL ?>/assets/js/profile.js"></script>
+<script src="<?= BASE_URL ?>/public/assets/js/profile.js"></script>
