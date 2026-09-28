@@ -2,6 +2,8 @@
 /**
  * CEO View – Executive Overview (Refined)
  */
+
+$userName = $_SESSION['fullName'];
 ?>
 
 <!-- ===== Welcome ===== -->
