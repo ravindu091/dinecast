@@ -9,13 +9,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/style.css">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/admin.css">
-  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/sidebar.css">
+  <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/layout.css">
+  <script defer src="<?= $baseUrl ?>/assets/js/layout.js"></script>
 </head>
 <body>
 <div class="dash">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="sb-logo">
       <div class="sb-logo-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -98,8 +99,16 @@
       <div class="topbar-right">
         <span class="date-chip"></span>
         <button class="icon-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+        <button class="icon-btn responsive-menu-button" id="responsive-menu-button" aria-label="Open menu">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12H21M3 6H21M3 18H21" stroke-linecap="round"/></svg>
+        </button>
       </div>
     </header>
+    <div class="responsive-menu-overlay" id="responsive-menu-overlay">
+      <button type="button" id="responsive-menu-close" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
 
     <main class="content">
         <?= $content ?>

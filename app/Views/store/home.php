@@ -18,66 +18,46 @@
         </div>
 
         <!-- KPI Stats -->
-        <div class="stats metric-stats home-kpi-grid">
+        <div class="metric-stats">
 
           <!-- Low Stock -->
-          <article class="metric-card metric-card-red home-kpi-card">
-            <div class="hkc-top">
-              <span class="hkc-label">LOW STOCK</span>
-              <span class="hkc-icon hkc-icon-red">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              </span>
+          <article class="metric-card metric-card-red">
+            <div class="metric-value">08</div>
+            <div class="metric-label">Low Stock Items</div>
+            <div class="metric-footer">
+              <span>Ingredients below par threshold</span>
+              <strong>+2 vs yest</strong>
             </div>
-            <div class="hkc-mid">
-              <span class="hkc-value">08</span>
-              <span class="hkc-badge hkc-badge-red">+2 vs yest</span>
-            </div>
-            <div class="hkc-desc">Ingredients below par threshold</div>
           </article>
 
           <!-- Expiring Soon -->
-          <article class="metric-card metric-card-orange home-kpi-card">
-            <div class="hkc-top">
-              <span class="hkc-label">EXPIRING SOON</span>
-              <span class="hkc-icon hkc-icon-orange">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </span>
+          <article class="metric-card metric-card-orange">
+            <div class="metric-value">05</div>
+            <div class="metric-label">Expiring Soon</div>
+            <div class="metric-footer">
+              <span>Batches approaching expiry (&lt;48h)</span>
+              <strong>FIFO Action</strong>
             </div>
-            <div class="hkc-mid">
-              <span class="hkc-value">05</span>
-              <span class="hkc-badge hkc-badge-orange">FIFO Action</span>
-            </div>
-            <div class="hkc-desc">Batches approaching expiry (&lt;48h)</div>
           </article>
 
           <!-- Pending Receive -->
-          <article class="metric-card metric-card-blue home-kpi-card">
-            <div class="hkc-top">
-              <span class="hkc-label">PENDING RECEIVE</span>
-              <span class="hkc-icon hkc-icon-blue">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8zM5 21a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
-              </span>
+          <article class="metric-card metric-card-blue">
+            <div class="metric-value">06</div>
+            <div class="metric-label">Pending Receive</div>
+            <div class="metric-footer">
+              <span>Inbound shipments awaiting intake</span>
+              <strong>Active POs</strong>
             </div>
-            <div class="hkc-mid">
-              <span class="hkc-value">06</span>
-              <span class="hkc-badge hkc-badge-blue">Active POs</span>
-            </div>
-            <div class="hkc-desc">Inbound shipments awaiting intake</div>
           </article>
 
           <!-- Pending Issues -->
-          <article class="metric-card metric-card-green home-kpi-card">
-            <div class="hkc-top">
-              <span class="hkc-label">PENDING ISSUES</span>
-              <span class="hkc-icon hkc-icon-green">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
-              </span>
+          <article class="metric-card metric-card-green">
+            <div class="metric-value">04</div>
+            <div class="metric-label">Pending Issues</div>
+            <div class="metric-footer">
+              <span>Kitchen ingredient fulfillment queues</span>
+              <strong>Requisitions</strong>
             </div>
-            <div class="hkc-mid">
-              <span class="hkc-value">04</span>
-              <span class="hkc-badge hkc-badge-green">Requisitions</span>
-            </div>
-            <div class="hkc-desc">Kitchen ingredient fulfillment queues</div>
           </article>
 
         </div>
@@ -216,18 +196,21 @@
 
             <!-- Near Expiry -->
             <div style="margin-top:18px;">
-              <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--t3);margin-bottom:12px;"><svg class="inline-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Near Expiry (Within 7 Days)</div>
-              <div style="display:flex;flex-direction:column;gap:8px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--warning-bg);border-radius:8px;">
-                  <div style="font-size:13px;font-weight:600;color:var(--t1);">Coconut Milk (Batch B-042)</div>
+              <div class="filter-ttl">
+                <svg class="inline-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Near Expiry (Within 7 Days)
+              </div>
+              <div class="expiry-list">
+                <div class="expiry-item expiry-item--warn">
+                  <span class="expiry-item-name">Coconut Milk (Batch B-042)</span>
                   <span class="badge bg-orange">Exp: 29 Sep</span>
                 </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--warning-bg);border-radius:8px;">
-                  <div style="font-size:13px;font-weight:600;color:var(--t1);">Sour Cream (Batch B-039)</div>
+                <div class="expiry-item expiry-item--warn">
+                  <span class="expiry-item-name">Sour Cream (Batch B-039)</span>
                   <span class="badge bg-orange">Exp: 30 Sep</span>
                 </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--danger-bg);border-radius:8px;">
-                  <div style="font-size:13px;font-weight:600;color:var(--t1);">Fresh Prawns (Batch B-046)</div>
+                <div class="expiry-item expiry-item--crit">
+                  <span class="expiry-item-name">Fresh Prawns (Batch B-046)</span>
                   <span class="badge bg-red">Exp: 29 Sep</span>
                 </div>
               </div>

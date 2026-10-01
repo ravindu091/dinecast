@@ -50,7 +50,8 @@ $firstName = explode(' ', trim($userName))[0] ?? 'CEO';
 
   <!-- CSS load order: base → sidebar → CEO-specific overrides -->
   <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl) ?>/assets/css/style.css">
-  <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl) ?>/assets/css/sidebar.css">
+  <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl) ?>/assets/css/layout.css">
+  <script defer src="<?= htmlspecialchars($baseUrl) ?>/assets/js/layout.js"></script>
   <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl) ?>/assets/css/ceo.css">
 </head>
 <body>
@@ -59,7 +60,7 @@ $firstName = explode(' ', trim($userName))[0] ?? 'CEO';
   <!-- ====================================================
        SIDEBAR (fixed, green, dark)
        ==================================================== -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
 
     <!-- Logo -->
     <div class="sb-logo">
@@ -229,8 +230,16 @@ $firstName = explode(' ', trim($userName))[0] ?? 'CEO';
             <span class="notif-badge"><?= (int)$notificationCount ?></span>
           <?php endif; ?>
         </button>
+        <button class="icon-btn responsive-menu-button" id="responsive-menu-button" aria-label="Open menu">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12H21M3 6H21M3 18H21" stroke-linecap="round"/></svg>
+        </button>
       </div>
     </header>
+    <div class="responsive-menu-overlay" id="responsive-menu-overlay">
+      <button type="button" id="responsive-menu-close" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
 
     <!-- Content (inner view HTML) -->
     <main class="content">

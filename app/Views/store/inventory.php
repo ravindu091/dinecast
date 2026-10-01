@@ -1,4 +1,4 @@
-﻿
+
       <!-- ================================================
            INVENTORY SECTION
            ================================================ -->
@@ -55,14 +55,14 @@
                 <h3>Active Inventory Batches</h3>
                 <span style="font-size:12px;color:var(--t3);">Click â–¶ to view batch details</span>
               </div>
-              <div class="inventory-toolbar">
-                <label class="inventory-search">
+              <div class="toolbar">
+                <label class="toolbar-search">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                   </svg>
                   <input id="inventory-search" type="search" placeholder="Search batch #, SKU, ingredient, or storage bin..." autocomplete="off">
                 </label>
-                <div class="inventory-filters">
+                <div class="toolbar-filters">
                   <div class="inventory-status-filter">
                     <button type="button" class="inventory-filter-btn" id="status-dropdown-btn" aria-expanded="false" aria-controls="status-dropdown-menu">
                       <span class="inventory-filter-prefix">Status:</span>
@@ -76,7 +76,7 @@
                       <button type="button" class="status-option" data-value="low">Low Stock <span hidden>âœ“</span></button>
                     </div>
                   </div>
-                  <label class="inventory-sort">
+                  <label class="toolbar-sort">
                     <select id="inventory-sort" aria-label="Sort inventory batches">
                       <option value="expiry">Sort: Expiry Date (Soonest FIFO)</option>
                       <option value="stock">Sort: Current Stock (High to Low)</option>
@@ -84,7 +84,7 @@
                     </select>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                   </label>
-                  <button class="btn btn-primary inventory-count-btn" id="add-stock-btn" type="button" data-popup-target="addstock-overlay">
+                  <button class="btn btn-primary toolbar-btn" id="add-stock-btn" type="button" data-popup-target="addstock-overlay">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v16m8-8H4"/></svg>
                     <span>Add Stock</span>
                   </button>
@@ -135,7 +135,7 @@
                         <td><strong><?=  htmlspecialchars($item['qty']) ?></strong></td>
                         <td><?=  htmlspecialchars($item['expiryDate']) ?></td>
                         <td><span class="badge <?= htmlspecialchars(getStatusClass(getRemainingDays($item['expiryDate']))['class']) ?>"><?= htmlspecialchars(getStatusClass(getRemainingDays($item['expiryDate']))['text']) ?></span></td>
-                        <td><div class="inventory-actions"><button class="inventory-action inventory-action-waste" type="button" data-popup-target="waste-popup-overlay">Waste</button><button class="inventory-action inventory-action-transfer" type="button" data-popup-target="issue-popup-overlay" data-issue>Issue</button></div></td>
+                        <td><div class="row-actions"><button class="row-btn row-btn--danger" type="button" data-popup-target="waste-popup-overlay">Waste</button><button class="row-btn row-btn--success" type="button" data-popup-target="issue-popup-overlay" data-issue>Issue</button></div></td>
                       </tr>
                     <?php endforeach; ?>
 

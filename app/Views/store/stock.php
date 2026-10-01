@@ -1,4 +1,4 @@
-﻿<!-- ================================================
+<!-- ================================================
            RECEIVE STOCK SECTION (DASHBOARD)
            ================================================ -->
 <section id="sec-receive" class="section active">
@@ -77,8 +77,8 @@
 
       <div class="tab-pane active">
         <div class="card" style="margin-bottom:0;">
-          <div class="inventory-toolbar">
-            <label class="inventory-search">
+          <div class="toolbar">
+            <label class="toolbar-search">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 aria-hidden="true">
                 <circle cx="11" cy="11" r="8" />
@@ -86,14 +86,14 @@
               </svg>
               <input type="search" placeholder="Search PO / Supplier..." autocomplete="off">
             </label>
-            <div class="inventory-filters">
+            <div class="toolbar-filters">
               <span style="font-size:14px;color:var(--store-muted);display:flex;align-items:center;gap:6px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round">
                   <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                 </svg> Filters:
               </span>
-              <label class="inventory-sort">
+              <label class="toolbar-sort">
                 <select aria-label="Status">
                   <option>All Statuses</option>
                 </select>
@@ -102,7 +102,7 @@
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </label>
-              <label class="inventory-sort">
+              <label class="toolbar-sort">
                 <select aria-label="Dates">
                   <option>All Dates</option>
                 </select>
@@ -111,8 +111,7 @@
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </label>
-              <button class="btn btn-primary toolbar-btn" type="button"
-                style="background:#065f46; border-color:#065f46; padding-top:8px; padding-bottom:8px;" data-popup-target="msr-overlay">
+              <button class="btn btn-primary toolbar-btn" type="button" data-popup-target="msr-overlay">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -158,11 +157,8 @@
                     </div>
                   </td>
                   <td><span class="rs-items-badge">8 Items</span></td>
-                  <td><span class="rs-status-badge">
-                      <div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting
-                      Inspection
-                    </span></td>
-                  <td><button class="rs-btn-action" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  <td><span class="badge bg-orange">Awaiting Inspection</span></td>
+                  <td><button class="row-btn row-btn--primary" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
@@ -189,11 +185,8 @@
                     </div>
                   </td>
                   <td><span class="rs-items-badge">5 Items</span></td>
-                  <td><span class="rs-status-badge">
-                      <div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting
-                      Inspection
-                    </span></td>
-                  <td><button class="rs-btn-action" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  <td><span class="badge bg-orange">Awaiting Inspection</span></td>
+                  <td><button class="row-btn row-btn--primary" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
@@ -220,11 +213,8 @@
                     </div>
                   </td>
                   <td><span class="rs-items-badge" style="background:#eff6ff;color:#3b82f6;">12 Items</span></td>
-                  <td><span class="rs-status-badge">
-                      <div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting
-                      Inspection
-                    </span></td>
-                  <td><button class="rs-btn-action" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  <td><span class="badge bg-orange">Awaiting Inspection</span></td>
+                  <td><button class="row-btn row-btn--primary" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
@@ -251,11 +241,8 @@
                     </div>
                   </td>
                   <td><span class="rs-items-badge">9 Items</span></td>
-                  <td><span class="rs-status-badge">
-                      <div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting
-                      Inspection
-                    </span></td>
-                  <td><button class="rs-btn-action" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  <td><span class="badge bg-orange">Awaiting Inspection</span></td>
+                  <td><button class="row-btn row-btn--primary" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
@@ -282,11 +269,8 @@
                     </div>
                   </td>
                   <td><span class="rs-items-badge">6 Items</span></td>
-                  <td><span class="rs-status-badge">
-                      <div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting
-                      Inspection
-                    </span></td>
-                  <td><button class="rs-btn-action" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  <td><span class="badge bg-orange">Awaiting Inspection</span></td>
+                  <td><button class="row-btn row-btn--primary" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
@@ -313,11 +297,8 @@
                     </div>
                   </td>
                   <td><span class="rs-items-badge">4 Items</span></td>
-                  <td><span class="rs-status-badge">
-                      <div class="rs-sup-dot" style="width:4px;height:4px;background:#b45309;"></div> Awaiting
-                      Inspection
-                    </span></td>
-                  <td><button class="rs-btn-action" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  <td><span class="badge bg-orange">Awaiting Inspection</span></td>
+                  <td><button class="row-btn row-btn--primary" data-popup-target="batch-popup-overlay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
@@ -333,8 +314,8 @@
       <!-- ===== TAB 2: Past Purchase Orders ===== -->
       <div class="tab-pane" style="display:none;">
         <div class="card" style="margin-bottom:0;">
-          <div class="inventory-toolbar">
-            <label class="inventory-search">
+          <div class="toolbar">
+            <label class="toolbar-search">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 aria-hidden="true">
                 <circle cx="11" cy="11" r="8" />
@@ -342,14 +323,14 @@
               </svg>
               <input type="search" placeholder="Search PO / Supplier..." autocomplete="off">
             </label>
-            <div class="inventory-filters">
+            <div class="toolbar-filters">
               <span style="font-size:14px;color:var(--store-muted);display:flex;align-items:center;gap:6px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round">
                   <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                 </svg> Filters:
               </span>
-              <label class="inventory-sort">
+              <label class="toolbar-sort">
                 <select aria-label="Status">
                   <option>All Statuses</option>
                 </select>
@@ -358,7 +339,7 @@
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </label>
-              <label class="inventory-sort">
+              <label class="toolbar-sort">
                 <select aria-label="Dates">
                   <option>All Dates</option>
                 </select>

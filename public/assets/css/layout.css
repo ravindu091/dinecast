@@ -21,9 +21,14 @@
     transition: width .25s ease, transform .25s ease;
 }
 
+
 .sidebar::-webkit-scrollbar {
     display: none;
     width: 0;
+}
+
+.sidebar.visible{
+    display: flex;
 }
 
 .sb-logo {
@@ -172,6 +177,72 @@
 .sb-logout:hover {
     color: #fff;
 }
+
+.responsive-menu-button{
+    display: none;
+    color: #64748b;
+}
+
+.responsive-menu-overlay{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index:999;
+    background-color: rgba(2, 44, 34, .72);
+    justify-content: end;
+
+}
+
+.responsive-menu-overlay.visible{
+    display: flex;
+}
+
+.responsive-menu-overlay button{
+    width: 32px;
+    height: 32px;
+    border: 0;
+    color:#ffffff;
+    background-color: transparent;
+    margin:30px;
+}
+@media screen and (max-width:1150px) {
+	.main-area{
+		margin-left: 0;
+		width: full;
+	}
+}
+@media (max-width:1150px) {
+    .sidebar {
+        display: flex;
+        transform: translateX(-100%);
+        transition: transform .35s cubic-bezier(.22, 1, .36, 1);
+    }
+    .sidebar.visible{
+        transform: translateX(0);
+    }
+    .responsive-menu-button{
+        display: block;
+    }
+    .responsive-menu-overlay{
+        display: flex;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity .3s ease, visibility 0s linear .3s;
+    }
+    .responsive-menu-overlay.visible{
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;;
+        transition-delay: 0s;
+    }
+}
+
 @media (max-width: 768px) and (min-width: 601px) {
     .sidebar {
         width: 220px;

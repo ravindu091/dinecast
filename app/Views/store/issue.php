@@ -1,16 +1,11 @@
 <section id="sec-issue" class="section active">
   <!-- Header -->
-  <div class="issue-hdr">
-    <div class="issue-hdr-left">
-      
-      <div>
-        <h2 class="issue-title-wrap">
-          Issue Stock
-        </h2>
-        <p class="issue-subtitle">Manage ingredient requests, FEFO batch allocations, and kitchen stock releases.</p>
-      </div>
+  <div class="sec-hdr">
+    <div>
+      <h2>Issue Stock</h2>
+      <p>Manage ingredient requests, FEFO batch allocations, and kitchen stock releases.</p>
     </div>
-    <button class="btn-manual-issue">
+    <button class="btn btn-primary toolbar-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 5v14M5 12h14"/>
       </svg>
@@ -62,16 +57,16 @@
   </div>
 
   <!-- Tab Area -->
-  <div class="issue-tab-container">
-    <div class="issue-tabs-header">
-      <div class="issue-tabs-left">
-        <button class="issue-tab-btn active">
-          Chef Requests 
-          <span class="issue-tab-badge gray">4</span>
+  <div class="tab-group card" style="padding:0;">
+    <div class="tabs" style="padding: 0 1rem; background:#f8fafc; border-radius: 12px 12px 0 0; justify-content:space-between; align-items:center;">
+      <div style="display:flex;">
+        <button class="tab active">
+          Chef Requests
+          <span class="badge bg-gray" style="margin-left:4px;">4</span>
         </button>
-        <button class="issue-tab-btn">
-          Issue History 
-          <span class="issue-tab-badge green">24</span>
+        <button class="tab">
+          Issue History
+          <span class="badge bg-green" style="margin-left:4px;">24</span>
         </button>
       </div>
       <div class="issue-fefo-status">
@@ -87,34 +82,45 @@
     </div>
 
     <!-- Toolbar -->
-    <div class="issue-toolbar">
-      <label class="issue-search-wrap">
-        <svg class="issue-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <div class="toolbar" style="padding: 1rem; border-bottom: 1px solid var(--store-border);">
+      <label class="toolbar-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
-        <input class="issue-search-input" type="search" placeholder="Search request ID, chef, ingredient...">
+        <input type="search" placeholder="Search request ID, chef, ingredient...">
       </label>
-      <select class="issue-select">
-        <option>Status: All Statuses</option>
-      </select>
-      <select class="issue-select">
-        <option>Priority: All</option>
-      </select>
-      <select class="issue-select">
-        <option>Today (23 Sep)</option>
-      </select>
-      <button class="issue-icon-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="7 10 12 15 17 10"/>
-          <line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
-      </button>
+      <div class="toolbar-filters">
+        <label class="toolbar-sort">
+          <select>
+            <option>Status: All Statuses</option>
+          </select>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </label>
+        <label class="toolbar-sort">
+          <select>
+            <option>Priority: All</option>
+          </select>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </label>
+        <label class="toolbar-sort">
+          <select>
+            <option>Today (23 Sep)</option>
+          </select>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </label>
+        <button class="icon-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Table -->
     <div class="tbl-wrap" style="padding: 0;">
-      <table class="issue-table">
+      <table>
         <thead>
           <tr>
             <th>REQUEST ID</th>
