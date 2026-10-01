@@ -15,7 +15,7 @@ endif;
     <p>Manage specifications, safety pars, supplier links, and live inventory allocations.</p>
   </div>
 
-  <div class="stats metric-stats">
+  <div class=" metric-stats">
     <article class="metric-card metric-card-blue">
       <div class="metric-value"><?= htmlspecialchars($ingredientCount) ?></div>      <div class="metric-label">Total Ingredient SKUs</div>
       <div class="metric-footer">
@@ -48,8 +48,8 @@ endif;
     </article>
   </div>
 
-  <div class="ingredient-toolbar">
-    <label class="ingredient-search">
+  <div class="toolbar">
+    <label class="toolbar-search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         aria-hidden="true">
         <circle cx="11" cy="11" r="8" />
@@ -58,20 +58,26 @@ endif;
       <input id="ingredient-search" type="search" placeholder="Search ingredient name, SKU, zone, or supplier..."
         autocomplete="off">
     </label>
-    <div class="ingredient-filters">
-      <select id="category-filter" aria-label="Filter by category">
-        <option value="all">All Categories</option>
-        <option value="Meat &amp; Seafood">Proteins &amp; Seafood</option>
-        <option value="Dairy">Dairy &amp; Eggs</option>
-        <option value="Vegetables">Produce &amp; Herbs</option>
-        <option value="Spices &amp; Herbs">Dry Goods &amp; Spices</option>
-        <option value="Dry Goods">Dry Goods &amp; Spices</option>
-      </select>
-      <select id="status-filter" aria-label="Filter by stock status">
-        <option value="all">All Statuses</option>
-        <option value="low">Low / Critical Par</option>
-        <option value="optimal">Optimal Par</option>
-      </select>
+    <div class="toolbar-filters">
+      <label class="toolbar-sort">
+        <select id="category-filter" aria-label="Filter by category">
+          <option value="all">All Categories</option>
+          <option value="Meat &amp; Seafood">Proteins &amp; Seafood</option>
+          <option value="Dairy">Dairy &amp; Eggs</option>
+          <option value="Vegetables">Produce &amp; Herbs</option>
+          <option value="Spices &amp; Herbs">Dry Goods &amp; Spices</option>
+          <option value="Dry Goods">Dry Goods &amp; Spices</option>
+        </select>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </label>
+      <label class="toolbar-sort">
+        <select id="status-filter" aria-label="Filter by stock status">
+          <option value="all">All Statuses</option>
+          <option value="low">Low / Critical Par</option>
+          <option value="optimal">Optimal Par</option>
+        </select>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </label>
       <button class="btn btn-outline toolbar-btn" type="button" data-export-ingredients>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           aria-hidden="true">
