@@ -103,12 +103,7 @@ img {
 	display: block;
 	animation: fadeIn .25s ease;
 }
-@media screen and (max-width:1150px) {
-	.main-area{
-		margin-left: 0;
-		width: full;
-	}
-}
+
 @keyframes fadeIn {
 	from {
 		opacity: 0;

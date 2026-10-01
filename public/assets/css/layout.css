@@ -210,7 +210,12 @@
     background-color: transparent;
     margin:30px;
 }
-
+@media screen and (max-width:1150px) {
+	.main-area{
+		margin-left: 0;
+		width: full;
+	}
+}
 @media (max-width:1150px) {
     .sidebar {
         display: flex;
