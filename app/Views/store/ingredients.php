@@ -1,3 +1,13 @@
+<?php
+/**
+ *  @var int $ingredientCount
+ *  @var array $lowStockCount
+ *  @var array $ingredients
+ *  @var int $ingredientCount
+ * 
+ */
+?>
+
 <?php if (!empty($_SESSION['message'])): ?>
 
   <script>
@@ -205,22 +215,7 @@ endif;
           <div class="pm-row-2">
             <div class="pm-field">
               <label class="pm-label" for="ing-category">Category <span class="pm-required">*</span></label>
-              <div class="pm-select-wrap">
-                <select class="pm-select" id="ing-category" name="category" required>
-                  <option value="" disabled selected>Select category</option>
-                  <option value="meat">Meat &amp; Poultry</option>
-                  <option value="seafood">Seafood</option>
-                  <option value="dairy">Dairy &amp; Eggs</option>
-                  <option value="produce">Produce &amp; Herbs</option>
-                  <option value="dry-goods">Dry Goods &amp; Spices</option>
-                  <option value="beverages">Beverages</option>
-                  <option value="other">Other</option>
-                </select>
-                <svg class="pm-select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2.5">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </div>
+              
             </div>
             <div class="pm-field">
               <label class="pm-label" for="ing-uom">Unit of Measure <span class="pm-required">*</span></label>
