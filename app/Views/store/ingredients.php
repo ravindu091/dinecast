@@ -281,7 +281,17 @@ endif;
               <span id="ing-current-stock-error" class="error-msg"></span>
             </div>
           </div>
-
+          <!-- Sku -->
+           <div class="pm-row-2">
+            <div class="pm-field">
+              <label class="pm-label" for="sku">SKU code</label>
+              <input class="pm-input" type="text" name="sku" id="sku-number" placeholder="SKU coding....">
+            </div>
+            <div class="pm-field" style="justify-content:end;" >
+              <label for="" class="pm-label"> </label>
+              <button type="button" class="pm-btn pm-btn--confirm">Generate</button>
+            </div>
+           </div>
           <!-- Status Toggle -->
           <div class="pm-status-block">
             <div class="pm-status-info">

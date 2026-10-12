@@ -1,0 +1,1 @@
+const categoryInput = document.getElementById("category-input");
