@@ -4,6 +4,7 @@
  *  @var array $lowStockCount
  *  @var array $ingredients
  *  @var int $ingredientCount
+ *  @var array $categories
  * 
  */
 ?>
@@ -215,7 +216,28 @@ endif;
           <div class="pm-row-2">
             <div class="pm-field">
               <label class="pm-label" for="ing-category">Category <span class="pm-required">*</span></label>
-              
+              <div class="category-dropdown" id="category-dropdown">
+                <button class="dropdown-button" id="dropdown-button" type="button">
+                  <span class="selected-category" id="selected-category">Select Category</span>
+                  <span>▼</span>
+                </button>
+                <div class="dropdown-menu" id="dropdown-menu">
+                  <input type="text" id="category-search" class="search-input" placeholder="search categories..." autocomplete="off">
+                  <input type="hidden" name="category" id="category-input">
+                  
+                  <div class="category-options">
+                    <!-- dropdown options -->
+                     <?php foreach($categories as $category): ?>
+                        <div class="dropdown-option" 
+                        data-value="<?= htmlspecialchars($category['id']) ?>"
+                        data-search="<?= htmlspecialchars(strtolower($category["name"]." ". $category["sku"])) ?>" >
+                          <span><?= htmlspecialchars($category['name']) ?></span>
+                          <span><?= htmlspecialchars($category['sku']) ?></span>
+                        </div>
+                     <?php endforeach; ?>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="pm-field">
               <label class="pm-label" for="ing-uom">Unit of Measure <span class="pm-required">*</span></label>

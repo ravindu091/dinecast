@@ -16,6 +16,7 @@
   <script defer src="<?= $baseUrl ?>/public/assets/js/layout.js"></script>
   <script defer src="<?= $baseUrl ?>/public/assets/js/store/store.js"></script>
   <script defer src="<?= $baseUrl ?>/public/assets/js/store/validate.js?v=<?= time() ?>"></script>
+  <script defer src="<?= $baseUrl ?>/public/assets/js/store/form.js?v=<?= time() ?>"></script>
 
 
 </head>
