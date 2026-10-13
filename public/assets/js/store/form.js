@@ -34,6 +34,8 @@ categoryOptions.forEach(option =>{
     option.addEventListener("click" , ()=>{
         selectedCategory.textContent = option.querySelector('span').textContent;
         categoryInput.value = option.dataset.value;
+        categoryInput.dataset.sku = option.dataset.sku;
+        
         categorySearch.value = "";
         dropdownMenu.classList.remove("active");
 

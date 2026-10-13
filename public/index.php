@@ -72,6 +72,7 @@ $router->get('/store/issue', 'StoreController@issue');
 $router->get('/store/stock', 'StoreController@stock');
 $router->get('/store/inventory', 'StoreController@inventory');
 $router->get('/store/pr', 'StoreController@pr');
+$router->get('/ingredient/sku/:sku', 'IngredientController@getBySku');
 
 //store post request
 $router->post('/ingredient/create','StoreController@createIngredient');

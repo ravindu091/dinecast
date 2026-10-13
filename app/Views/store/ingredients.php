@@ -230,7 +230,8 @@ endif;
                      <?php foreach($categories as $category): ?>
                         <div class="dropdown-option" 
                         data-value="<?= htmlspecialchars($category['id']) ?>"
-                        data-search="<?= htmlspecialchars(strtolower($category["name"]." ". $category["sku"])) ?>" >
+                        data-search="<?= htmlspecialchars(strtolower($category["name"]." ". $category["sku"])) ?>"
+                        data-sku = "<?= htmlspecialchars($category["sku"]) ?>" >
                           <span><?= htmlspecialchars($category['name']) ?></span>
                           <span><?= htmlspecialchars($category['sku']) ?></span>
                         </div>
@@ -289,7 +290,7 @@ endif;
             </div>
             <div class="pm-field" style="justify-content:end;" >
               <label for="" class="pm-label"> </label>
-              <button type="button" class="pm-btn pm-btn--confirm">Generate</button>
+              <button type="button" class="pm-btn pm-btn--confirm" id="generate-sku">Generate</button>
             </div>
            </div>
           <!-- Status Toggle -->
