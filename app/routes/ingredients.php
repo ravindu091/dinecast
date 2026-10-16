@@ -2,7 +2,7 @@
 
 
 return function (Router $router):void{
-    $router->post('/ingredient/create','StoreController@createIngredient');
-    $router->post('/ingredient/edit','StoreController@editIngredient');
-    $router->post('/ingredient/delete','StoreController@deleteIngredient');
+    $router->post('/ingredient/create','IngredientController@createIngredient');
+    $router->post('/ingredient/edit','IngredientController@editIngredient');
+    $router->post('/ingredient/delete','IngredientController@deleteIngredient');
 };
