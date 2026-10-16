@@ -8,7 +8,7 @@ class Router{
 
    public function __construct(string $base = ''){
      $this->base = rtrim($base, '/');
-
+     $this->loadRoutes();
    }
 
    //Router Registration
@@ -29,6 +29,17 @@ class Router{
         ];
    }
 
+   private function loadRoutes():void{
+    $routeFiles = glob(__DIR__ . "/../routes/*.php");
+    sort($routeFiles);
+    foreach($routeFiles as $routeFile){
+        $registeredRoute = require $routeFile;
+
+        if(is_callable($registeredRoute)){
+            $registeredRoute($this);
+        }
+    }
+   }
    private function compilePath(string $path): string {
         $pattern = preg_replace('/\/:([a-zA-Z_]+)/', '/(?P<$1>[^/]+)', $path);
         $fullPath = '/' . trim($this->base, '/') . '/' . ltrim($pattern, '/');
