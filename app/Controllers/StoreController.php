@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . "/../models/ingredient.php";
+require_once __DIR__ . "/../models/Ingredient.php";
+require_once __DIR__ . "/../Models/Category.php";
 require_once __DIR__ . "/../lib/store/utility.php";
 class StoreController extends Controller
 {
@@ -27,13 +28,17 @@ class StoreController extends Controller
         $items = $ingredient->getAllIngredients();
         $ingredientCount = count($items);
         $lowStockCount = $ingredient->getNearMinimumStockCount($items);
+        $categoryModel = new Category();
+        $categories = $categoryModel->getAllCategory();
+
 
         $this->renderWithLayout('store/ingredients', 'store/layout', [
             'title' => 'Ingredient planning',
             'activePage' => 'ingredient',
             'ingredients' => $items,
             'ingredientCount' => $ingredientCount,
-            'lowStockCount' => $lowStockCount
+            'lowStockCount' => $lowStockCount,
+            'categories'=> $categories
         ]);
     }
 
@@ -83,7 +88,7 @@ class StoreController extends Controller
             $description = trim($_POST['description'] ?? '');
             $currentStock = (float) ($_POST['current_stock'] ?? 0);
 
-            require_once __DIR__ . '/../models/ingredient.php';
+            
 
             $ingredient = new Ingredient();
 
@@ -131,7 +136,7 @@ class StoreController extends Controller
             $description = trim($_POST['description'] ?? '');
             $currentStock = (float) ($_POST['current_stock'] ?? 0);
 
-            require_once __DIR__ . '/../models/ingredient.php';
+            
             $ingredient = new Ingredient();
             $existingIngredient = $ingredient->getIngredientByNameExceptId($name,$id);
             if($existingIngredient){
@@ -183,4 +188,6 @@ class StoreController extends Controller
         header("Location:" . BASE_URL . "/store/ingredients");
         exit();
     }
+
+    
 }

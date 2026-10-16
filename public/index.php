@@ -11,10 +11,7 @@ require_once __DIR__ . '/../app/lib/utility.php';
 
 $router = new Router(BASE_URL);
 
-// ── Auth ──────────────────────────────────────────────
-$router->get('/',            'AuthController@loginView');
-$router->post('/login',      'AuthController@login');
-$router->get('/logout' , 'AuthController@logOut');
+
 
 // ── 6 Actor Dashboards ───────────────────────────────
 
@@ -65,18 +62,6 @@ $router->get('/kitchen/pr', 'KitchenController@pr');
 $router->get('/kitchen/attendance', 'KitchenController@attendance');
 
 
-// ── Store Manager ────────────────────────────────────
-$router->get('/store', 'StoreController@home');
-$router->get('/store/ingredients', 'StoreController@ingredients');
-$router->get('/store/issue', 'StoreController@issue');
-$router->get('/store/stock', 'StoreController@stock');
-$router->get('/store/inventory', 'StoreController@inventory');
-$router->get('/store/pr', 'StoreController@pr');
-
-//store post request
-$router->post('/ingredient/create','StoreController@createIngredient');
-$router->post('/ingredient/edit','StoreController@editIngredient');
-$router->post('/ingredient/delete','StoreController@deleteIngredient');
 // ── Chef ──────────────────────────────────────────────
 $router->get('/chef', 'ChefController@home');
 $router->get('/chef/menus', 'ChefController@menus');
@@ -90,9 +75,6 @@ $router->post('/chef/recipes/delete/:id', 'ChefController@deleteRecipe');
 $router->get('/chef/stock', 'ChefController@stock');
 
 //profile
-$router->get('/profile', 'ProfileController@profile');
-$router->post('/profile/upload','ProfileController@uploadProfilePicture');
-$router->post('/profile/edit','ProfileController@editProfile');
-$router->post('/profile/password', 'ProfileController@changePassword');
+
 // ── Dispatch ─────────────────────────────────────────
 $router->dispatch();

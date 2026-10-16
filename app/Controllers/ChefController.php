@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../models/Recipe.php';
-require_once __DIR__ . '/../models/ingredient.php';
+require_once __DIR__ . '/../models/Ingredient.php';
 require_once __DIR__ . '/../models/Menu.php';
 
 class ChefController extends Controller {
