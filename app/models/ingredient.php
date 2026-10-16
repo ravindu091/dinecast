@@ -133,4 +133,14 @@ class Ingredient{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getBySku(string $sku){
+        $stmt = $this->conn->prepare("SELECT * FROM ingredients WHERE sku LIKE CONCAT(:sku , '%')");
+
+        $stmt->execute([
+            "sku" => $sku
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
 }
