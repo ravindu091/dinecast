@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . "/../Core/Controller.php";
+require_once __DIR__ . '/../models/ingredient.php';
+
 class IngredientController extends Controller{
     private $authRoleList = ['store' , 'kitchen'];
     public function __construct()
@@ -124,9 +126,16 @@ class IngredientController extends Controller{
             exit();
         }
         // If accessed without valid POST data, just redirect
-        header("Location:" . BASE_URL . "/store/ingredients");
-        exit();
-    }
+       header("Location:" . BASE_URL . "/store/ingredients");
+       exit();
+   }
 
-
+   public function getBySku(array $param = [])
+   {
+       if (isset($param['sku'])) {
+           header('Content-Type: application/json');
+           echo json_encode((new Ingredient())->getBySku($param['sku']));
+           exit();
+       }
+   }
 }
