@@ -34,6 +34,26 @@ class Menu {
         return $stmt->fetch();
     }
 
+    public function getItemsByMenuIds(array $menuIds): array {
+        $menuIds = array_values(array_unique(array_filter(array_map('intval', $menuIds), static fn (int $id): bool => $id > 0)));
+        if ($menuIds === []) {
+            return [];
+        }
+
+        $placeholders = implode(',', array_fill(0, count($menuIds), '?'));
+        $stmt = $this->conn->prepare(
+            "SELECT id, menu_id, name FROM menu_items WHERE menu_id IN ($placeholders) ORDER BY name"
+        );
+        $stmt->execute($menuIds);
+
+        $itemsByMenu = [];
+        foreach ($stmt->fetchAll() as $item) {
+            $itemsByMenu[(int) $item['menu_id']][] = $item;
+        }
+
+        return $itemsByMenu;
+    }
+
     //true when another menu already uses this name
     //$excludeId skips the menu being edited, so it can keep its own name
     public function nameExists(string $name, int $excludeId = 0): bool {
@@ -57,19 +77,39 @@ class Menu {
         ]);
     }
 
-    public function updateMenu(int $id, string $name, string $type, string $status, ?string $description): bool {
-        $stmt = $this->conn->prepare(
-            'UPDATE menus SET name = :name, type = :type, status = :status, description = :description
-             WHERE id = :id'
-        );
+    public function updateMenu(int $id, string $name, string $type, string $status, ?string $description, array $newItems = []): bool {
+        try {
+            $this->conn->beginTransaction();
 
-        return $stmt->execute([
-            ':id' => $id,
-            ':name' => $name,
-            ':type' => $type,
-            ':status' => $status,
-            ':description' => $description,
-        ]);
+            $stmt = $this->conn->prepare(
+                'UPDATE menus SET name = :name, type = :type, status = :status, description = :description
+                 WHERE id = :id'
+            );
+            $stmt->execute([
+                ':id' => $id,
+                ':name' => $name,
+                ':type' => $type,
+                ':status' => $status,
+                ':description' => $description,
+            ]);
+
+            if ($newItems !== []) {
+                $itemStmt = $this->conn->prepare(
+                    'INSERT INTO menu_items (menu_id, name) VALUES (:menu_id, :name)'
+                );
+                foreach ($newItems as $itemName) {
+                    $itemStmt->execute([':menu_id' => $id, ':name' => $itemName]);
+                }
+            }
+
+            $this->conn->commit();
+            return true;
+        } catch (Throwable $exception) {
+            if ($this->conn->inTransaction()) {
+                $this->conn->rollBack();
+            }
+            throw $exception;
+        }
     }
 
     //deleting a menu would also delete its dishes and their recipes (ON DELETE CASCADE),

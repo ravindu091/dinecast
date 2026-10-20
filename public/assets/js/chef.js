@@ -74,6 +74,7 @@ function openEditRecipe(recipeId) {
 function openEditMenu(trigger) {
   const d = trigger.dataset;
   const type = document.getElementById('edit-menu-type');
+  const items = document.getElementById('edit-menu-items');
 
   document.getElementById('edit-menu-form').action = window.menuUrl + 'update/' + d.id;
   document.getElementById('edit-menu-name').value = d.name;
@@ -84,8 +85,56 @@ function openEditMenu(trigger) {
   }
   document.getElementById('edit-menu-status').value = d.status;
   document.getElementById('edit-menu-description').value = d.description;
+  items.innerHTML = '';
+  JSON.parse(d.items || '[]').forEach((item) => {
+    addMenuItemLine(item.name, false);
+  });
+  addMenuItemLine('', true);
   toggleModal('modal-edit-menu');
 }
+
+function addMenuItemLine(value = '', removable = true) {
+  const container = document.getElementById('edit-menu-items');
+  if (!container) {
+    return;
+  }
+
+  const line = document.createElement('div');
+  line.className = 'menu-item-line';
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.name = removable ? 'new_item[]' : '';
+  input.maxLength = 150;
+  input.placeholder = 'e.g. Grilled Chicken';
+  input.value = value;
+  input.readOnly = !removable;
+
+  const removeButton = document.createElement('button');
+  removeButton.type = 'button';
+  removeButton.className = 'remove-menu-item';
+  removeButton.setAttribute('aria-label', 'Remove menu item');
+  removeButton.textContent = '✕';
+  removeButton.hidden = !removable;
+
+  line.append(input, removeButton);
+  container.appendChild(line);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const addMenuItemButton = document.getElementById('add-menu-item-button');
+  if (addMenuItemButton) {
+    addMenuItemButton.addEventListener('click', function () {
+      addMenuItemLine();
+    });
+  }
+});
+
+document.addEventListener('click', function (event) {
+  if (event.target.classList.contains('remove-menu-item')) {
+    event.target.closest('#edit-menu-items > div').remove();
+  }
+});
 
 function openDeleteMenu(trigger) {
   //a menu with dishes can't be deleted (the server refuses too), so explain instead of asking
