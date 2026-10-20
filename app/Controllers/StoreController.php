@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . "/../models/ingredient.php";
+require_once __DIR__ . "/../models/Ingredient.php";
+require_once __DIR__ . "/../Models/Category.php";
 require_once __DIR__ . "/../lib/store/utility.php";
 class StoreController extends Controller
 {
@@ -11,7 +12,7 @@ class StoreController extends Controller
             exit();
         }
     }
-
+    // ______ view render here ________ 
     public function home(array $params = [])
     {
         $this->renderWithLayout('store/home', 'store/layout', [
@@ -27,13 +28,17 @@ class StoreController extends Controller
         $items = $ingredient->getAllIngredients();
         $ingredientCount = count($items);
         $lowStockCount = $ingredient->getNearMinimumStockCount($items);
+        $categoryModel = new Category();
+        $categories = $categoryModel->getAllCategory();
+
 
         $this->renderWithLayout('store/ingredients', 'store/layout', [
             'title' => 'Ingredient planning',
             'activePage' => 'ingredient',
             'ingredients' => $items,
             'ingredientCount' => $ingredientCount,
-            'lowStockCount' => $lowStockCount
+            'lowStockCount' => $lowStockCount,
+            'categories'=> $categories
         ]);
     }
 
@@ -70,117 +75,5 @@ class StoreController extends Controller
         ]);
     }
 
-    public function createIngredient(array $param = [])
-    {
-        //get data
-        if (isset($_POST['name']) && trim($_POST['name']) !== '') {
-
-            $name = trim($_POST['name']);
-            $category = $_POST['category'] ?? '';
-            $uom = $_POST['uom'] ?? '';
-            $minimumStock = (float) ($_POST['min_stock'] ?? 0);
-            $status = $_POST['status'] ?? 'Active';
-            $description = trim($_POST['description'] ?? '');
-            $currentStock = (float) ($_POST['current_stock'] ?? 0);
-
-            require_once __DIR__ . '/../models/ingredient.php';
-
-            $ingredient = new Ingredient();
-
-            $existingIngredient = $ingredient->getIngredientByName($name);
-            if($existingIngredient){
-                $_SESSION['message'] = "Ingredient already exists";
-                $_SESSION['message-type'] = "error";
-                header("Location:" . BASE_URL . "/store/ingredients");
-                exit();
-
-            }
-
-            $result = $ingredient->create($name, $category, $uom, $minimumStock, $status, $description, $currentStock);
-
-
-            if ($result) {
-                $_SESSION['message'] = "Ingredient Created successfully";
-                $_SESSION['message-type'] = "success";
-
-            } else {
-                $_SESSION['message'] = "Ingredient creation failed";
-                $_SESSION['message-type'] = "error";
-            }
-
-            header("Location:" . BASE_URL . "/store/ingredients");
-            exit();
-        }
-
-        // If accessed without valid POST data, redirect back
-        header("Location:" . BASE_URL . "/store/ingredients");
-        exit();
-    }
-
-
-    public function editIngredient(array $param = [])
-    {
-        if (isset($_POST['id']) && isset($_POST['name'])) {
-
-            $id = (int) $_POST['id'];
-            $name = trim($_POST['name']);
-            $category = $_POST['category'] ?? '';
-            $uom = $_POST['uom'] ?? '';
-            $minimumStock = (float) ($_POST['min_stock'] ?? 0);
-            $status = $_POST['status'] ?? 'Active';
-            $description = trim($_POST['description'] ?? '');
-            $currentStock = (float) ($_POST['current_stock'] ?? 0);
-
-            require_once __DIR__ . '/../models/ingredient.php';
-            $ingredient = new Ingredient();
-            $existingIngredient = $ingredient->getIngredientByNameExceptId($name,$id);
-            if($existingIngredient){
-                $_SESSION['message'] = "Ingredient already exists";
-                $_SESSION['message-type'] = "error";
-                header("Location:" . BASE_URL . "/store/ingredients");
-                exit();
-            }
-            $result = $ingredient->updateIngredient($id, $name, $category, $uom, $minimumStock, $status, $description, $currentStock);
-
-            if ($result) {
-                $_SESSION['message'] = "Ingredient updated successfully";
-                $_SESSION['message-type'] = "success";
-            } else {
-                $_SESSION['message'] = "Ingredient update failed";
-                $_SESSION['message-type'] = "error";
-            }
-
-            header("Location:" . BASE_URL . "/store/ingredients");
-            exit();
-        }
-
-        // If accessed without valid POST data, just redirect
-        header("Location:" . BASE_URL . "/store/ingredients");
-        exit();
-    }
-
-    public function deleteIngredient(array $param = [])
-    {
-        if (isset($_POST['id'])) {
-            $id = (int) $_POST['id'];
-
-            $ingredient = new Ingredient();
-
-            $result = $ingredient->deleteIngredient($id);
-
-            if ($result) {
-                $_SESSION['message'] = "Ingredient deleted successfully";
-                $_SESSION['message-type'] = "success";
-            } else {
-                $_SESSION['message'] = "Ingredient deletion failed";
-                $_SESSION['message-type'] = "error";
-            }
-
-            header("Location:" . BASE_URL . "/store/ingredients");
-            exit();
-        }
-        // If accessed without valid POST data, just redirect
-        header("Location:" . BASE_URL . "/store/ingredients");
-        exit();
-    }
+    
 }

@@ -18,12 +18,13 @@ class Ingredient{
         float $minimum,
         string $status,
         string $description,
-        float $currentStock
+        float $currentStock,
+        string $sku
     ):bool{
        
 
-        $stmt = $this->conn->prepare('INSERT INTO ingredients(name,category,unitName,minimum,status,description,currentStock)
-         VALUES(:name,:category,:unitName,:minimum,:status,:description,:currentStock)');
+        $stmt = $this->conn->prepare('INSERT INTO ingredients(name,category,unitName,minimum,status,description,currentStock,sku)
+         VALUES(:name,:category,:unitName,:minimum,:status,:description,:currentStock, :sku)');
        
 
         return $stmt->execute([
@@ -33,12 +34,13 @@ class Ingredient{
             ':minimum' => $minimum,
             ':status' => $status,
             ':description' => $description,
-            ':currentStock' => $currentStock
+            ':currentStock' => $currentStock,
+            ':sku' => $sku
         ]);
     }
 
     public function getAllIngredients(){
-        $stmt = $this->conn->prepare("SELECT * FROM ingredients ORDER BY id DESC");
+        $stmt = $this->conn->prepare("SELECT ingredients.id as id, ingredients.name , category.name as category , ingredients.sku as sku, ingredients.unitName, ingredients.minimum , ingredients.description, ingredients.currentStock, ingredients.status as status FROM ingredients JOIN category ON ingredients.category = category.id ORDER BY ingredients.id DESC");
 
         $stmt->execute();
 
@@ -131,6 +133,16 @@ class Ingredient{
         ]);
     
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getBySku(string $sku){
+        $stmt = $this->conn->prepare("SELECT * FROM ingredients WHERE sku LIKE CONCAT(:sku , '%')");
+
+        $stmt->execute([
+            "sku" => $sku
+        ]);
+
+        return $stmt->fetchAll();
     }
 
 }
