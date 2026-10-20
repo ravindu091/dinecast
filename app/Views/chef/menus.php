@@ -9,6 +9,8 @@ $old = function (string $mode, string $field) use ($retry): string {
 $csrf = htmlspecialchars(csrfToken());
 //reset the browser's button look so these buttons match the text links
 $actStyle = 'border:0;background:none;padding:0;';
+$menuItemsByMenu = $menuItemsByMenu ?? [];
+$retryItems = $retry['values']['new_items'] ?? [];
 ?>
 <?php if (!empty($_SESSION['message'])): ?>
 <script>
@@ -109,7 +111,8 @@ $actStyle = 'border:0;background:none;padding:0;';
                       data-name="<?= htmlspecialchars($m['name']) ?>"
                       data-type="<?= htmlspecialchars($m['type']) ?>"
                       data-status="<?= htmlspecialchars($m['status']) ?>"
-                      data-description="<?= htmlspecialchars($m['description'] ?? '') ?>">Edit</button>
+                      data-description="<?= htmlspecialchars($m['description'] ?? '') ?>"
+                      data-items="<?= htmlspecialchars(json_encode($menuItemsByMenu[(int) $m['id']] ?? [], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)) ?>">Edit</button>
                     
                     <button type="button" class="action-link" style="<?= $actStyle ?>cursor:pointer;color:var(--danger);" onclick="openDeleteMenu(this)"
                       data-id="<?= (int) $m['id'] ?>"
@@ -180,6 +183,11 @@ $actStyle = 'border:0;background:none;padding:0;';
             </select></div>
           <div class="form-grp form-full"><label for="edit-menu-description">Description</label>
             <textarea name="description" id="edit-menu-description" maxlength="1000"><?= $old('edit', 'description') ?></textarea></div>
+        </div>
+        <div class="form-grp form-full" style="margin-top:16px;">
+          <label>Menu Items</label>
+          <div id="edit-menu-items" style="display:flex;flex-direction:column;gap:8px;"><?php if ($retry !== null && $retry['mode'] === 'edit'): foreach ($retryItems as $item): ?><div style="display:flex;gap:8px;align-items:center;"><input type="text" name="new_item[]" maxlength="150" placeholder="e.g. Grilled Chicken" value="<?= htmlspecialchars($item) ?>" style="flex:1;"><button type="button" class="remove-menu-item" aria-label="Remove menu item">✕</button></div><?php endforeach; ?><div style="display:flex;gap:8px;align-items:center;"><input type="text" name="new_item[]" maxlength="150" placeholder="e.g. Grilled Chicken" style="flex:1;"><button type="button" class="remove-menu-item" aria-label="Remove menu item">✕</button></div><?php endif; ?></div>
+          <button type="button" id="add-menu-item-button" class="btn btn-outline btn-sm" style="margin-top:10px;">+ Add Menu Item</button>
         </div>
         <div style="display:flex;gap:10px;margin-top:16px;">
           <button type="submit" class="btn btn-primary" style="background:#064E3B;border:none;">Save Changes</button>

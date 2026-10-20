@@ -48,6 +48,7 @@ class ChefController extends Controller {
     
     public function menus(array $params = []) {
         $menu = new Menu();
+        $menus = $menu->getAllMenus();
 
         //values the user typed before the server rejected the form, so the dialog can reopen with them
         $retry = $_SESSION['menu_form_retry'] ?? null;
@@ -56,7 +57,8 @@ class ChefController extends Controller {
         $this->renderWithLayout('chef/menus', 'chef/layout', [
             'title' => 'Chef - Menus',
             'activePage' => 'menus',
-            'menus' => $menu->getAllMenus(),
+            'menus' => $menus,
+            'menuItemsByMenu' => $menu->getItemsByMenuIds(array_column($menus, 'id')),
             'menuTypes' => self::MENU_TYPES,
             'menuStatuses' => self::MENU_STATUSES,
             'retry' => $retry,
@@ -210,7 +212,7 @@ class ChefController extends Controller {
         }
 
         try {
-            $menu->updateMenu($id, $data['name'], $data['type'], $data['status'], $data['description']);
+            $menu->updateMenu($id, $data['name'], $data['type'], $data['status'], $data['description'], $data['new_items']);
         } catch (PDOException $e) {
             $this->backToMenus($this->menuSaveErrorMessage($e, 'updated'), 'error', $retry);
         }
@@ -340,6 +342,7 @@ class ChefController extends Controller {
             'type' => $this->postText('type'),
             'status' => $this->postText('status'),
             'description' => $this->postText('description'),
+            'new_items' => $this->postMenuItems(),
         ];
 
         $error = null;
@@ -361,6 +364,26 @@ class ChefController extends Controller {
         }
 
         return [$data, $error];
+    }
+
+    private function postMenuItems(): array {
+        $items = $_POST['new_item'] ?? [];
+        if (!is_array($items)) {
+            return [];
+        }
+
+        $cleanItems = [];
+        foreach ($items as $item) {
+            if (!is_string($item)) {
+                continue;
+            }
+            $item = trim($item);
+            if ($item !== '' && mb_strlen($item) <= 150 && !in_array($item, $cleanItems, true)) {
+                $cleanItems[] = $item;
+            }
+        }
+
+        return $cleanItems;
     }
 
     //a form field as trimmed text; anything that is not plain text (e.g. name[]=x) counts as empty
