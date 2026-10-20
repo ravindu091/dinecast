@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Populate the form fields
                 document.getElementById('edit-ing-id').value = triggerBtn.dataset.id || '';
                 document.getElementById('edit-ing-name').value = triggerBtn.dataset.name || '';
-                document.getElementById('edit-ing-category').value = triggerBtn.dataset.category || '';
+                //document.getElementById('edit-ing-category').value = triggerBtn.dataset.category || '';
                 document.getElementById('edit-ing-uom').value = triggerBtn.dataset.uom || '';
                 document.getElementById('edit-ing-min-stock').value = triggerBtn.dataset.min || '';
                 document.getElementById('edit-ing-current-stock').value = triggerBtn.dataset.current || '';

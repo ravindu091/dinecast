@@ -21,7 +21,7 @@ generateButton?.addEventListener("click",async ()=>{
 
     }catch(error){
         console.log(error);
-        alert("unable to generate sku");
+        alert("unable to generate sku: can't get info");
     }finally{
         generateButton.disabled = false;
     }
@@ -29,13 +29,15 @@ generateButton?.addEventListener("click",async ()=>{
 
 
 async function generateSku(ingredient , categorySku){
+    console.log(ingredient + categorySku);
     
     ingredient = ingredient.split(" ");
     ingredientFamily = ( ingredient.length > 1) ? ingredient[1] : ingredient[0];
 
 
     sku = categorySku + "-" + ingredientSku(ingredientFamily);
-
+    console.log(sku);
+    
     const prefix = `${categorySku}-${ingredientSku(ingredientFamily)}`;
     const existingIngredients = await getIngredientsBySku(prefix);
 
