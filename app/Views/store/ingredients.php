@@ -133,7 +133,7 @@ endif;
             <tr data-category="<?= htmlspecialchars($item['category']) ?>" data-status="low">
               <td class="tbl-main"><?= htmlspecialchars($item['name']) ?></td>
               <td><?= htmlspecialchars($item['category']) ?></td>
-              <td><?= htmlspecialchars($item['sku'] || "Not Yet")  ?></td>
+              <td style="font-family: 'Courier New', Courier, monospace; font-weight: 900;"><?= htmlspecialchars($item['sku'])  ?></td>
               <td><?= htmlspecialchars($item['unitName']) ?></td>
               <td><?= htmlspecialchars($item['minimum']) ?></td>
               <td><?= htmlspecialchars($item['currentStock']) ?></td>
@@ -376,22 +376,29 @@ endif;
           <!-- Category + Unit of Measure -->
           <div class="pm-row-2">
             <div class="pm-field">
-              <label class="pm-label" for="edit-ing-category">Category <span class="pm-required">*</span></label>
-              <div class="pm-select-wrap">
-                <select class="pm-select" id="edit-ing-category" name="category" required>
-                  <option value="" disabled selected>Select category</option>
-                  <option value="meat">Meat &amp; Poultry</option>
-                  <option value="seafood">Seafood</option>
-                  <option value="dairy">Dairy &amp; Eggs</option>
-                  <option value="produce">Produce &amp; Herbs</option>
-                  <option value="dry-goods">Dry Goods &amp; Spices</option>
-                  <option value="beverages">Beverages</option>
-                  <option value="other">Other</option>
-                </select>
-                <svg class="pm-select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2.5">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
+              <label class="pm-label" for="ing-category">Category <span class="pm-required">*</span></label>
+              <div class="category-dropdown" id="category-dropdown">
+                <button class="dropdown-button" id="edit-dropdown-button" type="button">
+                  <span class="selected-category" id="edit-selected-category">Select Category</span>
+                  <span>▼</span>
+                </button>
+                <div class="dropdown-menu" id="dropdown-menu">
+                  <input type="text" id="edit-category-search" class="search-input" placeholder="search categories..." autocomplete="off">
+                  <input type="hidden" name="category" id="edit-category-input">
+                  
+                  <div class="category-options" id="edit-dropdown-menu">
+                    <!-- dropdown options -->
+                     <?php foreach($categories as $category): ?>
+                        <div class="dropdown-option" 
+                        data-value="<?= htmlspecialchars($category['id']) ?>"
+                        data-search="<?= htmlspecialchars(strtolower($category["name"]." ". $category["sku"]), ENT_QUOTES) ?>"
+                        data-sku = "<?= htmlspecialchars($category["sku"]) ?>" >
+                          <span><?= htmlspecialchars($category['name']) ?></span>
+                          <span><?= htmlspecialchars($category['sku']) ?></span>
+                        </div>
+                     <?php endforeach; ?>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="pm-field">

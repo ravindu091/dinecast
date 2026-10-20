@@ -29,8 +29,12 @@ class IngredientController extends Controller{
             $status = $_POST['status'] ?? 'Active';
             $description = trim($_POST['description'] ?? '');
             $currentStock = (float) ($_POST['current_stock'] ?? 0);
+            $sku = trim($_POST['sku']);
 
             require_once __DIR__ . '/../models/ingredient.php';
+            // validations
+
+           
 
             $ingredient = new Ingredient();
 
@@ -43,7 +47,7 @@ class IngredientController extends Controller{
 
             }
 
-            $result = $ingredient->create($name, $category, $uom, $minimumStock, $status, $description, $currentStock);
+            $result = $ingredient->create($name, $category, $uom, $minimumStock, $status, $description, $currentStock , $sku);
 
 
             if ($result) {
