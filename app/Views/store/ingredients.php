@@ -151,6 +151,7 @@ endif;
                     data-id="<?= htmlspecialchars($item['id']) ?>"
                     data-name="<?= htmlspecialchars($item['name']) ?>"
                     data-category="<?= htmlspecialchars($item['category']) ?>"
+                    data-category-id="<?= htmlspecialchars($item['categoryId']) ?>"
                     data-uom="<?= htmlspecialchars($item['unitName']) ?>"
                     data-min="<?= htmlspecialchars($item['minimum']) ?>"
                     data-current="<?= htmlspecialchars($item['currentStock']) ?>"
@@ -162,6 +163,7 @@ endif;
                     data-id="<?= htmlspecialchars($item['id']) ?>"
                     data-name="<?= htmlspecialchars($item['name']) ?>"
                     data-category="<?= htmlspecialchars($item['category']) ?>"
+                    data-category-id = "<?= htmlspecialchars($item['categoryId']) ?>"
                     data-uom="<?= htmlspecialchars($item['unitName']) ?>"
                     data-min="<?= htmlspecialchars($item['minimum']) ?>"
                     data-current="<?= htmlspecialchars($item['currentStock']) ?>"
@@ -218,7 +220,11 @@ endif;
           <div class="pm-row-2">
             <div class="pm-field">
               <label class="pm-label" for="ing-category">Category <span class="pm-required">*</span></label>
-              <div class="category-dropdown" id="category-dropdown">
+
+              <!-- Category Dropdown menu -->
+              <!-- root = add-ingredient-category-dropdown -->
+
+              <div class="category-dropdown" id="add-ingredient-category-dropdown">
                 <button class="dropdown-button" id="dropdown-button" type="button">
                   <span class="selected-category" id="selected-category">Select Category</span>
                   <span>▼</span>
@@ -377,16 +383,18 @@ endif;
           <div class="pm-row-2">
             <div class="pm-field">
               <label class="pm-label" for="ing-category">Category <span class="pm-required">*</span></label>
-              <div class="category-dropdown" id="category-dropdown">
-                <button class="dropdown-button" id="edit-dropdown-button" type="button">
-                  <span class="selected-category" id="edit-selected-category">Select Category</span>
+              
+              <!-- Category Dropdown -->
+              <div class="category-dropdown" id="edit-ingredient-category-dropdown">
+                <button class="dropdown-button" id="dropdown-button" type="button">
+                  <span class="selected-category" id="selected-category">Select Category</span>
                   <span>▼</span>
                 </button>
                 <div class="dropdown-menu" id="dropdown-menu">
-                  <input type="text" id="edit-category-search" class="search-input" placeholder="search categories..." autocomplete="off">
-                  <input type="hidden" name="category" id="edit-category-input">
+                  <input type="text" id="category-search" class="search-input" placeholder="search categories..." autocomplete="off">
+                  <input type="hidden" name="category" id="category-input">
                   
-                  <div class="category-options" id="edit-dropdown-menu">
+                  <div class="category-options" id="dropdown-menu">
                     <!-- dropdown options -->
                      <?php foreach($categories as $category): ?>
                         <div class="dropdown-option" 

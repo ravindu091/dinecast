@@ -40,7 +40,7 @@ class Ingredient{
     }
 
     public function getAllIngredients(){
-        $stmt = $this->conn->prepare("SELECT ingredients.id as id, ingredients.name , category.name as category , ingredients.sku as sku, ingredients.unitName, ingredients.minimum , ingredients.description, ingredients.currentStock, ingredients.status as status FROM ingredients JOIN category ON ingredients.category = category.id ORDER BY ingredients.id DESC");
+        $stmt = $this->conn->prepare("SELECT ingredients.id as id, ingredients.name , category.name as category, category.id as categoryId , ingredients.sku as sku, ingredients.unitName, ingredients.minimum , ingredients.description, ingredients.currentStock, ingredients.status as status FROM ingredients JOIN category ON ingredients.category = category.id ORDER BY ingredients.id DESC");
 
         $stmt->execute();
 
